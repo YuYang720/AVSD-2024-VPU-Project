@@ -1,0 +1,142 @@
+****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+Design : CHIP
+Version: R-2020.09-SP3
+Date   : Tue Jan 14 08:44:34 2025
+****************************************
+Information: Timer using 'SI, Timing Window Analysis, CRPR'. (TIM-050)
+
+  Startpoint: u_TOP/CPU_wrapper/L1CD/TA/i_tag_array2 (rising edge-triggered flip-flop clocked by cpu_clk)
+  Endpoint: u_TOP/CPU_wrapper/L1CD/TA/i_tag_array2 (rising edge-triggered flip-flop clocked by cpu_clk)
+  Mode: Mfunc
+  Corner: max
+  Scenario: Mfunc:max
+  Path Group: cpu_clk
+  Path Type: max
+
+  Point                                             Incr        Path  
+  ----------------------------------------------------------------------------
+  clock cpu_clk (rise edge)                        0.0000      0.0000
+  clock network delay (propagated)                 0.3425      0.3425
+
+  u_TOP/CPU_wrapper/L1CD/TA/i_tag_array2/CLK (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
+                                                   0.0000      0.3425 r
+  u_TOP/CPU_wrapper/L1CD/TA/i_tag_array2/Q[20] (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
+                                                   0.4640      0.8066 r ~
+  u_TOP/CPU_wrapper/L1CD/U1751/ZN (XNR2D1BWP16P90LVT)
+                                                   0.0371      0.8436 f
+  u_TOP/CPU_wrapper/L1CD/U1512/ZN (ND2D1BWP16P90LVT)
+                                                   0.0119      0.8555 r
+  u_TOP/CPU_wrapper/L1CD/U1258/ZN (NR4D2BWP16P90LVT)
+                                                   0.0084      0.8639 f
+  u_TOP/CPU_wrapper/L1CD/ZBUF_2_inst_20268/Z (BUFFD4BWP16P90LVT)
+                                                   0.0124      0.8763 f
+  u_TOP/CPU_wrapper/L1CD/U1352/ZN (ND3D4BWP16P90LVT)
+                                                   0.0088      0.8850 r
+  u_TOP/CPU_wrapper/L1CD/U1336/ZN (INR3D4BWP16P90LVT)
+                                                   0.0311      0.9162 r
+  u_TOP/CPU_wrapper/ZBUF_112_inst_18088/Z (BUFFD16BWP16P90LVT)
+                                                   0.0167      0.9329 r
+  u_TOP/CPU_wrapper/U1368/ZN (CKND12BWP16P90LVT)   0.0343      0.9672 f
+  u_TOP/CPU_wrapper/U2021/ZN (OAI32D1BWP16P90LVT)
+                                                   0.0205      0.9877 r
+  u_TOP/AXI_BUS/ropt_d_inst_52989/Z (BUFFD2BWP16P90LVT)
+                                                   0.0229      1.0106 r
+  u_TOP/AXI_BUS/ADDR_decoder_1__ar_addr_decoder/U63/ZN (NR4D1BWP16P90LVT)
+                                                   0.0077      1.0183 f
+  u_TOP/AXI_BUS/ADDR_decoder_1__ar_addr_decoder/U64/Z (AN4D2BWP16P90LVT)
+                                                   0.0202      1.0385 f
+  u_TOP/AXI_BUS/ADDR_decoder_1__ar_addr_decoder/U15/Z (AN3D1BWP16P90LVT)
+                                                   0.0137      1.0522 f
+  u_TOP/AXI_BUS/ADDR_decoder_1__ar_addr_decoder/U7/ZN (IIND3D2BWP16P90LVT)
+                                                   0.0231      1.0753 f
+  u_TOP/AXI_BUS/ADDR_decoder_1__ar_addr_decoder/U6/ZN (NR2D4BWP16P90LVT)
+                                                   0.0107      1.0860 r
+  u_TOP/AXI_BUS/U998/ZN (CKND2BWP16P90LVT)         0.0092      1.0952 f
+  u_TOP/AXI_BUS/U1128/ZN (NR4D1BWP16P90)           0.0363      1.1315 r
+  u_TOP/AXI_BUS/U2118/ZN (AOI211D2BWP16P90LVT)     0.0313      1.1627 f
+  u_TOP/AXI_BUS/U1012/ZN (IOAI21D4BWP16P90LVT)     0.0132      1.1759 r
+  u_TOP/AXI_BUS/U2119/Z (XOR2D2BWP16P90LVT)        0.0198      1.1957 f
+  u_TOP/AXI_BUS/U798/ZN (ND2D2BWP16P90LVT)         0.0067      1.2024 r
+  u_TOP/AXI_BUS/U800/ZN (CKND2BWP16P90LVT)         0.0054      1.2078 f
+  u_TOP/AXI_BUS/U799/ZN (ND2D2BWP16P90LVT)         0.0070      1.2148 r
+  u_TOP/AXI_BUS/U734/ZN (OAI21D4BWP16P90LVT)       0.0132      1.2280 f
+  u_TOP/AXI_BUS/U733/ZN (ND2D8BWP16P90LVT)         0.0080      1.2360 r
+  u_TOP/AXI_BUS/U1955/ZN (CKND8BWP16P90LVT)        0.0071      1.2431 f
+  u_TOP/AXI_BUS/U1578/ZN (AOI22D8BWP16P90LVT)      0.0104      1.2535 r
+  u_TOP/AXI_BUS/U1145/ZN (OAI222D2BWP16P90LVT)     0.0201      1.2737 f
+  u_TOP/AXI_BUS/U1728/ZN (CKND2BWP16P90LVT)        0.0084      1.2821 r
+  u_TOP/AXI_BUS/U2131/ZN (OAI211D4BWP16P90LVT)     0.0126      1.2947 f
+  u_TOP/AXI_BUS/U2132/ZN (ND2D4BWP16P90LVT)        0.0093      1.3039 r
+  u_TOP/AXI_BUS/U2024/ZN (ND3D8BWP16P90LVT)        0.0155      1.3194 f
+  u_TOP/AXI_BUS/U987/ZN (OAI22D2BWP16P90LVT)       0.0165      1.3359 r
+  u_TOP/AXI_BUS/U1539/Z (AN3D4BWP16P90LVT)         0.0213      1.3573 r
+  u_TOP/AXI_BUS/U897/ZN (AOI211D4BWP16P90LVT)      0.0104      1.3676 f
+  u_TOP/AXI_BUS/U3079/ZN (OAI31D4BWP16P90LVT)      0.0073      1.3749 r
+  u_TOP/CPU_wrapper/U1399/Z (AN2D8BWP16P90LVT)     0.0203      1.3952 r
+  u_TOP/CPU_wrapper/L1CD/U1421/ZN (INVD4BWP16P90LVT)
+                                                   0.0054      1.4006 f
+  u_TOP/CPU_wrapper/L1CD/U1841/ZN (OAI31D2BWP16P90LVT)
+                                                   0.0162      1.4168 r
+  u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/ZBUF_47_inst_32370/Z (BUFFD12BWP16P90LVT)
+                                                   0.0178      1.4346 r
+  u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/U1521/ZN (AOI211D4BWP16P90LVT)
+                                                   0.0193      1.4539 f
+  u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/U1884/Z (AN2D8BWP16P90LVT)
+                                                   0.0174      1.4713 f
+  u_TOP/CPU_wrapper/CPU1/i_mem_stage/U421/ZN (OAI21D2BWP16P90LVT)
+                                                   0.0167      1.4880 r
+  u_TOP/CPU_wrapper/CPU1/i_mem_stage/U426/ZN (ND3D2BWP16P90LVT)
+                                                   0.0157      1.5037 f
+  u_TOP/CPU_wrapper/CPU1/i_mem_stage/U605/ZN (CKND2BWP16P90LVT)
+                                                   0.0074      1.5111 r
+  u_TOP/CPU_wrapper/CPU1/i_mem_stage/U606/ZN (OAI21D4BWP16P90LVT)
+                                                   0.0092      1.5203 f
+  u_TOP/CPU_wrapper/CPU1/i_mem_stage/U420/ZN (INVD4BWP16P90LVT)
+                                                   0.0076      1.5280 r
+  u_TOP/CPU_wrapper/CPU1/i_exe_stage/U5/ZN (NR4D8BWP16P90LVT)
+                                                   0.0081      1.5361 f
+  u_TOP/CPU_wrapper/L1CD/U65/ZN (CKND8BWP16P90LVT)
+                                                   0.0084      1.5444 r
+  u_TOP/CPU_wrapper/L1CD/U113/ZN (CKND2D4BWP16P90LVT)
+                                                   0.0109      1.5554 f
+  u_TOP/CPU_wrapper/L1CD/U122/ZN (IND2D2BWP16P90LVT)
+                                                   0.0157      1.5711 f
+  u_TOP/CPU_wrapper/L1CD/ZBUF_99_inst_25326/Z (BUFFD4BWP20P90LVT)
+                                                   0.0163      1.5873 f
+  u_TOP/CPU_wrapper/L1CD/ctmTdsLR_2_21002/ZN (NR2D1BWP16P90LVT)
+                                                   0.0099      1.5972 r
+  u_TOP/CPU_wrapper/L1CD/ctmTdsLR_1_21001/ZN (IND2D2BWP16P90LVT)
+                                                   0.0142      1.6114 r
+  u_TOP/CPU_wrapper/L1CD/ZINV_67_inst_21882/ZN (INVD4BWP16P90LVT)
+                                                   0.0080      1.6194 f
+  u_TOP/CPU_wrapper/L1CD/ZINV_55_inst_21881/ZN (CKND12BWP16P90LVT)
+                                                   0.0052      1.6246 r
+  u_TOP/CPU_wrapper/L1CD/ropt_d_inst_53044/Z (BUFFD12BWP16P90LVT)
+                                                   0.0199      1.6445 r
+  u_TOP/CPU_wrapper/L1CD/ZBUF_98_inst_10638/Z (BUFFD12BWP16P90LVT)
+                                                   0.0293      1.6738 r
+  u_TOP/CPU_wrapper/L1CD/TA/i_tag_array2/A[3] (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
+                                                   0.0048      1.6787 r
+  data arrival time                                            1.6787
+
+  clock cpu_clk (rise edge)                        1.0000      1.0000
+  clock network delay (propagated)                 0.3425      1.3425
+  clock reconvergence pessimism                    0.0000      1.3425
+  u_TOP/CPU_wrapper/L1CD/TA/i_tag_array2/CLK (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
+                                                   0.0000      1.3425 r
+  clock uncertainty                               -0.1000      1.2425
+  library setup time                              -0.1523      1.0902
+  data required time                                           1.0903
+  ----------------------------------------------------------------------------
+  data required time                                           1.0903
+  data arrival time                                           -1.6787
+  ----------------------------------------------------------------------------
+  slack (VIOLATED)                                            -0.5884
+
+
+1

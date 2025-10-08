@@ -1,0 +1,63 @@
+****************************************
+Report : timing
+        -path_type full
+        -delay_type min
+        -max_paths 1
+        -report_by design
+Design : CHIP
+Version: R-2020.09-SP3
+Date   : Tue Jan 14 08:44:34 2025
+****************************************
+Information: Timer using 'SI, Timing Window Analysis, CRPR'. (TIM-050)
+
+  Startpoint: u_TOP/AXI_BUS/slave_status_q_reg_1__transaction_type_ (rising edge-triggered flip-flop clocked by cpu_clk)
+  Endpoint: u_TOP/CPU_wrapper/ls_request_q_reg_data__31_ (rising edge-triggered flip-flop clocked by cpu_clk)
+  Mode: Mfunc
+  Corner: max
+  Scenario: Mfunc:max
+  Path Group: cpu_clk
+  Path Type: min
+
+  Point                                             Incr        Path  
+  ----------------------------------------------------------------------------
+  clock cpu_clk (rise edge)                        0.0000      0.0000
+  clock network delay (propagated)                 0.5655      0.5655
+
+  u_TOP/AXI_BUS/slave_status_q_reg_1__transaction_type_/CP (DFQD2BWP16P90)
+                                                   0.0000      0.5655 r
+  u_TOP/AXI_BUS/slave_status_q_reg_1__transaction_type_/Q (DFQD2BWP16P90)
+                                                   0.0605      0.6259 r
+  u_TOP/AXI_BUS/U782/ZN (INVD1BWP20P90LVT)         0.0147      0.6406 f
+  u_TOP/AXI_BUS/U781/Z (MUX2D8BWP16P90LVT)         0.0194      0.6600 f
+  u_TOP/AXI_BUS/U1985/ZN (ND3D4BWP16P90LVT)        0.0103      0.6703 r
+  u_TOP/AXI_BUS/U1086/ZN (OAI22D4BWP16P90LVT)      0.0102      0.6805 f
+  u_TOP/AXI_BUS/copt_h_inst_39043/Z (BUFFD1BWP20P90)
+                                                   0.0218      0.7023 f
+  u_TOP/AXI_BUS/U108/ZN (ND2D4BWP16P90LVT)         0.0142      0.7164 r
+  u_TOP/AXI_BUS/U61/ZN (INVD1BWP16P90LVT)          0.0128      0.7293 f
+  u_TOP/AXI_BUS/U62/ZN (INVD1BWP16P90LVT)          0.0096      0.7389 r
+  u_TOP/AXI_BUS/U793/ZN (OAI211D4BWP16P90LVT)      0.0144      0.7533 f
+  u_TOP/CPU_wrapper/HFSINV_112_2651/ZN (CKND1BWP16P90LVT)
+                                                   0.0155      0.7688 r
+  u_TOP/CPU_wrapper/U927/ZN (OAI222D1BWP20P90LVT)
+                                                   0.0105      0.7793 f
+  u_TOP/CPU_wrapper/ls_request_q_reg_data__31_/D (DFQD2BWP16P90LVT)
+                                                  -0.0025      0.7768 f
+  data arrival time                                            0.7768
+
+  clock cpu_clk (rise edge)                        0.0000      0.0000
+  clock network delay (propagated)                 0.9202      0.9202
+  clock reconvergence pessimism                   -0.0039      0.9163
+  u_TOP/CPU_wrapper/ls_request_q_reg_data__31_/CP (DFQD2BWP16P90LVT)
+                                                   0.0000      0.9163 r
+  clock uncertainty                                0.0100      0.9263
+  library hold time                                0.0200      0.9463
+  data required time                                           0.9463
+  ----------------------------------------------------------------------------
+  data required time                                           0.9463
+  data arrival time                                           -0.7768
+  ----------------------------------------------------------------------------
+  slack (VIOLATED)                                            -0.1695
+
+
+1

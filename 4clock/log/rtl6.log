@@ -1,0 +1,143 @@
+Building and running PROG = 6
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/sim/prog6'
+riscv64-unknown-elf-objdump -xsd main > main.log
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -j .text0 --change-addresses 0 rom0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -j .text0 --change-addresses 0 rom1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -j .text0 --change-addresses 0 rom2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -j .text0 --change-addresses 0 rom3.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -R .text0 --change-addresses -0x20000000 dram0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -R .text0 --change-addresses -0x20000000 dram1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -R .text0 --change-addresses -0x20000000 dram2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-addresses -0x20000000 dram3.hex
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/sim/prog6'
+                         Chronologic VCS (TM)
+       Version U-2023.03-SP2_Full64 -- Tue Jan 14 11:07:10 2025
+
+                    Copyright (c) 1991 - 2023 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/CYCLE_MAX.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./src/CHIP.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/SRAM/SRAM_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/data_array/data_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/tag_array/tag_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/ROM/ROM.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/DRAM/DRAM.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+
+Warning-[RVOSFD] Return value discarded
+/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv, 238
+  System function '$fscanf' is invoked as task, its return value is discarded.
+  "/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv", 238
+  Source info:       $fscanf(gf, "%h\n", GOLDEN[num]);
+
+Parsing design file '../include/AXI_define.svh'
+Parsing design file '../include/def.svh'
+Parsing design file '../src/top.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/top.sv'.
+Parsing included file '../include/def.svh'.
+Back to file '../src/top.sv'.
+Parsing design file '../src/AXI/AR_FIFO.sv'
+Parsing design file '../src/AXI/R_FIFO.sv'
+Parsing design file '../src/AXI/AW_FIFO.sv'
+Parsing design file '../src/AXI/W_FIFO.sv'
+Parsing design file '../src/AXI/B_FIFO.sv'
+Parsing design file '../src/AXI/AXI_CDC_master.sv'
+Parsing design file '../src/AXI/AXI_CDC_slave.sv'
+Parsing design file '../src/AXI/AXI_bridge.sv'
+Parsing design file '../src/AXI/AXI_decoder.sv'
+Parsing design file '../src/AXI/AXI.sv'
+Parsing design file '../src/Cache/data_array_wrapper.sv'
+Parsing design file '../src/Cache/tag_array_wrapper.sv'
+Parsing design file '../src/Cache/L1C_data.sv'
+Parsing design file '../src/Cache/L1C_inst.sv'
+Parsing design file '../src/CPU/CPU.sv'
+Parsing design file '../src/CPU/if_stage.sv'
+Parsing design file '../src/CPU/id_stage.sv'
+Parsing design file '../src/CPU/exe_stage.sv'
+Parsing design file '../src/CPU/mem_stage.sv'
+Parsing design file '../src/CPU/wb_stage.sv'
+Parsing design file '../src/CPU/controller.sv'
+Parsing design file '../src/CPU/rv_decoder.sv'
+Parsing design file '../src/CPU/regfiles.sv'
+Parsing design file '../src/CPU/fp_regfiles.sv'
+Parsing design file '../src/CPU/alu.sv'
+Parsing design file '../src/CPU/csr.sv'
+Parsing design file '../src/CPU/multiplier.sv'
+Parsing design file '../src/CPU/bht.sv'
+Parsing design file '../src/CPU/btb.sv'
+Parsing design file '../src/CPU/ras.sv'
+Parsing design file '../src/FPU/FPU.sv'
+Parsing design file '../src/FPU/fpu_mul_alu.sv'
+Parsing design file '../src/DMA/DMA.sv'
+Parsing design file '../src/WDT/WDT.sv'
+Parsing design file '../src/WDT/Async_FIFO_1bit.sv'
+Parsing design file '../src/WDT/Async_FIFO_32bit.sv'
+Parsing design file '../src/WDT/Two_Flip_Flop.sv'
+Parsing design file '../src/VPU/VPU.sv'
+Parsing design file '../src/VPU/VPU_id_stage.sv'
+Parsing design file '../src/VPU/VPU_issue_stage.sv'
+Parsing design file '../src/VPU/VPU_execute_stage.sv'
+Parsing design file '../src/VPU/VPU_commit_stage.sv'
+Parsing design file '../src/VPU/VPU_decoder.sv'
+Parsing design file '../src/VPU/VPU_instruction_queue.sv'
+Parsing design file '../src/VPU/VPU_cfg.sv'
+Parsing design file '../src/VPU/VPU_alu.sv'
+Parsing design file '../src/VPU/VPU_mul.sv'
+Parsing design file '../src/VPU/VPU_sld.sv'
+Parsing design file '../src/VPU/VPU_elem.sv'
+Parsing design file '../src/VPU/VPU_mask.sv'
+Parsing design file '../src/VPU/VPU_lsu.sv'
+Parsing design file '../src/VPU/VPU_regfile.sv'
+Parsing design file '../src/VPU/VPU_lane.sv'
+Parsing design file '../src/VPU/VPU_lane_wrapper.sv'
+Parsing design file '../src/Wrapper/CPU_wrapper.sv'
+Parsing design file '../src/Wrapper/DMA_wrapper.sv'
+Parsing design file '../src/Wrapper/DRAM_wrapper.sv'
+Parsing design file '../src/Wrapper/ROM_wrapper.sv'
+Parsing design file '../src/Wrapper/IM_wrapper.sv'
+Parsing design file '../src/Wrapper/DM_wrapper.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/Wrapper/DM_wrapper.sv'.
+Parsing design file '../src/Wrapper/WDT_wrapper.sv'
+Parsing design file '/usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/VERILOG/N16ADFP_StdIO.v'
+Top Level Modules:
+       top_tb
+       Async_FIFO_32bit
+       PCORNER
+       PFILLER00001
+       PFILLER00048
+       PFILLER01008
+       PFILLER10080
+       PRCUT_H
+       PRCUT_V
+       PVDD1CDGM_H
+       PVDD1CDGM_V
+       PVDD2CDGM_H
+       PVDD2CDGM_V
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+49 modules and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.

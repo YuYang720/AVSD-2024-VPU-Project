@@ -1,0 +1,80 @@
+wc: src: Is a directory
+      0 src
+wc: src/AXI: Is a directory
+      0 src/AXI
+    344 src/AXI/AXI.sv
+     19 src/AXI/AXI_decoder.sv
+wc: src/Cache: Is a directory
+      0 src/Cache
+     97 src/Cache/data_array_wrapper.sv
+    389 src/Cache/L1C_data.sv
+    272 src/Cache/L1C_inst.sv
+     53 src/Cache/tag_array_wrapper.sv
+wc: src/CPU: Is a directory
+      0 src/CPU
+     68 src/CPU/alu.sv
+     50 src/CPU/bht.sv
+     45 src/CPU/btb.sv
+    220 src/CPU/controller.sv
+    349 src/CPU/CPU.sv
+    194 src/CPU/csr.sv
+    328 src/CPU/exe_stage.sv
+     42 src/CPU/fp_regfiles.sv
+    154 src/CPU/id_stage.sv
+    244 src/CPU/if_stage.sv
+     80 src/CPU/mem_stage.sv
+     58 src/CPU/multiplier.sv
+     54 src/CPU/ras.sv
+     39 src/CPU/regfiles.sv
+    427 src/CPU/rv_decoder.sv
+    101 src/CPU/wb_stage.sv
+wc: src/DMA: Is a directory
+      0 src/DMA
+    290 src/DMA/DMA.sv
+wc: src/FPU: Is a directory
+      0 src/FPU
+    285 src/FPU/FPU.sv
+    274 src/FPU/fpu_mul_alu.sv
+wc: src/WDT: Is a directory
+      0 src/WDT
+     74 src/WDT/Async_FIFO_1bit.sv
+     74 src/WDT/Async_FIFO_32bit.sv
+     19 src/WDT/Two_Flip_Flop.sv
+     33 src/WDT/WDT.sv
+wc: src/Wrapper: Is a directory
+      0 src/Wrapper
+    512 src/Wrapper/CPU_wrapper.sv
+    427 src/Wrapper/DMA_wrapper.sv
+    254 src/Wrapper/DM_wrapper.sv
+    526 src/Wrapper/DRAM_wrapper.sv
+    229 src/Wrapper/IM_wrapper.sv
+    153 src/Wrapper/ROM_wrapper.sv
+    302 src/Wrapper/WDT_wrapper.sv
+    234 src/CHIP.v
+     57 src/rtl_sim.f
+    524 src/top.sv
+wc: src/VPU: Is a directory
+      0 src/VPU
+    419 src/VPU/VPU.sv
+    298 src/VPU/VPU_alu.sv
+    312 src/VPU/VPU_cfg.sv
+     42 src/VPU/VPU_commit_stage.sv
+   1135 src/VPU/VPU_decoder.sv
+    436 src/VPU/VPU_execute_stage.sv
+    188 src/VPU/VPU_elem.sv
+     91 src/VPU/VPU_id_stage.sv
+    101 src/VPU/VPU_instruction_queue.sv
+     82 src/VPU/VPU_issue_stage.sv
+     95 src/VPU/VPU_lane.sv
+    243 src/VPU/VPU_lane_wrapper.sv
+    362 src/VPU/VPU_lsu.sv
+     63 src/VPU/VPU_mask.sv
+    213 src/VPU/VPU_mul.sv
+     44 src/VPU/VPU_regfile.sv
+    301 src/VPU/VPU_sld.sv
+wc: include: Is a directory
+      0 include
+     60 include/AXI_define.svh
+    673 include/VPU_define.svh
+    941 include/def.svh
+  13993 total

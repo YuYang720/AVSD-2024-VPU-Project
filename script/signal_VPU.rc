@@ -1,0 +1,186 @@
+Magic 271485
+Revision Verdi_U-2023.03-SP2
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 23 1536 793 270 135
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/homes/nfs/sam40605/NCKU/AVSD/Final_Project/build/chip.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 1626131.368897 1626922.242921
+cursor 1626550.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 47
+; marker line index
+markerPos 69
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "G1"
+activeDirFile "" "/homes/nfs/sam40605/NCKU/AVSD/Final_Project/build/chip.fsdb"
+addSignal -h 15 /top_tb/chip/u_TOP/cpu_clk
+addSignal -h 15 -holdScope cpu_rst
+addGroup "G2"
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/CPU1/fetch_entry
+addSignal -h 15 -holdScope id_uOP
+addSignal -h 15 -holdScope exe_uOP
+addSignal -h 15 -holdScope mem_uOP
+addSignal -h 15 -holdScope wb_uOP
+addGroup "G4" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /top_tb/chip/u_TOP/CPU_wrapper/CPU1/exe_uOP.pc[31:0]
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/vector_inst_valid_i
+addSignal -h 15 -UNSIGNED -HEX -holdScope vector_inst_i[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope vector_xrs1_val_i[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope vector_xrs2_val_i[31:0]
+addSignal -h 15 -holdScope vector_ack_o
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/CPU1/i_exe_stage/vector_writeback_i
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/vector_pend_lsu_o
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/CPU1/i_exe_stage/vector_unaccept_o
+addGroup "G8"
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/dispatch_valid_i
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_issue_stage/dispatch_entry
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/dispatch_ready_o
+addSignal -h 15 -holdScope lsu_commit_o
+addSignal -h 15 -holdScope exe_state_q
+addSignal -h 15 -UNSIGNED -HEX -holdScope rs1_val_q[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope rs2_val_q[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope vl_count_q[6:0]
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lane_wrapper/done_o
+addSignal -h 15 -holdScope result_valid_o
+addGroup "G10"
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/vreg_read_addr_o[2:0]
+addSignal -h 15 -holdScope vreg_write_en_o
+addSignal -h 15 -UNSIGNED -HEX -holdScope vreg_write_addr_o[4:0]
+addSignal -h 15 -UNSIGNED -BIN -holdScope vreg_write_bweb_o[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope vreg_write_data_o[63:0]
+addGroup "G11"
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/lsu_done
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/valid_i
+addSignal -h 15 -holdScope mode_i
+addSignal -h 15 -UNSIGNED -HEX -holdScope base_address_i[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope address_offset_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope stride_i[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope store_data_i[63:0]
+addGroup "G12"
+addSignal -h 15 -UNSIGNED /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/lsu_state_q[1:0]
+addSignal -expanded -h 15 -holdScope request_buffer_q
+addSignal -h 15 -holdScope request_buffer_q.valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope request_buffer_q.addr[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope request_buffer_q.vl_count_byte[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope vl_byte[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope vl_byte_left[31:0]
+addSignal -h 15 -holdScope done_o
+addGroup "G14"
+addSignal -h 15 -UNSIGNED /top_tb/chip/u_TOP/CPU_wrapper/L1CD/dcache_state_q[2:0]
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/dcache_vpu_request_o
+addSignal -h 15 -UNSIGNED -HEX -holdScope dcache_vpu_addr_o[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope dcache_vpu_out_i[31:0]
+addSignal -h 15 -holdScope dcache_vpu_wait_i
+addGroup "G13"
+addSignal -h 15 -UNSIGNED -HEX /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/rd_addr_i[4:0]
+addSignal -h 15 -holdScope result_valid_o
+addSignal -h 15 -UNSIGNED -HEX -holdScope result_addr_o[4:0]
+addSignal -h 15 -UNSIGNED -BIN -holdScope result_bweb_o[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope result_data_o[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope load_bytes[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope load_mask[7:0]
+addSignal -h 15 -UNSIGNED -HEX /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_sld/data_offset[63:0]
+addSignal -h 15 -UNSIGNED -HEX /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu/load_bweb[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope load_data[63:0]
+addGroup "G15"
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lane_wrapper/lane_info[0:7]
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_regfile/register[0:31]
+addGroup "G16"
+addSignal -h 15 /top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_sld/valid_i
+addSignal -h 15 -holdScope done_o
+addSignal -h 15 -UNSIGNED -HEX -holdScope source_index[6:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope rs2_read_addr_o[4:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope rs2_val_i[63:0]
+addGroup "G17"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+activeDirFile "" "/homes/nfs/sam40605/NCKU/AVSD/Final_Project/build/chip.fsdb"
+
+GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+getSignalForm close
+
+"/top_tb"
+"/top_tb/chip"
+"/top_tb/chip/u_TOP"
+"/top_tb/chip/u_TOP/CPU_wrapper"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lane_wrapper"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_sld"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_issue_stage"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_regfile"
+
+SCOPE_LIST_BEGIN
+"/top_tb"
+"/top_tb/chip"
+"/top_tb/chip/u_TOP"
+"/top_tb/chip/u_TOP/VPU_wrapper"
+"/top_tb/chip/u_TOP/CPU_wrapper"
+"/top_tb/chip/u_TOP/CPU_wrapper/CPU1"
+"/top_tb/chip/u_TOP/VPU_wrapper/i_VPU"
+"/top_tb/chip/u_TOP/VPU_wrapper/i_VPU/i_VPU_instruction_queue"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_id_stage"
+"/top_tb/chip/u_TOP/CPU_wrapper/CPU1/i_exe_stage"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_cfg"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_id_stage/i_VPU_decoder"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_issue_stage/i_VPU_instruction_queue"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_issue_stage"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_regfile"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/genblk1[0]/i_VPU_lane"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/genblk1[0]"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/genblk1[0]/i_VPU_lane/i_VPU_alu"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/Unnamed_$VPU_execute_stage_sv_179"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/Unnamed_$VPU_execute_stage_sv_158"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/Unnamed_$VPU_execute_stage_sv_148"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/Unnamed_$VPU_execute_stage_sv_138"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/Unnamed_$VPU_execute_stage_sv_127"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/VPU_lane[0]"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/VPU_lane[0]/i_VPU_lane"
+"/top_tb/chip/u_TOP/CPU_wrapper/L1CD"
+"/top_tb/chip/u_TOP/CPU_wrapper/CPU1/i_controller"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lsu"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_lane_wrapper"
+"/top_tb/chip/u_TOP/CPU_wrapper/i_VPU/i_VPU_execute_stage/i_VPU_sld"
+SCOPE_LIST_END
+
+GETSIGNALFORM_SCOPE_HIERARCHY_END
+
+

@@ -1,0 +1,99 @@
+****************************************
+Report : power
+        -significant_digits 2
+Design : CHIP
+Version: R-2020.09-SP3
+Date   : Tue Jan 14 08:43:18 2025
+****************************************
+Information: Doing activity propagation for mode 'Mfunc' and corner 'max' with effort level 'medium'. (POW-024)
+Information: Timer-derived activity data is cached on scenario Mfunc:max (POW-052)
+Infomation: Fast mode activity propagation power.rtl_activity_annotation setup is ignored. Always use accurate mode.
+Scenario Mfunc:max, iteration 1: expecting at least 5
+Scenario Mfunc:max, iteration 2: expecting at least 6
+Scenario Mfunc:max, iteration 3: expecting at least 6
+Scenario Mfunc:max, iteration 4: expecting at least 6
+Scenario Mfunc:max, iteration 5: expecting at least 6
+Scenario Mfunc:max, iteration 6: expecting at least 6
+Information: Setting the total toggle rate for net 'u_TOP/DRAM_wrapper/precharge_q[2]' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/DRAM_wrapper/precharge_q[0]' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/DM1/STATE_q[0]' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/n1842' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/n1817' to 0.0 since probability has been set as '0.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/gre_net_15797' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/n1757' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/n1168' to 0.0 since probability has been set as '0.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/n1382' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Information: Setting the total toggle rate for net 'u_TOP/AXI_BUS/gre_net_15796' to 0.0 since probability has been set as '1.000000'. (POW-035)
+Mode: Mfunc
+Corner: max
+Scenario: Mfunc:max
+Voltage: 0.72
+Temperature: 125.00
+
+Voltage Unit         : 1V
+Capacitance Unit     : 1pF
+Time Unit            : 1ns
+Temperature Unit     : 1C
+Dynamic Power Unit   : 1nW
+Leakage Power Unit   : 1nW
+
+Switched supply net power scaling:
+scaling for leakage power
+
+Supply nets:
+VDD (power) probability 1.00 (default)
+VSS (ground) probability 1.00 (default)
+Warning: Rise-Fall toggles on pin ipad_cpu_clk/PAD are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin ipad_cpu_clk/PAD are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port C on cell ipad_cpu_clk for parameter Tinp. Lowest table value = 0.500000, highest table value = 5.000000, value = 0.000000 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_read for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.125838 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_enable for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.024973 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A0 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.067188 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A1 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.108599 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A2 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.128255 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A3 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.037804 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A4 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.081318 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A5 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.114735 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port PAD on cell opad_ROM_A6 for parameter Cout. Lowest table value = 1.000000, highest table value = 60.000000, value = 0.115508 (POW-046)
+Warning: Rise-Fall toggles on pin u_TOP/DRAM_wrapper/U783/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/DRAM_wrapper/U783/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/DRAM_wrapper/U820/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/DRAM_wrapper/U820/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/DRAM_wrapper/U1015/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/DRAM_wrapper/U1015/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/CPU_wrapper/CPU1/i_exe_stage/i_fpu/i_fpu_mul_alu/U482/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: Rise-Fall toggles on pin u_TOP/CPU_wrapper/CPU1/i_exe_stage/i_fpu/i_fpu_mul_alu/U482/ZN are impossible given input states; converted to zero toggles. (POW-069)
+Warning: While computing leakage for instance 'cornerLL', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'cornerLR', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'cornerUL', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'cornerUR', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'core_power1', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'core_power3', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'core_power2', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'core_power4', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'io_power1', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'io_power3', mismatches in operating condition settings have been found in the design. (POW-039)
+
+  Cell Internal Power    = 4.81e+07 nW ( 82.9%)
+  Net Switching Power    = 9.94e+06 nW ( 17.1%)
+Total Dynamic Power      = 5.81e+07 nW (100.0%)
+
+Cell Leakage Power       = 2.63e+07 nW
+
+
+  Attributes
+  ----------
+      u  -  User defined power group
+
+Power Group         Internal Power        Switching Power          Leakage Power            Total Power    (   %  )    Attrs
+-----------------------------------------------------------------------------------------------------------------------------
+io_pad                    3.13e+06               1.68e+05               2.84e+04               3.32e+06    (  3.9%)         
+memory                    1.06e+07               2.57e+05               6.71e+03               1.08e+07    ( 12.8%)         
+black_box                 0.00e+00               7.32e+04               0.00e+00               7.32e+04    (  0.1%)         
+clock_network             3.39e+07               8.66e+06               1.83e+05               4.27e+07    ( 50.7%)         
+register                  3.95e+04               2.59e+04               2.17e+06               2.24e+06    (  2.7%)         
+sequential                0.00e+00               0.00e+00               2.36e+03               2.36e+03    (  0.0%)         
+combinational             4.93e+05               7.58e+05               2.39e+07               2.51e+07    ( 29.8%)         
+-----------------------------------------------------------------------------------------------------------------------------
+Total                     4.81e+07 nW            9.94e+06 nW            2.63e+07 nW            8.43e+07 nW
+1

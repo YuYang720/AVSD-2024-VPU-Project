@@ -1,0 +1,85 @@
+.section .data
+.global test_matrix
+.align 2
+test_matrix:
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+.global i
+.align 2
+i:
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+.global H
+.align 2
+H:
+    .word 0x00000001
+    .word 0x00000001
+    .word 0x00000001
+    .word 0x00000001
+    .word 0x00000001
+    .word 0xffffffff
+    .word 0x00000001
+    .word 0xffffffff
+    .word 0x00000001
+    .word 0x00000001
+    .word 0xffffffff
+    .word 0xffffffff
+    .word 0x00000001
+    .word 0xffffffff
+    .word 0xffffffff
+    .word 0x00000001
+.global IxX
+.align 2
+IxX:
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+.global Hq0
+.align 2
+Hq0:
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000001
+    .word 0x00000000
+    .word 0xffffffff
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000001
+    .word 0x00000000
+    .word 0xffffffff
+

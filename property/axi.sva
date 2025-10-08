@@ -1,0 +1,571 @@
+`define AXI_SPEC
+`define AXI_SPEC_FETCH_NO_WRITE
+
+`define AXI_REQ_WILL_TAKEND_AND_FINISH
+`define AXI_STARVATION_FREEDOM_BOUNDED
+`define AXI_MUTUAL_EXCLUSION
+
+module axi(
+    input logic axi_clk,
+    input logic axi_rst
+);
+///=================================================================
+/// AXI
+///=================================================================
+///// global signal /////
+////////////////////////////////////////////////////////////////
+// read/write master req
+logic        arvalid [2:0];
+logic [31:0] araddr  [2:0];
+logic        awvalid [2:0];
+logic [31:0] awaddr  [2:0];
+logic        rvalid  [2:0];
+logic        rlast   [2:0];
+logic        bvalid  [2:0];
+always_comb begin
+    for(int i = 0; i <3; i++) begin
+        arvalid[i]  = AXI.ARVALID_M[i];
+        araddr[i]   = AXI.ARADDR_M[i];
+        awvalid[i]  = AXI.AWVALID_M[i];
+        awaddr[i]   = AXI.AWADDR_M[i];
+        rvalid[i]   = AXI.RVALID_M[i];
+        rlast[i]    = AXI.RLAST_M[i];
+        bvalid[i]   = AXI.BVALID_M[i];
+    end
+end
+
+// read/write slave req
+logic        s_arready [6:0];
+logic        s_rvalid  [6:0];
+
+logic        s_awready [6:0];
+logic        s_wready  [6:0];
+logic        s_bvalid  [6:0];
+always_comb begin
+    for(int i = 0; i <6; i++) begin
+        s_arready[i]  = AXI.ARREADY_S[i];
+        s_rvalid[i]   = AXI.RVALID_S[i];
+
+        s_awready[i]  = AXI.AWREADY_S[i];
+        s_wready[i]   = AXI.WREADY_S[i];
+        s_bvalid[i]   = AXI.BVALID_S[i];
+    end
+end
+
+// addr analyze
+SLAVE_ID     read__slave [2:0];
+SLAVE_ID     write_slave [2:0];
+always_comb begin
+    for(int i = 0; i <3; i++) begin
+        read__slave[i] = DEAULT_SLAVE;
+        write_slave[i] = DEAULT_SLAVE;
+
+        if     (araddr[i] >= `ROM_start_addr  && araddr[i] <= `ROM_end_addr ) read__slave[i] = ROM;
+        else if(araddr[i] >= `IM_start_addr   && araddr[i] <= `IM_end_addr  ) read__slave[i] = IM;
+        else if(araddr[i] >= `DM_start_addr   && araddr[i] <= `DM_end_addr  ) read__slave[i] = DM;
+        else if(araddr[i] >= `DMA_start_addr  && araddr[i] <= `DMA_end_addr ) read__slave[i] = DMA_S;
+        else if(araddr[i] >= `WDT_start_addr  && araddr[i] <= `WDT_end_addr ) read__slave[i] = WDT;
+        else if(araddr[i] >= `DRAM_start_addr && araddr[i] <= `DRAM_end_addr) read__slave[i] = DRAM;
+
+        if     (awaddr[i] >= `ROM_start_addr  && awaddr[i] <= `ROM_end_addr ) write_slave[i] = ROM;
+        else if(awaddr[i] >= `IM_start_addr   && awaddr[i] <= `IM_end_addr  ) write_slave[i] = IM;
+        else if(awaddr[i] >= `DM_start_addr   && awaddr[i] <= `DM_end_addr  ) write_slave[i] = DM;
+        else if(awaddr[i] >= `DMA_start_addr  && awaddr[i] <= `DMA_end_addr ) write_slave[i] = DMA_S;
+        else if(awaddr[i] >= `WDT_start_addr  && awaddr[i] <= `WDT_end_addr ) write_slave[i] = WDT;
+        else if(awaddr[i] >= `DRAM_start_addr && awaddr[i] <= `DRAM_end_addr) write_slave[i] = DRAM;
+
+        if(~arvalid[i]) read__slave[i] = DEAULT_SLAVE;
+        if(~awvalid[i]) write_slave[i] = DEAULT_SLAVE;
+    end
+end
+
+logic        valid_read__addr[2:0];
+logic        valid_write_addr[2:0];
+always_comb begin
+    for(int i = 0; i <3; i++) begin
+        valid_read__addr[i] = read__slave[i] inside{ROM, IM, DM, DRAM};
+        valid_write_addr[i] = write_slave[i] inside{IM, DM, DMA_S, WDT, DRAM};
+    end
+end
+
+// Master-slave pairing
+logic  r_fetch_rom, r_fetch_im, r_fetch_dm, r_fetch_dmas, r_fetch_wdt, r_fetch_dram;
+assign r_fetch_rom  = ((AXI.slave_status_q[0].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[0].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[0].current_master == CPU_FETCH));
+assign r_fetch_im   = ((AXI.slave_status_q[1].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[1].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[1].current_master == CPU_FETCH));
+assign r_fetch_dm   = ((AXI.slave_status_q[2].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[2].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[2].current_master == CPU_FETCH));
+assign r_fetch_dmas = ((AXI.slave_status_q[3].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[3].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[3].current_master == CPU_FETCH));
+assign r_fetch_wdt  = ((AXI.slave_status_q[4].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[4].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[4].current_master == CPU_FETCH));
+assign r_fetch_dram = ((AXI.slave_status_q[5].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[5].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[5].current_master == CPU_FETCH));
+
+logic  r_mem_rom, r_mem_im, r_mem_dm, r_mem_dmas, r_mem_wdt, r_mem_dram;
+assign r_mem_rom    = ((AXI.slave_status_q[0].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[0].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[0].current_master == CPU_MEM));
+assign r_mem_im     = ((AXI.slave_status_q[1].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[1].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[1].current_master == CPU_MEM));
+assign r_mem_dm     = ((AXI.slave_status_q[2].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[2].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[2].current_master == CPU_MEM));
+assign r_mem_dmas   = ((AXI.slave_status_q[3].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[3].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[3].current_master == CPU_MEM));
+assign r_mem_wdt    = ((AXI.slave_status_q[4].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[4].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[4].current_master == CPU_MEM));
+assign r_mem_dram   = ((AXI.slave_status_q[5].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[5].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[5].current_master == CPU_MEM));
+
+logic  r_dmam_rom, r_dmam_im, r_dmam_dm, r_dmam_dmas, r_dmam_wdt, r_dmam_dram;
+assign r_dmam_rom   = ((AXI.slave_status_q[0].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[0].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[0].current_master == DMA_M));
+assign r_dmam_im    = ((AXI.slave_status_q[1].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[1].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[1].current_master == DMA_M));
+assign r_dmam_dm    = ((AXI.slave_status_q[2].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[2].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[2].current_master == DMA_M));
+assign r_dmam_dmas  = ((AXI.slave_status_q[3].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[3].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[3].current_master == DMA_M));
+assign r_dmam_wdt   = ((AXI.slave_status_q[4].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[4].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[4].current_master == DMA_M));
+assign r_dmam_dram  = ((AXI.slave_status_q[5].transaction_type == 1'b0 ) 
+                    && (AXI.slave_status_q[5].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[5].current_master == DMA_M));
+
+logic  w_fetch_rom, w_fetch_im, w_fetch_dm, w_fetch_dmas, w_fetch_wdt, w_fetch_dram;
+assign w_fetch_rom  = ((AXI.slave_status_q[0].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[0].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[0].current_master == CPU_FETCH));
+assign w_fetch_im   = ((AXI.slave_status_q[1].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[1].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[1].current_master == CPU_FETCH));
+assign w_fetch_dm   = ((AXI.slave_status_q[2].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[2].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[2].current_master == CPU_FETCH));
+assign w_fetch_dmas = ((AXI.slave_status_q[3].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[3].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[3].current_master == CPU_FETCH));
+assign w_fetch_wdt  = ((AXI.slave_status_q[4].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[4].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[4].current_master == CPU_FETCH));
+assign w_fetch_dram = ((AXI.slave_status_q[5].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[5].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[5].current_master == CPU_FETCH));
+
+logic  w_mem_rom, w_mem_im, w_mem_dm, w_mem_dmas, w_mem_wdt, w_mem_dram;
+assign w_mem_rom    = ((AXI.slave_status_q[0].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[0].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[0].current_master == CPU_MEM));
+assign w_mem_im     = ((AXI.slave_status_q[1].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[1].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[1].current_master == CPU_MEM));
+assign w_mem_dm     = ((AXI.slave_status_q[2].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[2].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[2].current_master == CPU_MEM));
+assign w_mem_dmas   = ((AXI.slave_status_q[3].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[3].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[3].current_master == CPU_MEM));
+assign w_mem_wdt    = ((AXI.slave_status_q[4].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[4].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[4].current_master == CPU_MEM));
+assign w_mem_dram   = ((AXI.slave_status_q[5].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[5].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[5].current_master == CPU_MEM));
+
+logic  w_dmam_rom, w_dmam_im, w_dmam_dm, w_dmam_dmas, w_dmam_wdt, w_dmam_dram;
+assign w_dmam_rom   = ((AXI.slave_status_q[0].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[0].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[0].current_master == DMA_M));
+assign w_dmam_im    = ((AXI.slave_status_q[1].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[1].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[1].current_master == DMA_M));
+assign w_dmam_dm    = ((AXI.slave_status_q[2].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[2].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[2].current_master == DMA_M));
+assign w_dmam_dmas  = ((AXI.slave_status_q[3].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[3].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[3].current_master == DMA_M));
+assign w_dmam_wdt   = ((AXI.slave_status_q[4].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[4].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[4].current_master == DMA_M));
+assign w_dmam_dram  = ((AXI.slave_status_q[5].transaction_type == 1'b1) 
+                    && (AXI.slave_status_q[5].busy == 1'b1 ) 
+                    && (AXI.slave_status_q[5].current_master == DMA_M));
+////////////////////////////////////////////////////////////////    
+
+
+///// SPEC /////
+////////////////////////////////////////////////////////////////
+`ifdef AXI_SPEC
+ROM_READ_ONLY: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    !(s_awready[0] | s_wready[0] | s_bvalid[0])
+);
+
+DMAS_WRITE_ONLY: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    !(s_arready[3] | s_rvalid[3])
+);
+
+WDT_WRITE_ONLY: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    !(s_arready[4] | s_rvalid[4])
+);
+`endif
+
+`ifdef AXI_SPEC_FETCH_NO_WRITE
+UNCOVER_FETCH_NO_WRITE: cover property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (awvalid[0] & valid_write_addr[0])
+);
+UNCOVER_WRITE_REQ_WILL_TAKEND_AND_FINISH_0: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (awvalid[0] & valid_write_addr[0]) |-> ##[1:$] (bvalid[0])
+);
+
+UNCOVER_WRITE_STARVATION_FREEDOM_0_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[0] == ROM) |-> ##[1:$] w_fetch_rom
+);
+
+UNCOVER_WRITE_STARVATION_FREEDOM_0_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[0] == IM) |-> ##[1:$] w_fetch_im
+);
+
+UNCOVER_WRITE_STARVATION_FREEDOM_0_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[0] == DM) |-> ##[1:$] w_fetch_dm
+);
+
+UNCOVER_WRITE_STARVATION_FREEDOM_0_DMA_S: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[0] == DMA_S) |-> ##[1:$] w_fetch_dmas
+);
+
+UNCOVER_WRITE_STARVATION_FREEDOM_0_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[0] == WDT) |-> ##[1:$] w_fetch_wdt
+);
+
+UNCOVER_WRITE_STARVATION_FREEDOM_0_DRAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[0] == DRAM) |-> ##[1:$] w_fetch_dram
+);
+`endif
+////////////////////////////////////////////////////////////////
+///=================================================================
+/// AXI
+///=================================================================
+
+
+
+
+///=================================================================
+/// AXI master
+///=================================================================
+///// REQ_WILL_TAKEND_AND_FINISH /////
+////////////////////////////////////////////////////////////////
+`ifdef AXI_REQ_WILL_TAKEND_AND_FINISH
+// read
+READ__REQ_WILL_TAKEND_AND_FINISH_0: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (arvalid[0] & valid_read__addr[0]) |-> ##[1:$] (rvalid[0] & rlast[0])
+);
+
+READ__REQ_WILL_TAKEND_AND_FINISH_1: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (arvalid[1] & valid_read__addr[1]) |-> ##[1:$] (rvalid[1] & rlast[1])
+);
+
+READ__REQ_WILL_TAKEND_AND_FINISH_2: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (arvalid[2] & valid_read__addr[2]) |-> ##[1:$] (rvalid[2] & rlast[2])
+);
+
+// write
+WRITE_REQ_WILL_TAKEND_AND_FINISH_1: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (awvalid[1] & valid_write_addr[1]) |-> ##[1:$] (bvalid[1])
+);
+
+WRITE_REQ_WILL_TAKEND_AND_FINISH_2: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (awvalid[2] & valid_write_addr[2]) |-> ##[1:$] (bvalid[2])
+);
+`endif
+////////////////////////////////////////////////////////////////    
+///=================================================================
+/// AXI master
+///=================================================================
+
+
+
+
+///=================================================================
+/// AXI bridge
+///=================================================================
+///// STARVATION_FREEDOM /////
+////////////////////////////////////////////////////////////////
+`ifdef AXI_STARVATION_FREEDOM_BOUNDED
+// read
+// master0 req
+READ__STARVATION_FREEDOM_0_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[0] == ROM) |-> ##[1:$] r_fetch_rom
+);
+
+READ__STARVATION_FREEDOM_0_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[0] == IM) |-> ##[1:$] r_fetch_im
+);
+
+READ__STARVATION_FREEDOM_0_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[0] == DM) |-> ##[1:$] r_fetch_dm
+);
+
+/*READ__STARVATION_FREEDOM_0_DMA_S: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[0] == DMA_S) |-> ##[1:$] r_fetch_dmas
+);
+
+READ__STARVATION_FREEDOM_0_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[0] == WDT) |-> ##[1:$] r_fetch_wdt
+);*/
+
+READ__STARVATION_FREEDOM_0_DRAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[0] == DRAM) |-> ##[1:$] r_fetch_dram
+);
+
+// master1 req
+READ__STARVATION_FREEDOM_1_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[1] == ROM) |-> ##[1:$] r_mem_rom
+);
+
+READ__STARVATION_FREEDOM_1_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[1] == IM) |-> ##[1:$] r_mem_im
+);
+
+READ__STARVATION_FREEDOM_1_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[1] == DM) |-> ##[1:$] r_mem_dm
+);
+
+/*READ__STARVATION_FREEDOM_1_DMA_S: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[1] == DMA_S) |-> ##[1:$] r_mem_dmas
+);
+
+READ__STARVATION_FREEDOM_1_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[1] == WDT) |-> ##[1:$] r_mem_wdt
+);*/
+
+READ__STARVATION_FREEDOM_1_DRAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[1] == DRAM) |-> ##[1:$] r_mem_dram
+);
+
+// master2 req
+READ__STARVATION_FREEDOM_2_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[2] == ROM) |-> ##[1:$] r_dmam_rom
+);
+
+READ__STARVATION_FREEDOM_2_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[2] == IM) |-> ##[1:$] r_dmam_im
+);
+
+READ__STARVATION_FREEDOM_2_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[2] == DM) |-> ##[1:$] r_dmam_dm
+);
+
+/*READ__STARVATION_FREEDOM_2_DMA_S: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[2] == DMA_S) |-> ##[1:$] r_dmam_dmas
+);
+
+READ__STARVATION_FREEDOM_2_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[2] == WDT) |-> ##[1:$] r_dmam_wdt
+);*/
+
+READ__STARVATION_FREEDOM_2_DRAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (read__slave[2] == DRAM) |-> ##[1:$] r_dmam_dram
+);
+
+// write
+// master1 req
+/*WRITE_STARVATION_FREEDOM_1_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[1] == ROM) |-> ##[1:$] w_mem_rom
+);*/
+
+WRITE_STARVATION_FREEDOM_1_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[1] == IM) |-> ##[1:$] w_mem_im
+);
+
+WRITE_STARVATION_FREEDOM_1_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[1] == DM) |-> ##[1:$] w_mem_dm
+);
+
+WRITE_STARVATION_FREEDOM_1_DMA_S: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[1] == DMA_S) |-> ##[1:$] w_mem_dmas
+);
+
+WRITE_STARVATION_FREEDOM_1_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[1] == WDT) |-> ##[1:$] w_mem_wdt
+);
+
+WRITE_STARVATION_FREEDOM_1_DRAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[1] == DRAM) |-> ##[1:$] w_mem_dram
+);
+
+// master2 req
+/*WRITE_STARVATION_FREEDOM_2_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[2] == ROM) |-> ##[1:$] w_dmam_rom
+);*/
+
+WRITE_STARVATION_FREEDOM_2_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[2] == IM) |-> ##[1:$] w_dmam_im
+);
+
+WRITE_STARVATION_FREEDOM_2_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[2] == DM) |-> ##[1:$] w_dmam_dm
+);
+
+WRITE_STARVATION_FREEDOM_2_DMA_S: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[2] == DMA_S) |-> ##[1:$] w_dmam_dmas
+);
+
+WRITE_STARVATION_FREEDOM_2_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[2] == WDT) |-> ##[1:$] w_dmam_wdt
+);
+
+WRITE_STARVATION_FREEDOM_2_DRAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    (write_slave[2] == DRAM) |-> ##[1:$] w_dmam_dram
+);
+`endif
+////////////////////////////////////////////////////////////////    
+///=================================================================
+/// AXI bridge
+///=================================================================
+
+
+
+
+///=================================================================
+/// AXI slave
+///=================================================================
+///// MUTUAL_EXCLUSION /////
+////////////////////////////////////////////////////////////////
+`ifdef AXI_MUTUAL_EXCLUSION
+/*// read
+READ__AXI_MUTUAL_EXCLUSION_FETCH: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((r_fetch_rom + r_fetch_im + r_fetch_dm + r_fetch_dmas + r_fetch_wdt + r_fetch_dram) <= 1)
+);
+
+READ__AXI_MUTUAL_EXCLUSION_MEM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((r_mem_rom + r_mem_im + r_mem_dm + r_mem_dmas + r_mem_wdt + r_mem_dram) <= 1)
+);
+
+READ__AXI_MUTUAL_EXCLUSION_DMAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((r_dmam_rom + r_dmam_im + r_dmam_dm + r_dmam_dmas + r_dmam_wdt + r_dmam_dram) <= 1)
+);
+
+// write
+WRITE_AXI_MUTUAL_EXCLUSION_FETCH: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((w_fetch_rom + w_fetch_im + w_fetch_dm + w_fetch_dmas + w_fetch_wdt + w_fetch_dram) <= 1)
+);
+
+WRITE_AXI_MUTUAL_EXCLUSION_MEM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((w_mem_rom + w_mem_im + w_mem_dm + w_mem_dmas + w_mem_wdt + w_mem_dram) <= 1)
+);
+
+WRITE_AXI_MUTUAL_EXCLUSION_DMAM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((w_dmam_rom + w_dmam_im + w_dmam_dm + w_dmam_dmas + w_dmam_wdt + w_dmam_dram) <= 1)
+);
+*/
+// rom
+AXI_MUTUAL_EXCLUSION_ROM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((r_fetch_rom + r_mem_rom + r_dmam_rom) <= 1)
+);
+
+// im
+AXI_MUTUAL_EXCLUSION_IM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((r_fetch_im + r_mem_im + r_dmam_im + w_fetch_im + w_mem_im + w_dmam_im) <= 1)
+);
+
+// dm
+AXI_MUTUAL_EXCLUSION_DM: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((r_fetch_dm + r_mem_dm + r_dmam_dm + w_fetch_dm + w_mem_dm + w_dmam_dm) <= 1)
+);
+
+// dmas
+AXI_MUTUAL_EXCLUSION_DMAS: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((w_fetch_dmas + w_mem_dmas + w_dmam_dmas) <= 1)
+);
+
+// wdt
+AXI_MUTUAL_EXCLUSION_WDT: assert property (
+    @(posedge axi_clk) disable iff (axi_rst)
+    ((w_fetch_wdt + w_mem_wdt + w_dmam_wdt) <= 1)
+);
+`endif
+////////////////////////////////////////////////////////////////    
+///=================================================================
+/// AXI slave
+///=================================================================
+
+endmodule
+
+bind AXI axi axi_bind (
+    .axi_clk(axi_clk),
+    .axi_rst(axi_rst)
+);

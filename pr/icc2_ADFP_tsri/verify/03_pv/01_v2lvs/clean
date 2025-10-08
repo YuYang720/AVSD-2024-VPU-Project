@@ -1,0 +1,2 @@
+rm -rf log rpt output N16_ADFP.spi N16_ADFP_subckt.spi v2lvs.log
+

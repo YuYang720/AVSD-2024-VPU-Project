@@ -1,0 +1,269 @@
+Building and running PROG = 4
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/sim/prog4'
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -j .text0 --change-addresses 0 rom0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -j .text0 --change-addresses 0 rom1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -j .text0 --change-addresses 0 rom2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -j .text0 --change-addresses 0 rom3.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -R .text0 --change-addresses -0x20000000 dram0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -R .text0 --change-addresses -0x20000000 dram1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -R .text0 --change-addresses -0x20000000 dram2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-addresses -0x20000000 dram3.hex
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/sim/prog4'
+                         Chronologic VCS (TM)
+       Version U-2023.03-SP2_Full64 -- Tue Jan 14 11:04:17 2025
+
+                    Copyright (c) 1991 - 2023 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/CYCLE_MAX.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./src/CHIP.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/SRAM/SRAM_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/data_array/data_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/tag_array/tag_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/ROM/ROM.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/DRAM/DRAM.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+
+Warning-[RVOSFD] Return value discarded
+/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv, 238
+  System function '$fscanf' is invoked as task, its return value is discarded.
+  "/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv", 238
+  Source info:       $fscanf(gf, "%h\n", GOLDEN[num]);
+
+Parsing design file '../include/AXI_define.svh'
+Parsing design file '../include/def.svh'
+Parsing design file '../src/top.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/top.sv'.
+Parsing included file '../include/def.svh'.
+Back to file '../src/top.sv'.
+Parsing design file '../src/AXI/AR_FIFO.sv'
+Parsing design file '../src/AXI/R_FIFO.sv'
+Parsing design file '../src/AXI/AW_FIFO.sv'
+Parsing design file '../src/AXI/W_FIFO.sv'
+Parsing design file '../src/AXI/B_FIFO.sv'
+Parsing design file '../src/AXI/AXI_CDC_master.sv'
+Parsing design file '../src/AXI/AXI_CDC_slave.sv'
+Parsing design file '../src/AXI/AXI_bridge.sv'
+Parsing design file '../src/AXI/AXI_decoder.sv'
+Parsing design file '../src/AXI/AXI.sv'
+Parsing design file '../src/Cache/data_array_wrapper.sv'
+Parsing design file '../src/Cache/tag_array_wrapper.sv'
+Parsing design file '../src/Cache/L1C_data.sv'
+Parsing design file '../src/Cache/L1C_inst.sv'
+Parsing design file '../src/CPU/CPU.sv'
+Parsing design file '../src/CPU/if_stage.sv'
+Parsing design file '../src/CPU/id_stage.sv'
+Parsing design file '../src/CPU/exe_stage.sv'
+Parsing design file '../src/CPU/mem_stage.sv'
+Parsing design file '../src/CPU/wb_stage.sv'
+Parsing design file '../src/CPU/controller.sv'
+Parsing design file '../src/CPU/rv_decoder.sv'
+Parsing design file '../src/CPU/regfiles.sv'
+Parsing design file '../src/CPU/fp_regfiles.sv'
+Parsing design file '../src/CPU/alu.sv'
+Parsing design file '../src/CPU/csr.sv'
+Parsing design file '../src/CPU/multiplier.sv'
+Parsing design file '../src/CPU/bht.sv'
+Parsing design file '../src/CPU/btb.sv'
+Parsing design file '../src/CPU/ras.sv'
+Parsing design file '../src/FPU/FPU.sv'
+Parsing design file '../src/FPU/fpu_mul_alu.sv'
+Parsing design file '../src/DMA/DMA.sv'
+Parsing design file '../src/WDT/WDT.sv'
+Parsing design file '../src/WDT/Async_FIFO_1bit.sv'
+Parsing design file '../src/WDT/Async_FIFO_32bit.sv'
+Parsing design file '../src/WDT/Two_Flip_Flop.sv'
+Parsing design file '../src/VPU/VPU.sv'
+Parsing design file '../src/VPU/VPU_id_stage.sv'
+Parsing design file '../src/VPU/VPU_issue_stage.sv'
+Parsing design file '../src/VPU/VPU_execute_stage.sv'
+Parsing design file '../src/VPU/VPU_commit_stage.sv'
+Parsing design file '../src/VPU/VPU_decoder.sv'
+Parsing design file '../src/VPU/VPU_instruction_queue.sv'
+Parsing design file '../src/VPU/VPU_cfg.sv'
+Parsing design file '../src/VPU/VPU_alu.sv'
+Parsing design file '../src/VPU/VPU_mul.sv'
+Parsing design file '../src/VPU/VPU_sld.sv'
+Parsing design file '../src/VPU/VPU_elem.sv'
+Parsing design file '../src/VPU/VPU_mask.sv'
+Parsing design file '../src/VPU/VPU_lsu.sv'
+Parsing design file '../src/VPU/VPU_regfile.sv'
+Parsing design file '../src/VPU/VPU_lane.sv'
+Parsing design file '../src/VPU/VPU_lane_wrapper.sv'
+Parsing design file '../src/Wrapper/CPU_wrapper.sv'
+Parsing design file '../src/Wrapper/DMA_wrapper.sv'
+Parsing design file '../src/Wrapper/DRAM_wrapper.sv'
+Parsing design file '../src/Wrapper/ROM_wrapper.sv'
+Parsing design file '../src/Wrapper/IM_wrapper.sv'
+Parsing design file '../src/Wrapper/DM_wrapper.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/Wrapper/DM_wrapper.sv'.
+Parsing design file '../src/Wrapper/WDT_wrapper.sv'
+Parsing design file '/usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/VERILOG/N16ADFP_StdIO.v'
+Top Level Modules:
+       top_tb
+       Async_FIFO_32bit
+       PCORNER
+       PFILLER00001
+       PFILLER00048
+       PFILLER01008
+       PFILLER10080
+       PRCUT_H
+       PRCUT_V
+       PVDD1CDGM_H
+       PVDD1CDGM_V
+       PVDD2CDGM_H
+       PVDD2CDGM_V
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+49 modules and 0 UDP read.
+recompiling module TS1N16ADFPCLLLVTA512X45M4SWSHOD
+recompiling module DRAM
+recompiling module top_tb
+3 of 49 modules done
+	However, due to incremental compilation, only 3 modules need to be compiled. 
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/a/amcQw_d.o   _127623_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+../simv up to date
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Notice: timing checks disabled with +notimingcheck at compile-time
+Chronologic VCS simulator copyright 1991-2023
+Contains Synopsys proprietary information.
+Compiler version U-2023.03-SP2_Full64; Runtime version U-2023.03-SP2_Full64;  Jan 14 11:04 2025
+
+Done
+
+DRAM[262144] = 433e05fc, pass
+DRAM[262145] = 33000000, pass
+DRAM[262146] = c33e05fc, pass
+DRAM[262147] = 411c1150, pass
+DRAM[262148] = 4347c711, pass
+DRAM[262149] = c11c1150, pass
+DRAM[262150] = 460cadbd, pass
+DRAM[262151] = c61be717, pass
+DRAM[262152] = 460cadbd, pass
+DRAM[262153] = 460e0d41, pass
+DRAM[262154] = c61a7e8d, pass
+DRAM[262155] = 460b4e39, pass
+DRAM[262156] = c61d4fa1, pass
+DRAM[262157] = c60b4e39, pass
+DRAM[262158] = 461d4fa1, pass
+DRAM[262159] = c60e0d41, pass
+DRAM[262160] = 461a7e8d, pass
+DRAM[262161] = 00000063, pass
+DRAM[262162] = ffffff9d, pass
+DRAM[262163] = 00000063, pass
+DRAM[262164] = 00000063, pass
+DRAM[262165] = c2c7c711, pass
+DRAM[262166] = c2c7c711, pass
+DRAM[262167] = c2c7c711, pass
+DRAM[262168] = c2c7c711, pass
+DRAM[262169] = 00000000, pass
+DRAM[262170] = 00000001, pass
+DRAM[262171] = 00000002, pass
+DRAM[262172] = 00000003, pass
+DRAM[262173] = 00000004, pass
+DRAM[262174] = 00000005, pass
+DRAM[262175] = 00000006, pass
+DRAM[262176] = 00000007, pass
+DRAM[262177] = 00000008, pass
+DRAM[262178] = 00000009, pass
+DRAM[262179] = 00000001, pass
+DRAM[262180] = 00000000, pass
+DRAM[262181] = 00000000, pass
+DRAM[262182] = 00000000, pass
+DRAM[262183] = 00000000, pass
+DRAM[262184] = 00000000, pass
+DRAM[262185] = 00000000, pass
+DRAM[262186] = 00000001, pass
+DRAM[262187] = 00000001, pass
+DRAM[262188] = 00000000, pass
+DRAM[262189] = 00000000, pass
+DRAM[262190] = 00000001, pass
+DRAM[262191] = 42c7c711, pass
+DRAM[262192] = 42b444e7, pass
+DRAM[262193] = 42c7c711, pass
+DRAM[262194] = c2c7c711, pass
+DRAM[262195] = c2c7c711, pass
+DRAM[262196] = 42c7c711, pass
+DRAM[262197] = 42c7c711, pass
+DRAM[262198] = c2c7c711, pass
+DRAM[262199] = 42c7c711, pass
+DRAM[262200] = 42c7c711, pass
+DRAM[262201] = 7fffffff, pass
+DRAM[262202] = 80000000, pass
+DRAM[262203] = 00000000, pass
+
+
+
+
+        **************************               
+        *                        *       |__||  
+        *  Congratulations !!    *      / O.O  | 
+        *                        *    /_____   | 
+        *  Simulation PASS!!     *   /^ ^ ^ \  |
+        *                        *  |^ ^ ^ ^ |w| 
+        **************************   \m___m__|_|
+
+
+                       CYCLE       FREQ
+        DRAM    :   5.000000 200.000000
+        ROM     :  50.100000  19.960080
+        CPU     :   1.000000 1000.000000
+        AXI     :   2.500000 400.000000
+$finish called from file "/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv", line 261.
+Cache hit rate information:
+L1CI:
+L1CI Hit  Count = 11795
+L1CI Miss Count = 270
+L1CI Hit  Rate  = 97.76%
+L1CD:
+READ:
+READ  L1CD Hit  Count = 405
+READ  L1CD Miss Count = 22
+READ  L1CD Hit  Rate  = 94.85%
+WRITE:
+WRITE L1CD Hit  Count = 178
+WRITE L1CD Miss Count = 2163
+WRITE L1CD Hit  Rate  = 7.60%
+TOTAL:
+TOTAL L1CD Hit  Count = 583
+TOTAL L1CD Miss Count = 2185
+TOTAL L1CD Hit  Rate  = 21.06%
+Total Instruction Count = 9645
+Total Cycle       Count = 147102
+IPC                     = 0.07
+$finish at simulation time             14914900
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 149149000 ps
+CPU Time:     11.540 seconds;       Data structure size:  16.8Mb
+Tue Jan 14 11:04:33 2025
+CPU time: 2.086 seconds to compile + .473 seconds to elab + .260 seconds to link + 11.574 seconds in simulation

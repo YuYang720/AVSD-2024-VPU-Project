@@ -1,0 +1,522 @@
+Building and running PROG = 5
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/sim/prog5'
+riscv64-unknown-elf-objdump -xsd main > main.log
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -j .text0 --change-addresses 0 rom0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -j .text0 --change-addresses 0 rom1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -j .text0 --change-addresses 0 rom2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -j .text0 --change-addresses 0 rom3.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -R .text0 --change-addresses -0x20000000 dram0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -R .text0 --change-addresses -0x20000000 dram1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -R .text0 --change-addresses -0x20000000 dram2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-addresses -0x20000000 dram3.hex
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/sim/prog5'
+                         Chronologic VCS (TM)
+       Version U-2023.03-SP2_Full64 -- Tue Jan 14 11:04:37 2025
+
+                    Copyright (c) 1991 - 2023 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/CYCLE_MAX.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./src/CHIP.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/SRAM/SRAM_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/data_array/data_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/tag_array/tag_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/ROM/ROM.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/DRAM/DRAM.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv'.
+
+Warning-[RVOSFD] Return value discarded
+/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv, 238
+  System function '$fscanf' is invoked as task, its return value is discarded.
+  "/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv", 238
+  Source info:       $fscanf(gf, "%h\n", GOLDEN[num]);
+
+Parsing design file '../include/AXI_define.svh'
+Parsing design file '../include/def.svh'
+Parsing design file '../src/top.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/top.sv'.
+Parsing included file '../include/def.svh'.
+Back to file '../src/top.sv'.
+Parsing design file '../src/AXI/AR_FIFO.sv'
+Parsing design file '../src/AXI/R_FIFO.sv'
+Parsing design file '../src/AXI/AW_FIFO.sv'
+Parsing design file '../src/AXI/W_FIFO.sv'
+Parsing design file '../src/AXI/B_FIFO.sv'
+Parsing design file '../src/AXI/AXI_CDC_master.sv'
+Parsing design file '../src/AXI/AXI_CDC_slave.sv'
+Parsing design file '../src/AXI/AXI_bridge.sv'
+Parsing design file '../src/AXI/AXI_decoder.sv'
+Parsing design file '../src/AXI/AXI.sv'
+Parsing design file '../src/Cache/data_array_wrapper.sv'
+Parsing design file '../src/Cache/tag_array_wrapper.sv'
+Parsing design file '../src/Cache/L1C_data.sv'
+Parsing design file '../src/Cache/L1C_inst.sv'
+Parsing design file '../src/CPU/CPU.sv'
+Parsing design file '../src/CPU/if_stage.sv'
+Parsing design file '../src/CPU/id_stage.sv'
+Parsing design file '../src/CPU/exe_stage.sv'
+Parsing design file '../src/CPU/mem_stage.sv'
+Parsing design file '../src/CPU/wb_stage.sv'
+Parsing design file '../src/CPU/controller.sv'
+Parsing design file '../src/CPU/rv_decoder.sv'
+Parsing design file '../src/CPU/regfiles.sv'
+Parsing design file '../src/CPU/fp_regfiles.sv'
+Parsing design file '../src/CPU/alu.sv'
+Parsing design file '../src/CPU/csr.sv'
+Parsing design file '../src/CPU/multiplier.sv'
+Parsing design file '../src/CPU/bht.sv'
+Parsing design file '../src/CPU/btb.sv'
+Parsing design file '../src/CPU/ras.sv'
+Parsing design file '../src/FPU/FPU.sv'
+Parsing design file '../src/FPU/fpu_mul_alu.sv'
+Parsing design file '../src/DMA/DMA.sv'
+Parsing design file '../src/WDT/WDT.sv'
+Parsing design file '../src/WDT/Async_FIFO_1bit.sv'
+Parsing design file '../src/WDT/Async_FIFO_32bit.sv'
+Parsing design file '../src/WDT/Two_Flip_Flop.sv'
+Parsing design file '../src/VPU/VPU.sv'
+Parsing design file '../src/VPU/VPU_id_stage.sv'
+Parsing design file '../src/VPU/VPU_issue_stage.sv'
+Parsing design file '../src/VPU/VPU_execute_stage.sv'
+Parsing design file '../src/VPU/VPU_commit_stage.sv'
+Parsing design file '../src/VPU/VPU_decoder.sv'
+Parsing design file '../src/VPU/VPU_instruction_queue.sv'
+Parsing design file '../src/VPU/VPU_cfg.sv'
+Parsing design file '../src/VPU/VPU_alu.sv'
+Parsing design file '../src/VPU/VPU_mul.sv'
+Parsing design file '../src/VPU/VPU_sld.sv'
+Parsing design file '../src/VPU/VPU_elem.sv'
+Parsing design file '../src/VPU/VPU_mask.sv'
+Parsing design file '../src/VPU/VPU_lsu.sv'
+Parsing design file '../src/VPU/VPU_regfile.sv'
+Parsing design file '../src/VPU/VPU_lane.sv'
+Parsing design file '../src/VPU/VPU_lane_wrapper.sv'
+Parsing design file '../src/Wrapper/CPU_wrapper.sv'
+Parsing design file '../src/Wrapper/DMA_wrapper.sv'
+Parsing design file '../src/Wrapper/DRAM_wrapper.sv'
+Parsing design file '../src/Wrapper/ROM_wrapper.sv'
+Parsing design file '../src/Wrapper/IM_wrapper.sv'
+Parsing design file '../src/Wrapper/DM_wrapper.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/Wrapper/DM_wrapper.sv'.
+Parsing design file '../src/Wrapper/WDT_wrapper.sv'
+Parsing design file '/usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/VERILOG/N16ADFP_StdIO.v'
+Top Level Modules:
+       top_tb
+       Async_FIFO_32bit
+       PCORNER
+       PFILLER00001
+       PFILLER00048
+       PFILLER01008
+       PFILLER10080
+       PRCUT_H
+       PRCUT_V
+       PVDD1CDGM_H
+       PVDD1CDGM_V
+       PVDD2CDGM_H
+       PVDD2CDGM_V
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+49 modules and 0 UDP read.
+recompiling module DRAM
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+make[2]: Entering directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/a/amcQw_d.o   _129067_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+../simv up to date
+make[2]: Leaving directory `/home/user2/avsd24/avsd2402/Homework/tt/build/csrc'
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Notice: timing checks disabled with +notimingcheck at compile-time
+Chronologic VCS simulator copyright 1991-2023
+Contains Synopsys proprietary information.
+Compiler version U-2023.03-SP2_Full64; Runtime version U-2023.03-SP2_Full64;  Jan 14 11:04 2025
+
+Done
+
+DRAM[262144] = fbfbfbfb, pass
+DRAM[262145] = fbfbfbfb, pass
+DRAM[262146] = fbfbfbfb, pass
+DRAM[262147] = fbfbfbfb, pass
+DRAM[262148] = fbfbfbfb, pass
+DRAM[262149] = fbfbfbfb, pass
+DRAM[262150] = fbfbfbfb, pass
+DRAM[262151] = fbfbfbfb, pass
+DRAM[262152] = 0000fbfb, pass
+DRAM[262153] = f6f6f6f6, pass
+DRAM[262154] = f6f6f6f6, pass
+DRAM[262155] = f6f6f6f6, pass
+DRAM[262156] = f6f6f6f6, pass
+DRAM[262157] = f6f6f6f6, pass
+DRAM[262158] = f6f6f6f6, pass
+DRAM[262159] = f6f6f6f6, pass
+DRAM[262160] = 000000f6, pass
+DRAM[262161] = 14141414, pass
+DRAM[262162] = 14141414, pass
+DRAM[262163] = 14141414, pass
+DRAM[262164] = 14141414, pass
+DRAM[262165] = 4b4b4b4b, pass
+DRAM[262166] = 0000004b, pass
+DRAM[262167] = 001b001b, pass
+DRAM[262168] = 001b001b, pass
+DRAM[262169] = 001b001b, pass
+DRAM[262170] = 001b001b, pass
+DRAM[262171] = 001b001b, pass
+DRAM[262172] = 001b001b, pass
+DRAM[262173] = 001b001b, pass
+DRAM[262174] = 001b001b, pass
+DRAM[262175] = 001b001b, pass
+DRAM[262176] = 001b001b, pass
+DRAM[262177] = 002f002f, pass
+DRAM[262178] = 002f002f, pass
+DRAM[262179] = 002f002f, pass
+DRAM[262180] = 002f002f, pass
+DRAM[262181] = 002f002f, pass
+DRAM[262182] = 00210021, pass
+DRAM[262183] = 00210021, pass
+DRAM[262184] = 00000021, pass
+DRAM[262185] = fffdfffd, pass
+DRAM[262186] = 001b001b, pass
+DRAM[262187] = 001b001b, pass
+DRAM[262188] = 001b001b, pass
+DRAM[262189] = 001b001b, pass
+DRAM[262190] = 001b001b, pass
+DRAM[262191] = 001b001b, pass
+DRAM[262192] = 001b001b, pass
+DRAM[262193] = 001b001b, pass
+DRAM[262194] = 001b001b, pass
+DRAM[262195] = 001b001b, pass
+DRAM[262196] = 002f002f, pass
+DRAM[262197] = 002f002f, pass
+DRAM[262198] = 002f002f, pass
+DRAM[262199] = 002f002f, pass
+DRAM[262200] = 002f002f, pass
+DRAM[262201] = 00210021, pass
+DRAM[262202] = 00210021, pass
+DRAM[262203] = 00000021, pass
+DRAM[262204] = fffdfffd, pass
+DRAM[262205] = 00000033, pass
+DRAM[262206] = 00000000, pass
+DRAM[262207] = 00000033, pass
+DRAM[262208] = 00000000, pass
+DRAM[262209] = 00000033, pass
+DRAM[262210] = 00000000, pass
+DRAM[262211] = 00000033, pass
+DRAM[262212] = 00000000, pass
+DRAM[262213] = 00000033, pass
+DRAM[262214] = 00000000, pass
+DRAM[262215] = 00000033, pass
+DRAM[262216] = 00000000, pass
+DRAM[262217] = 00000033, pass
+DRAM[262218] = 00000000, pass
+DRAM[262219] = 00000033, pass
+DRAM[262220] = 00000000, pass
+DRAM[262221] = 0000004e, pass
+DRAM[262222] = 00000000, pass
+DRAM[262223] = 0000004e, pass
+DRAM[262224] = 00000000, pass
+DRAM[262225] = 0000004e, pass
+DRAM[262226] = 00000000, pass
+DRAM[262227] = 0000004e, pass
+DRAM[262228] = 00000000, pass
+DRAM[262229] = 00000069, pass
+DRAM[262230] = 00000000, pass
+DRAM[262231] = 00000069, pass
+DRAM[262232] = 00000000, pass
+DRAM[262233] = ffffffe7, pass
+DRAM[262234] = ffffffff, pass
+DRAM[262235] = 01010101, pass
+DRAM[262236] = 00000101, pass
+DRAM[262237] = fff1fff1, pass
+DRAM[262238] = fff1fff1, pass
+DRAM[262239] = fff1fff1, pass
+DRAM[262240] = fff1fff1, pass
+DRAM[262241] = fff1fff1, pass
+DRAM[262242] = fff1fff1, pass
+DRAM[262243] = fff1fff1, pass
+DRAM[262244] = fff1fff1, pass
+DRAM[262245] = ffddffdd, pass
+DRAM[262246] = ffddffdd, pass
+DRAM[262247] = ffddffdd, pass
+DRAM[262248] = ffddffdd, pass
+DRAM[262249] = ffeaffea, pass
+DRAM[262250] = ffeaffea, pass
+DRAM[262251] = 00010001, pass
+DRAM[262252] = 00000001, pass
+DRAM[262253] = 00000001, pass
+DRAM[262254] = 00000001, pass
+DRAM[262255] = 00000000, pass
+DRAM[262256] = fdfdfdfd, pass
+DRAM[262257] = 0000fdfd, pass
+DRAM[262258] = fffdfffd, pass
+DRAM[262259] = 0000fffd, pass
+DRAM[262260] = fffffffd, pass
+DRAM[262261] = fffffffd, pass
+DRAM[262262] = fffffffd, pass
+DRAM[262263] = ffffffff, pass
+DRAM[262264] = 06060606, pass
+DRAM[262265] = 00000606, pass
+DRAM[262266] = 00060006, pass
+DRAM[262267] = 00060006, pass
+DRAM[262268] = 00000006, pass
+DRAM[262269] = 00000006, pass
+DRAM[262270] = 00000006, pass
+DRAM[262271] = 00000000, pass
+DRAM[262272] = 3f2f1f0f, pass
+DRAM[262273] = 7f6f5f4f, pass
+DRAM[262274] = bfaf9f8f, pass
+DRAM[262275] = 302f100f, pass
+DRAM[262276] = 706f504f, pass
+DRAM[262277] = 3020100f, pass
+DRAM[262278] = 7060504f, pass
+DRAM[262279] = 3020100f, pass
+DRAM[262280] = 70605040, pass
+DRAM[262281] = 09090909, pass
+DRAM[262282] = 00000909, pass
+DRAM[262283] = 00090009, pass
+DRAM[262284] = 00090009, pass
+DRAM[262285] = 00000009, pass
+DRAM[262286] = 00000009, pass
+DRAM[262287] = 00000009, pass
+DRAM[262288] = 00000000, pass
+DRAM[262289] = 00000505, pass
+DRAM[262290] = 00050005, pass
+DRAM[262291] = 00000005, pass
+DRAM[262292] = 00000005, pass
+DRAM[262293] = 00000005, pass
+DRAM[262294] = 00000000, pass
+DRAM[262295] = 00000707, pass
+DRAM[262296] = 00070007, pass
+DRAM[262297] = 00000007, pass
+DRAM[262298] = 00000007, pass
+DRAM[262299] = 00000007, pass
+DRAM[262300] = 00000000, pass
+DRAM[262301] = fffefffe, pass
+DRAM[262302] = 0000fffe, pass
+DRAM[262303] = 60402000, pass
+DRAM[262304] = e0c0a080, pass
+DRAM[262305] = 61412100, pass
+DRAM[262306] = e1c1a180, pass
+DRAM[262307] = 60402000, pass
+DRAM[262308] = e0c0a080, pass
+DRAM[262309] = 61412100, pass
+DRAM[262310] = e1c1a181, pass
+DRAM[262311] = ffffffff, pass
+DRAM[262312] = 0000ffff, pass
+DRAM[262313] = ffffffff, pass
+DRAM[262314] = 0000ffff, pass
+DRAM[262315] = 00000000, pass
+DRAM[262316] = 00000000, pass
+DRAM[262317] = ffffffff, pass
+DRAM[262318] = ffffffff, pass
+DRAM[262319] = 00000000, pass
+DRAM[262320] = 00000000, pass
+DRAM[262321] = ffffffff, pass
+DRAM[262322] = ffffffff, pass
+DRAM[262323] = 80706050, pass
+DRAM[262324] = c0b0a090, pass
+DRAM[262325] = 00f0e0d0, pass
+DRAM[262326] = 00000000, pass
+DRAM[262327] = b0a09080, pass
+DRAM[262328] = f0e0d0c0, pass
+DRAM[262329] = 00000000, pass
+DRAM[262330] = 00000000, pass
+DRAM[262331] = 70605040, pass
+DRAM[262332] = b0a09080, pass
+DRAM[262333] = f0e0d0c0, pass
+DRAM[262334] = 00000005, pass
+DRAM[262335] = 30201000, pass
+DRAM[262336] = 20100040, pass
+DRAM[262337] = 60504030, pass
+DRAM[262338] = a0908070, pass
+DRAM[262339] = 30201000, pass
+DRAM[262340] = 70605040, pass
+DRAM[262341] = 30201000, pass
+DRAM[262342] = 70605040, pass
+DRAM[262343] = 00000005, pass
+DRAM[262344] = 30201000, pass
+DRAM[262345] = 70605040, pass
+DRAM[262346] = b0a09080, pass
+DRAM[262347] = 10000000, pass
+DRAM[262348] = 30002000, pass
+DRAM[262349] = 00600020, pass
+DRAM[262350] = 00e000a0, pass
+DRAM[262351] = 00600020, pass
+DRAM[262352] = 00e000a0, pass
+DRAM[262353] = 04040404, pass
+DRAM[262354] = 00040404, pass
+DRAM[262355] = 00040004, pass
+DRAM[262356] = 00000004, pass
+DRAM[262357] = 00000004, pass
+DRAM[262358] = 00000004, pass
+DRAM[262359] = ffffffa2, pass
+DRAM[262360] = ffffffff, pass
+DRAM[262361] = 00000004, pass
+DRAM[262362] = 00000004, pass
+DRAM[262363] = 00000004, pass
+DRAM[262364] = 00000004, pass
+DRAM[262365] = 00000004, pass
+DRAM[262366] = 00000004, pass
+DRAM[262367] = 00000004, pass
+DRAM[262368] = 00000004, pass
+DRAM[262369] = 00000000, pass
+DRAM[262370] = 00000004, pass
+DRAM[262371] = 00000000, pass
+DRAM[262372] = 00000004, pass
+DRAM[262373] = 00000004, pass
+DRAM[262374] = 00000000, pass
+DRAM[262375] = 00000000, pass
+DRAM[262376] = 00000000, pass
+DRAM[262377] = 00000004, pass
+DRAM[262378] = ffffffa2, pass
+DRAM[262379] = ffffffff, pass
+DRAM[262380] = ffffffa2, pass
+DRAM[262381] = ffffffff, pass
+DRAM[262382] = 00000000, pass
+DRAM[262383] = 00000000, pass
+DRAM[262384] = 00000000, pass
+DRAM[262385] = 00000000, pass
+DRAM[262386] = 00000000, pass
+DRAM[262387] = 00000000, pass
+DRAM[262388] = ffffffa2, pass
+DRAM[262389] = ffffffff, pass
+DRAM[262390] = ffffffa2, pass
+DRAM[262391] = ffffffff, pass
+DRAM[262392] = 00000000, pass
+DRAM[262393] = 00000000, pass
+DRAM[262394] = 00000000, pass
+DRAM[262395] = 00000000, pass
+DRAM[262396] = 00000000, pass
+DRAM[262397] = 00000000, pass
+DRAM[262398] = ffffffa2, pass
+DRAM[262399] = ffffffff, pass
+DRAM[262400] = 00000000, pass
+DRAM[262401] = 00000000, pass
+DRAM[262402] = 00000000, pass
+DRAM[262403] = 00000000, pass
+DRAM[262404] = 00000000, pass
+DRAM[262405] = 00000000, pass
+DRAM[262406] = ffffffa2, pass
+DRAM[262407] = ffffffff, pass
+DRAM[262408] = ffffffa2, pass
+DRAM[262409] = ffffffff, pass
+DRAM[262410] = 00000000, pass
+DRAM[262411] = 00000000, pass
+DRAM[262412] = 00000000, pass
+DRAM[262413] = 00000000, pass
+DRAM[262414] = 00000000, pass
+DRAM[262415] = 00000000, pass
+DRAM[262416] = ffffffa2, pass
+DRAM[262417] = ffffffff, pass
+DRAM[262418] = 00000000, pass
+DRAM[262419] = 00000000, pass
+DRAM[262420] = 00000000, pass
+DRAM[262421] = 00000000, pass
+DRAM[262422] = 00000000, pass
+DRAM[262423] = 00000000, pass
+DRAM[262424] = ffffffa2, pass
+DRAM[262425] = ffffffff, pass
+DRAM[262426] = 00000000, pass
+DRAM[262427] = 00000000, pass
+DRAM[262428] = 00000000, pass
+DRAM[262429] = 00000000, pass
+DRAM[262430] = 00000000, pass
+DRAM[262431] = 00000000, pass
+DRAM[262432] = ffffffa2, pass
+DRAM[262433] = ffffffff, pass
+DRAM[262434] = 00000000, pass
+DRAM[262435] = 00000000, pass
+DRAM[262436] = 00000000, pass
+DRAM[262437] = 00000000, pass
+DRAM[262438] = 00000000, pass
+DRAM[262439] = 00000000, pass
+DRAM[262440] = ffffffa2, pass
+DRAM[262441] = ffffffff, pass
+DRAM[262442] = 00000000, pass
+DRAM[262443] = 00000000, pass
+DRAM[262444] = 00000000, pass
+DRAM[262445] = 00000000, pass
+DRAM[262446] = 00000000, pass
+DRAM[262447] = 00000000, pass
+DRAM[262448] = 00201000, pass
+DRAM[262449] = 30201000, pass
+DRAM[262450] = 00005040, pass
+DRAM[262451] = 30201000, pass
+DRAM[262452] = 70605040, pass
+DRAM[262453] = 30201000, pass
+DRAM[262454] = c0804000, pass
+DRAM[262455] = 00000087, pass
+DRAM[262456] = 30201000, pass
+DRAM[262457] = b0a09080, pass
+DRAM[262458] = 00000087, pass
+
+
+
+
+        **************************               
+        *                        *       |__||  
+        *  Congratulations !!    *      / O.O  | 
+        *                        *    /_____   | 
+        *  Simulation PASS!!     *   /^ ^ ^ \  |
+        *                        *  |^ ^ ^ ^ |w| 
+        **************************   \m___m__|_|
+
+
+                       CYCLE       FREQ
+        DRAM    :   5.000000 200.000000
+        ROM     :  50.100000  19.960080
+        CPU     :   1.000000 1000.000000
+        AXI     :   2.500000 400.000000
+$finish called from file "/home/user2/avsd24/avsd2402/Homework/tt/./sim/top_tb.sv", line 261.
+Cache hit rate information:
+L1CI:
+L1CI Hit  Count = 11575
+L1CI Miss Count = 263
+L1CI Hit  Rate  = 97.78%
+L1CD:
+READ:
+READ  L1CD Hit  Count = 181
+READ  L1CD Miss Count = 15
+READ  L1CD Hit  Rate  = 92.35%
+WRITE:
+WRITE L1CD Hit  Count = 75
+WRITE L1CD Miss Count = 2367
+WRITE L1CD Hit  Rate  = 3.07%
+TOTAL:
+TOTAL L1CD Hit  Count = 256
+TOTAL L1CD Miss Count = 2382
+TOTAL L1CD Hit  Rate  = 9.70%
+Total Instruction Count = 9416
+Total Cycle       Count = 153467
+IPC                     = 0.06
+$finish at simulation time             15551400
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 155514000 ps
+CPU Time:     11.910 seconds;       Data structure size:  16.8Mb
+Tue Jan 14 11:04:55 2025
+CPU time: 1.821 seconds to compile + .464 seconds to elab + .262 seconds to link + 11.946 seconds in simulation

@@ -1,0 +1,34 @@
+ 
+****************************************
+Report : area
+Design : CHIP
+Version: P-2019.03-SP1-1
+Date   : Tue Jan 14 14:41:50 2025
+****************************************
+
+Library(s) Used:
+
+    N16ADFP_StdCellss0p72vm40c (File: /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdcell/N16ADFP_StdCell/NLDM/N16ADFP_StdCellss0p72vm40c.db)
+    SRAM_ss0p72v0p72vm40c_100a (File: /home/user2/avsd24/avsd2402/Homework/tt/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db)
+    tag_array_ff0p88v0p88v125c (File: /home/user2/avsd24/avsd2402/Homework/tt/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db)
+    data_array_ff0p88v0p88v125c (File: /home/user2/avsd24/avsd2402/Homework/tt/sim/data_array/data_array_ff0p88v0p88v125c_100a.db)
+    N16ADFP_StdIOss0p72v1p62v125c (File: /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/NLDM/N16ADFP_StdIOss0p72v1p62v125c.db)
+
+Number of ports:                        58725
+Number of nets:                        344187
+Number of cells:                       267510
+Number of combinational cells:         248171
+Number of sequential cells:             18711
+Number of macros/black boxes:             152
+Number of buf/inv:                      63088
+Number of references:                       5
+
+Combinational area:             101225.844718
+Buf/Inv area:                    20698.053323
+Noncombinational area:           17459.608550
+Macro/Black Box area:           284136.614868
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                402822.068136
+Total area:                 undefined
+1

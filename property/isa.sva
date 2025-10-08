@@ -1,0 +1,1067 @@
+`define ASSERT_FOLLOWER_ID__CHECK
+`define ASSERT_FOLLOWER_EXE_CHECK
+`define ASSERT_FOLLOWER_MEM_CHECK
+`define ASSERT_FOLLOWER_WB__CHECK
+
+`define ASSERT_ISA_R_TYPE_CHECK
+`define ASSERT_ISA_I_TYPE_CHECK
+`define ASSERT_ISA_I_LOAD_CHECK
+`define ASSERT_ISA_B_TYPE_CHECK
+`define ASSERT_ISA_U_TYPE_CHECK
+`define ASSERT_ISA_J_TYPE_CHECK
+
+`define CONSTRAIN_RS1_RS2_RD
+
+module isa(
+    // clk
+    input logic cpu_clk,
+    input logic axi_clk,
+    input logic rom_clk,
+    input logic dram_clk,
+    // rst
+    input logic cpu_rst,
+    input logic axi_rst,
+    input logic rom_rst,
+    input logic dram_rst
+);
+
+logic  always_true;
+assign always_true = 1'd1;
+
+///=================================================================
+/// Pipeline Follower
+///=================================================================
+///// global signal of Pipeline Follower /////
+////////////////////////////////////////////////////////////////
+// stall
+logic   CPU_STALL;
+assign CPU_STALL = CPU.stall;
+
+// flush (flush the data to be transferred to the next state)
+logic   CPU_FLUSH_EXE;
+assign CPU_FLUSH_EXE = CPU.flush_id;
+logic   CPU_FLUSH_MEM;
+assign CPU_FLUSH_MEM = CPU.flush_exe;
+logic   CPU_FLUSH_WB;
+assign CPU_FLUSH_WB = CPU.flush_mem;
+
+// wait
+logic   CPU_FPU_WAIT;
+assign CPU_FPU_WAIT = CPU.fpu_wait;
+
+// Memory Data Tracking
+logic  [31:0] MEM_Mem_Data;
+assign MEM_Mem_Data = CPU.dcache_core_out_i;
+
+// Load Address Tracking
+logic  [31:0] EXE_Load_Addr;
+assign EXE_Load_Addr = CPU.dcache_core_addr_o;
+
+// Branch PC Tracking
+logic  [31:0] EXE_Branch_PC;
+assign EXE_Branch_PC = CPU.bta;
+
+// WB valid Tracking
+logic  WB_valid;
+assign WB_valid = CPU.i_wb_stage.wb_uOP_i.valid;
+
+// Inst Valid Tracking
+uOP_t  WB__uOP;
+assign WB__uOP = CPU.i_wb_stage.wb_uOP_i;
+logic  [31:0] WB__PC_reg;
+always_ff @(posedge cpu_clk) begin
+    if(BEQ_Trigger | BNE_Trigger | BLT_Trigger | BGE_Trigger 
+    | BLTU_Trigger | BGEU_Trigger | JALR_Trigger | JAL_Trigger)
+        WB__PC_reg <= WB__PC;
+    else ;
+end
+logic  INST_valid;
+assign INST_valid = (WB__PC != WB__PC_reg) && /*(WB__uOP != uOP_t'(0))*/(WB__INSTR != 32'b0);
+////////////////////////////////////////////////////////////////
+
+
+///// Pipeline Follower of ID (Fetch to Decode) /////
+////////////////////////////////////////////////////////////////
+// Decode PC & INSTR
+logic [31:0] ID__PC;
+logic [31:0] ID__INSTR;
+always_comb begin : Pipeline_Follower_Decode
+    if (cpu_rst) begin
+        ID__PC      = 32'b0;
+        ID__INSTR   = 32'b0;
+    end
+    else begin
+        ID__PC      = CPU.i_if_stage.fetch_entry_o.pc;
+        ID__INSTR   = CPU.i_if_stage.fetch_entry_o.inst;
+    end
+end
+
+// Assertions for Decode Stage
+`ifdef ASSERT_FOLLOWER_ID__CHECK 
+PC_consistency_ID: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    always_true |-> (ID__PC    == CPU.i_id_stage.fetch_entry_i.pc  )
+);
+
+INSTR_consistency_ID: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    always_true |-> (ID__INSTR == CPU.i_id_stage.fetch_entry_i.inst)
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// Pipeline Follower of EXE (Decode to Execute) /////
+////////////////////////////////////////////////////////////////
+// Execute PC & INSTR
+logic [31:0] EXE_PC;
+logic [31:0] EXE_INSTR;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        EXE_PC     <= 32'b0;
+        EXE_INSTR  <= 32'b0;
+    end
+    else if (CPU_STALL | CPU_FPU_WAIT | CPU.vector_unaccept) begin
+        EXE_PC      <= EXE_PC;
+        EXE_INSTR   <= EXE_INSTR;
+    end
+    else if (CPU_FLUSH_EXE) begin
+        EXE_PC      <= 32'b0;
+        EXE_INSTR   <= 32'b0;
+    end
+    else begin
+        EXE_PC      <= ID__PC;
+        EXE_INSTR   <= ID__INSTR;
+    end
+end
+
+// Assertions for Execute Stage
+`ifdef ASSERT_FOLLOWER_EXE_CHECK
+PC_consistency_EXE: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    always_true |-> (EXE_PC == CPU.i_exe_stage.exe_uOP_i.pc)
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// Pipeline Follower of MEM (Execute to Memory) /////
+////////////////////////////////////////////////////////////////
+// Memory PC & INSTR
+logic [31:0] MEM_PC;
+logic [31:0] MEM_INSTR;
+logic [31:0] MEM_Load_Addr;
+logic [31:0] MEM_Branch_PC;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        MEM_PC      <= 32'b0;
+        MEM_INSTR   <= 32'b0;
+
+        MEM_Load_Addr   <= 32'b0;
+        MEM_Branch_PC   <= 32'b0;
+    end
+    else if (CPU_FLUSH_MEM | CPU_FPU_WAIT | CPU.vector_unaccept) begin
+        MEM_PC      <= 32'b0;
+        MEM_INSTR   <= 32'b0;
+
+        MEM_Load_Addr   <= 32'b0;
+        MEM_Branch_PC   <= 32'b0;
+    end
+    else if (CPU_STALL) begin
+        MEM_PC      <= MEM_PC;
+        MEM_INSTR   <= MEM_INSTR;
+
+        MEM_Load_Addr   <= MEM_Load_Addr;
+        MEM_Branch_PC   <= MEM_Branch_PC;
+    end
+    else begin
+        MEM_PC      <= EXE_PC;
+        MEM_INSTR   <= EXE_INSTR;
+
+        MEM_Load_Addr   <= EXE_Load_Addr;
+        MEM_Branch_PC   <= EXE_Branch_PC;
+    end
+end
+
+// Assertions for Memory Stage
+`ifdef ASSERT_FOLLOWER_MEM_CHECK
+PC_consistency_MEM: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    always_true |-> (MEM_PC == CPU.i_mem_stage.mem_uOP_i.pc)
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// Pipeline Follower of WB (Memory to Writeback) /////
+////////////////////////////////////////////////////////////////
+// Writeback PC & INSTR
+logic [31:0] WB__PC;
+logic [31:0] WB__INSTR;
+logic [31:0] WB__Mem_Data;
+logic [31:0] WB__Load_Addr;
+logic [31:0] WB__Branch_PC;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        WB__PC      <= 32'b0;
+        WB__INSTR   <= 32'b0;
+
+        WB__Mem_Data    <= 32'b0;
+        WB__Load_Addr   <= 32'b0;
+        WB__Branch_PC   <= 32'b0;
+    end
+    else if (CPU_FLUSH_WB) begin
+        WB__PC      <= 32'b0;   
+        WB__INSTR   <= 32'b0;
+
+        WB__Mem_Data    <= 32'b0;
+        WB__Load_Addr   <= 32'b0;
+        WB__Branch_PC   <= 32'b0;
+    end
+    else if (!CPU_STALL) begin
+        WB__PC      <= MEM_PC;      
+        WB__INSTR   <= MEM_INSTR;
+
+        WB__Mem_Data    <= MEM_Mem_Data;
+        WB__Load_Addr   <= MEM_Load_Addr;
+        WB__Branch_PC   <= MEM_Branch_PC;
+    end
+    else begin
+        WB__PC      <= WB__PC;      
+        WB__INSTR   <= WB__INSTR;
+
+        WB__Mem_Data    <= WB__Mem_Data;
+        WB__Load_Addr   <= WB__Load_Addr;
+        WB__Branch_PC   <= WB__Branch_PC;
+    end
+end
+
+// Assertions for Writeback Stage
+`ifdef ASSERT_FOLLOWER_WB__CHECK
+PC_consistency_WB: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    always_true |-> (WB__PC == CPU.i_wb_stage.wb_uOP_i.pc)
+);
+`endif
+////////////////////////////////////////////////////////////////
+///=================================================================
+/// Pipeline Follower (END)
+///=================================================================
+
+
+
+
+///=================================================================
+/// WB Signal analysis and processing
+///=================================================================
+///// WB__INSTR analysis /////
+////////////////////////////////////////////////////////////////
+// opcode & funct
+logic  [ 6:0] WB_opcode;
+logic  [ 6:0] WB_funct7;
+logic  [ 2:0] WB_funct3;
+assign WB_opcode    = WB__INSTR[ 6: 0];
+assign WB_funct3    = WB__INSTR[14:12];
+assign WB_funct7    = WB__INSTR[31:25];
+
+// rs1, rs2 & rd
+logic  [ 4:0] WB_rs1, WB_rs2, WB_rs3, WB_rd;
+assign WB_rs1       = WB__INSTR[19:15];
+assign WB_rs2       = WB__INSTR[24:20];
+assign WB_rs3       = WB__INSTR[31:27];
+assign WB_rd        = WB__INSTR[11: 7];
+
+logic  [ 4:0] WB_rd_reg;
+always_ff @(posedge cpu_clk) WB_rd_reg <= WB_rd;
+
+// Immediate values
+logic  [31:0] WB_Itype_Imm, WB_Btype_Imm, WB_Utype_Imm, WB_Stype_Imm, WB_Jtype_Imm;
+assign WB_Itype_Imm = {{20{WB__INSTR[31]}}, WB__INSTR[31:20]};
+assign WB_Btype_Imm = {{20{WB__INSTR[31]}}, WB__INSTR[7], WB__INSTR[30:25], WB__INSTR[11:8], 1'b0};
+assign WB_Utype_Imm = {WB__INSTR[31:12], {12{1'b0}}};
+assign WB_Stype_Imm = {{20{WB__INSTR[31]}}, WB__INSTR[31:25], WB__INSTR[11:7]};
+assign WB_Jtype_Imm = {{12{WB__INSTR[31]}}, WB__INSTR[19:12], WB__INSTR[20], WB__INSTR[30:21], 1'b0};
+////////////////////////////////////////////////////////////////
+
+
+///// regfile for rs1, rs2 & rd data /////
+////////////////////////////////////////////////////////////////
+// general  regfile data
+logic  [31:0] WB_rs1_data, WB_rs2_data;
+logic  [31:0] WB_rd_wdata;
+assign WB_rs1_data  = CPU.i_id_stage.i_general_regfiles.register[WB_rs1];
+assign WB_rs2_data  = CPU.i_id_stage.i_general_regfiles.register[WB_rs2];
+assign WB_rd_wdata  = CPU.i_id_stage.i_general_regfiles.register[WB_rd_reg];
+
+// floating regfile data
+logic  [31:0] WB_frs1_data, WB_frs2_data, WB_frs3_data;
+logic  [31:0] WB_frd_wdata;
+assign WB_frs1_data = CPU.i_id_stage.i_floating_regfiles.register[WB_rs1];
+assign WB_frs2_data = CPU.i_id_stage.i_floating_regfiles.register[WB_rs2];
+assign WB_frs3_data = CPU.i_id_stage.i_floating_regfiles.register[WB_rs3];
+assign WB_frd_wdata = CPU.i_id_stage.i_floating_regfiles.register[WB_rd_reg];
+////////////////////////////////////////////////////////////////
+///=================================================================
+/// WB Signal analysis and processing (END)
+///=================================================================
+
+
+
+
+///=================================================================
+/// ISA Formal Verification
+///=================================================================
+///// R type /////
+////////////////////////////////////////////////////////////////
+// INSTR Trigger
+logic  ADD_Trigger;
+assign ADD_Trigger =    (WB_funct3 == 3'b000) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SUB_Trigger;
+assign SUB_Trigger =    (WB_funct3 == 3'b000) &&
+                        (WB_funct7 == 7'b0100000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SLL_Trigger;
+assign SLL_Trigger =    (WB_funct3 == 3'b001) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SLT_Trigger;
+assign SLT_Trigger =    (WB_funct3 == 3'b010) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SLTU_Trigger;
+assign SLTU_Trigger =   (WB_funct3 == 3'b011) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  XOR_Trigger;
+assign XOR_Trigger =    (WB_funct3 == 3'b100) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SRL_Trigger;
+assign SRL_Trigger =    (WB_funct3 == 3'b101) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SRA_Trigger;
+assign SRA_Trigger =    (WB_funct3 == 3'b101) &&
+                        (WB_funct7 == 7'b0100000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  OR_Trigger;
+assign OR_Trigger =     (WB_funct3 == 3'b110) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  AND_Trigger;
+assign AND_Trigger =    (WB_funct3 == 3'b111) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  MUL_Trigger;
+assign MUL_Trigger =    (WB_funct3 == 3'b000) &&
+                        (WB_funct7 == 7'b0000001) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  MULH_Trigger;
+assign MULH_Trigger =   (WB_funct3 == 3'b001) &&
+                        (WB_funct7 == 7'b0000001) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  MULHSU_Trigger;
+assign MULHSU_Trigger = (WB_funct3 == 3'b010) &&
+                        (WB_funct7 == 7'b0000001) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  MULHU_Trigger;
+assign MULHU_Trigger =  (WB_funct3 == 3'b011) &&
+                        (WB_funct7 == 7'b0000001) &&
+                        (WB_opcode == 7'b0110011) && 
+                         WB_valid && (WB_rd != 5'd0);
+// Gold Result
+logic [31:0] gold_add;
+always_ff @(posedge cpu_clk) gold_add <= WB_rs1_data + WB_rs2_data;
+logic [31:0] gold_sub;
+always_ff @(posedge cpu_clk) gold_sub <= WB_rs1_data - WB_rs2_data;
+logic [31:0] gold_sll;
+always_ff @(posedge cpu_clk) gold_sll <= WB_rs1_data << WB_rs2_data[4:0];
+logic [31:0] gold_slt;
+always_ff @(posedge cpu_clk) gold_slt <= $signed(WB_rs1_data) < $signed(WB_rs2_data);
+logic [31:0] gold_sltu;
+always_ff @(posedge cpu_clk) gold_sltu <= WB_rs1_data < WB_rs2_data;
+logic [31:0] gold_xor;
+always_ff @(posedge cpu_clk) gold_xor <= WB_rs1_data ^ WB_rs2_data;
+logic [31:0] gold_srl;
+always_ff @(posedge cpu_clk) gold_srl <= WB_rs1_data >> WB_rs2_data[4:0];
+logic [31:0] gold_sra;
+always_ff @(posedge cpu_clk) gold_sra <= $signed(WB_rs1_data) >>> WB_rs2_data[4:0];
+logic [31:0] gold_or;
+always_ff @(posedge cpu_clk) gold_or <= WB_rs1_data | WB_rs2_data;
+logic [31:0] gold_and;
+always_ff @(posedge cpu_clk) gold_and <= WB_rs1_data & WB_rs2_data;
+logic [32:0] operand1, operand2;
+logic sign_operand1, sign_operand2;
+assign sign_operand1 = (WB_funct3 inside {3'b001, 3'b010});
+assign sign_operand2 = (WB_funct3 == 3'b001);
+assign operand1 = {WB_rs1_data[31] & sign_operand1 , WB_rs1_data};
+assign operand2 = {WB_rs2_data[31] & sign_operand2 , WB_rs2_data};
+
+logic [65:0] gold_mul_reslut;
+always_ff @(posedge cpu_clk) gold_mul_reslut <= $signed({{33{operand1[32]}}, operand1}) * $signed({{33{operand2[32]}}, operand2});
+logic [31:0] gold_mul;
+assign gold_mul = gold_mul_reslut[31:0];
+logic [31:0] gold_mulh;
+assign gold_mulh = gold_mul_reslut[63:32];
+logic [31:0] gold_mulhsu;
+assign gold_mulhsu = gold_mul_reslut[63:32];
+logic [31:0] gold_mulhu;
+assign gold_mulhu = gold_mul_reslut[63:32];
+
+
+// ISA Assertions
+`ifdef ASSERT_ISA_R_TYPE_CHECK
+// add
+add_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    ADD_Trigger |=> (gold_add[3:2] == WB_rd_wdata[3:2])
+);
+
+// sub
+sub_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SUB_Trigger |=> (gold_sub[3:2] == WB_rd_wdata[3:2])
+);
+
+// sll
+sll_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SLL_Trigger |=> (gold_sll[3:2] == WB_rd_wdata[3:2])
+);
+
+// slt
+slt_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SLT_Trigger |=> (gold_slt[3:2] == WB_rd_wdata[3:2])
+);
+
+// sltu
+sltu_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SLTU_Trigger |=> (gold_sltu[3:2] == WB_rd_wdata[3:2])
+);
+
+// xor
+xor_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    XOR_Trigger |=> (gold_xor[3:2] == WB_rd_wdata[3:2])
+);
+
+// srl
+srl_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SRL_Trigger |=> (gold_srl[3:2] == WB_rd_wdata[3:2])
+);
+
+// sra
+sra_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SRA_Trigger |=> (gold_sra[3:2] == WB_rd_wdata[3:2])
+);
+
+// or
+or_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    OR_Trigger |=> (gold_or[3:2] == WB_rd_wdata[3:2])
+);
+
+// and
+and_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    AND_Trigger |=> (gold_and[3:2] == WB_rd_wdata[3:2])
+);
+/*
+// mul
+mul_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    MUL_Trigger |=> (gold_mul[3:2] == WB_rd_wdata[3:2])
+);
+
+// mulh
+mulh_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    MULH_Trigger |=> (gold_mulh[3:2] == WB_rd_wdata[3:2])
+);
+
+// mulhsu
+mulhsu_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    MULHSU_Trigger |=> (gold_mulhsu[3:2] == WB_rd_wdata[3:2])
+);
+
+// mulhu
+mulhu_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    MULHU_Trigger |=> (gold_mulhu[3:2] == WB_rd_wdata[3:2])
+);*/
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// I type /////
+////////////////////////////////////////////////////////////////
+// INSTR Trigger
+logic  ADDI_Trigger;
+assign ADDI_Trigger =   (WB_funct3 == 3'b000) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SLTI_Trigger;
+assign SLTI_Trigger =   (WB_funct3 == 3'b010) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SLTIU_Trigger;
+assign SLTIU_Trigger =  (WB_funct3 == 3'b011) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  XORI_Trigger;
+assign XORI_Trigger =   (WB_funct3 == 3'b100) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  ORI_Trigger;
+assign ORI_Trigger =    (WB_funct3 == 3'b110) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  ANDI_Trigger;
+assign ANDI_Trigger =   (WB_funct3 == 3'b111) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SLLI_Trigger;
+assign SLLI_Trigger =   (WB_funct3 == 3'b001) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SRLI_Trigger;
+assign SRLI_Trigger =   (WB_funct3 == 3'b101) &&
+                        (WB_funct7 == 7'b0000000) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+logic  SRAI_Trigger;
+assign SRAI_Trigger =   (WB_funct3 == 3'b101) &&
+                        (WB_funct7 == 7'b0100000) &&
+                        (WB_opcode == 7'b0010011) && 
+                         WB_valid && (WB_rd != 5'd0);
+
+// Gold Result
+logic [31:0] gold_addi;
+always_ff @(posedge cpu_clk) gold_addi <= WB_rs1_data + WB_Itype_Imm;
+logic [31:0] gold_slti;
+always_ff @(posedge cpu_clk) gold_slti <= $signed(WB_rs1_data) < $signed(WB_Itype_Imm);
+logic [31:0] gold_sltiu;
+always_ff @(posedge cpu_clk) gold_sltiu <= WB_rs1_data < WB_Itype_Imm;
+logic [31:0] gold_xori;
+always_ff @(posedge cpu_clk) gold_xori <= WB_rs1_data ^ WB_Itype_Imm;
+logic [31:0] gold_ori;
+always_ff @(posedge cpu_clk) gold_ori <= WB_rs1_data | WB_Itype_Imm;
+logic [31:0] gold_andi;
+always_ff @(posedge cpu_clk) gold_andi <= WB_rs1_data & WB_Itype_Imm;
+logic [31:0] gold_slli;
+always_ff @(posedge cpu_clk) gold_slli <= WB_rs1_data << WB_Itype_Imm[4:0];
+logic [31:0] gold_srli;
+always_ff @(posedge cpu_clk) gold_srli <= WB_rs1_data >> WB_Itype_Imm[4:0];
+logic [31:0] gold_srai;
+always_ff @(posedge cpu_clk) gold_srai <= $signed(WB_rs1_data) >>> WB_Itype_Imm[4:0];
+
+// ISA Assertions
+`ifdef ASSERT_ISA_I_TYPE_CHECK
+// addi
+addi_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    ADDI_Trigger |=> (gold_addi[3:2] == WB_rd_wdata[3:2])
+);
+
+// slti
+slti_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SLTI_Trigger |=> (gold_slti[3:2] == WB_rd_wdata[3:2])
+);
+
+// sltiu
+sltiu_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SLTIU_Trigger |=> (gold_sltiu[3:2] == WB_rd_wdata[3:2])
+);
+
+// xori
+xori_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    XORI_Trigger |=> (gold_xori[3:2] == WB_rd_wdata[3:2])
+);
+
+// ori
+ori_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    ORI_Trigger |=> (gold_ori[3:2] == WB_rd_wdata[3:2])
+);
+
+// andi
+andi_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    ANDI_Trigger |=> (gold_andi[3:2] == WB_rd_wdata[3:2])
+);
+
+// slli
+slli_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SLLI_Trigger |=> (gold_slli[3:2] == WB_rd_wdata[3:2])
+);
+
+// srli
+srli_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SRLI_Trigger |=> (gold_srli[3:2] == WB_rd_wdata[3:2])
+);
+
+// srai
+srai_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    SRAI_Trigger |=> (gold_srai[3:2] == WB_rd_wdata[3:2])
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// I type LOAD ///// 
+////////////////////////////////////////////////////////////////
+// INSTR Trigger
+logic  LW_Trigger;
+assign LW_Trigger = (WB_funct3 == 3'b010) &&
+                    (WB_opcode == 7'b0000011) &&
+                     WB_valid && (WB_rd != 5'd0);
+logic  LB_Trigger;
+assign LB_Trigger = (WB_funct3 == 3'b000) &&
+                    (WB_opcode == 7'b0000011) &&
+                     WB_valid && (WB_rd != 5'd0);
+logic  LH_Trigger;
+assign LH_Trigger = (WB_funct3 == 3'b001) &&
+                    (WB_opcode == 7'b0000011) &&
+                     WB_valid && (WB_rd != 5'd0);
+logic  LBU_Trigger;
+assign LBU_Trigger = (WB_funct3 == 3'b100) &&
+                    (WB_opcode == 7'b0000011) &&
+                     WB_valid && (WB_rd != 5'd0);
+logic  LHU_Trigger;
+assign LHU_Trigger = (WB_funct3 == 3'b101) &&
+                    (WB_opcode == 7'b0000011) &&
+                     WB_valid && (WB_rd != 5'd0);
+
+// Gold Address Calculation
+logic  [31:0] gold_Ltype_addr;
+assign gold_Ltype_addr = WB_rs1_data + WB_Itype_Imm;
+
+// Gold Data Calculation
+logic [31:0] Real_WB_Mem_Data;
+assign Real_WB_Mem_Data = WB__Mem_Data >> ( {30'd0, gold_Ltype_addr[1:0]} << 32'd3 );
+logic [31:0] gold_lw_data;
+always_ff @(posedge cpu_clk) gold_lw_data <= Real_WB_Mem_Data;
+logic [31:0] gold_lb_data;
+always_ff @(posedge cpu_clk) gold_lb_data <= {{24{Real_WB_Mem_Data[ 7]}}, Real_WB_Mem_Data[ 7:0]};
+logic [31:0] gold_lh_data;
+always_ff @(posedge cpu_clk) gold_lh_data <= {{16{Real_WB_Mem_Data[15]}}, Real_WB_Mem_Data[15:0]};
+logic [31:0] gold_lbu_data;
+always_ff @(posedge cpu_clk) gold_lbu_data <= {16'b0, Real_WB_Mem_Data[15:0]};
+logic [31:0] gold_lhu_data;
+always_ff @(posedge cpu_clk) gold_lhu_data <= {16'b0, Real_WB_Mem_Data[15:0]};
+
+// ISA Assertions
+`ifdef ASSERT_ISA_I_LOAD_CHECK
+load_addr_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    (LW_Trigger | LH_Trigger | LB_Trigger | LBU_Trigger | LHU_Trigger) 
+    |-> (gold_Ltype_addr[3:2] == WB__Load_Addr[3:2])
+);
+
+// lw
+lw_data_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    LW_Trigger |=> (gold_lw_data[3:2] == WB_rd_wdata[3:2])
+);
+
+// lb
+lb_data_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    LB_Trigger |=> (gold_lb_data[3:2] == WB_rd_wdata[3:2])
+);
+
+// lh
+lh_data_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    LH_Trigger |=> (gold_lh_data[3:2] == WB_rd_wdata[3:2])
+);
+
+// lbu
+lbu_data_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    LBU_Trigger |=> (gold_lbu_data[3:2] == WB_rd_wdata[3:2])
+);
+
+// lhu
+lhu_data_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    LHU_Trigger |=> (gold_lhu_data[3:2] == WB_rd_wdata[3:2])
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// B type /////
+////////////////////////////////////////////////////////////////
+// INSTR Trigger
+logic  BEQ_Trigger;
+assign BEQ_Trigger =    (WB_opcode == 7'b1100011) &&
+                        (WB_funct3 == 3'b000) && WB_valid;
+logic  BNE_Trigger;
+assign BNE_Trigger =    (WB_opcode == 7'b1100011) &&
+                        (WB_funct3 == 3'b001) && WB_valid;
+logic  BLT_Trigger;
+assign BLT_Trigger =    (WB_opcode == 7'b1100011) &&
+                        (WB_funct3 == 3'b100) && WB_valid;
+logic  BGE_Trigger;
+assign BGE_Trigger =    (WB_opcode == 7'b1100011) &&
+                        (WB_funct3 == 3'b101) && WB_valid;
+logic  BLTU_Trigger;
+assign BLTU_Trigger =   (WB_opcode == 7'b1100011) &&
+                        (WB_funct3 == 3'b110) && WB_valid;
+logic  BGEU_Trigger;
+assign BGEU_Trigger =   (WB_opcode == 7'b1100011) &&
+                        (WB_funct3 == 3'b111) && WB_valid;
+
+// Gold Result
+logic  [31:0] gold_branch_pc_value;
+assign gold_branch_pc_value = (WB__PC + WB_Btype_Imm) & (~32'd1);
+logic  gold_beq_taken;
+assign gold_beq_taken = (WB_rs1_data == WB_rs2_data);
+logic  gold_bne_taken;
+assign gold_bne_taken = (WB_rs1_data != WB_rs2_data);
+logic  gold_blt_taken;
+assign gold_blt_taken = ($signed(WB_rs1_data) < $signed(WB_rs2_data));
+logic  gold_bge_taken;
+assign gold_bge_taken = ($signed(WB_rs1_data) >= $signed(WB_rs2_data));
+logic  gold_bltu_taken;
+assign gold_bltu_taken = (WB_rs1_data < WB_rs2_data);
+logic  gold_bgeu_taken;
+assign gold_bgeu_taken = (WB_rs1_data >= WB_rs2_data);
+
+/*
+logic IF__bp_Btake;
+assign IF__bp_Btake = |core.npc_unit.next_taken_f_o[1:0]; // Pipe0     w   (   ΧC 즳  N1 쬰 1  Y { w   Taken)
+
+logic ID__bp_Btake;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin : Pipeline_Follower_ID_Btake
+    if (cpu_rst) begin
+        ID__bp_Btake <= 1'b0;
+    end else begin
+        ID__bp_Btake <= IF__bp_Btake;
+    end
+end
+
+logic EXE_bp_Btake;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin :
+    if (cpu_rst) begin
+        EXE_bp_Btake <= 1'b0;
+    end
+    else if (CPU_STALL) begin
+        //  O       (Stall)
+        EXE_bp_Btake <= EXE_bp_Btake;
+    end
+    else if (CPU.u_execute.u_ctrl.execute_valid_i && 
+             CPU.u_execute.u_ctrl.execute_accept_i &&
+             ~(CPU.u_execute.u_ctrl.squash_e1_e2_o || 
+               CPU.u_execute.u_ctrl.squash_e1_e2_i)) begin
+        //    `  s A ھ  SVA  H  
+        EXE_bp_Btake <= ID__bp_Btake;
+    end
+    else begin
+        // Pipeline  M ũεL  
+        EXE_bp_Btake <= 1'b0;
+    end
+end
+    
+logic MEM_bp_Btake;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin : Pipeline_Follower_MEM_Btake
+    if (cpu_rst) begin
+        MEM_bp_Btake <= 1'b0;
+    end else if (CPU_STALL) begin
+        MEM_bp_Btake <= MEM_bp_Btake;
+    end else if (CPU.u_execute.u_ctrl.squash_e1_e2_o || CPU.u_execute.u_ctrl.squash_e1_e2_i) begin
+        MEM_bp_Btake <= 1'b0;
+    end else begin
+        MEM_bp_Btake <= EXE_bp_Btake;
+    end
+end
+
+logic WB__bp_Btake;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        WB__bp_Btake <= 1'b0;
+    end else if (CPU_STALL) begin
+        WB__bp_Btake <= WB__bp_Btake;
+    end else if (CPU.u_execute.u_ctrl.squash_wb_i) begin
+        WB__bp_Btake <= 1'b0;
+    end else begin
+        WB__bp_Btake <= MEM_bp_Btake;
+    end
+end
+
+// branch case
+logic [1:0] BGEU_state;
+always_comb begin
+    if (BGEU_Trigger) begin
+        if      (gold_bgeu_taken && WB__bp_Btake) BGEU_state = 2'b00; // Taken + Predict Taken
+        else if (!gold_bgeu_taken && !WB__bp_Btake) BGEU_state = 2'b01; // Not Taken + Predict Not Taken
+        else if (gold_bgeu_taken && !WB__bp_Btake) BGEU_state = 2'b10; // Taken + Predict Not Taken
+        else if (!gold_bgeu_taken && WB__bp_Btake) BGEU_state = 2'b11; // Not Taken + Predict Taken
+    end 
+end
+*/
+
+// gold_branch_nxt_insn_pc_value
+logic  [31:0] case0_case2_pc, case1_case3_pc;
+assign case0_case2_pc = (WB__PC + WB_Btype_Imm) & (~32'd1); // (Branch Taken, Predict Taken) or (Branch Taken, Predict Not Taken)
+assign case1_case3_pc = (WB__PC + 32'd4) & (~32'd1);         // (Branch Not Taken, Predict Not Taken) or (Branch Not Taken, Predict Taken)
+
+logic  Branch_Trigger_reg;
+logic  [31:0] gold_branch_nxt_insn_pc_value;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        Branch_Trigger_reg <= 1'b0;
+        gold_branch_nxt_insn_pc_value <= 32'b0;
+    end 
+    else if (BEQ_Trigger) begin
+        Branch_Trigger_reg <= 1'b1;
+        gold_branch_nxt_insn_pc_value <= (gold_beq_taken ) ? case0_case2_pc : case1_case3_pc;
+    end 
+    else if (BNE_Trigger) begin
+        Branch_Trigger_reg <= 1'b1;
+        gold_branch_nxt_insn_pc_value <= (gold_bne_taken ) ? case0_case2_pc : case1_case3_pc;
+    end 
+    else if (BLT_Trigger) begin
+        Branch_Trigger_reg <= 1'b1;
+        gold_branch_nxt_insn_pc_value <= (gold_blt_taken ) ? case0_case2_pc : case1_case3_pc;
+    end 
+    else if (BGE_Trigger) begin
+        Branch_Trigger_reg <= 1'b1;
+        gold_branch_nxt_insn_pc_value <= (gold_bge_taken ) ? case0_case2_pc : case1_case3_pc;
+    end 
+    else if (BLTU_Trigger) begin
+        Branch_Trigger_reg <= 1'b1;
+        gold_branch_nxt_insn_pc_value <= (gold_bltu_taken) ? case0_case2_pc : case1_case3_pc;
+    end 
+    else if (BGEU_Trigger) begin
+        Branch_Trigger_reg <= 1'b1;
+        /*case (BGEU_state)
+            2'b00, 2'b10: gold_branch_nxt_insn_pc_value <= case0_case2_pc & 32'hffff_fffc;
+            2'b01, 2'b11: gold_branch_nxt_insn_pc_value <= case1_case3_pc & 32'hffff_fffc;
+        endcase*/
+        gold_branch_nxt_insn_pc_value <= (gold_bgeu_taken) ? case0_case2_pc : case1_case3_pc;
+    end 
+    else if (Branch_Trigger_reg && INST_valid) begin
+        Branch_Trigger_reg <= 1'b0;
+        gold_branch_nxt_insn_pc_value <= 32'b0;
+    end
+end
+
+// ISA Assertions
+`ifdef ASSERT_ISA_B_TYPE_CHECK
+/*b_type_pc_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    (BEQ_Trigger | BNE_Trigger | BLT_Trigger | BGE_Trigger | BLTU_Trigger | BGEU_Trigger) 
+    |-> (gold_branch_pc_value[3:2] == WB__Branch_PC[3:2])
+);*/
+
+b_type_nxt_insn_pc_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    (Branch_Trigger_reg && INST_valid) |-> (gold_branch_nxt_insn_pc_value[3:2] == WB__PC[3:2])
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// U type /////
+////////////////////////////////////////////////////////////////
+// INSTR Trigger
+logic AUIPC_Trigger;
+assign AUIPC_Trigger =  (WB_opcode == 7'b0010111) &&
+                         WB_valid && (WB_rd != 5'd0);
+logic LUI_Trigger;
+assign LUI_Trigger =    (WB_opcode == 7'b0110111) &&
+                         WB_valid && (WB_rd != 5'd0);
+
+// Gold Result
+logic [31:0] gold_auipc;
+always_ff @(posedge cpu_clk) gold_auipc <= WB__PC + WB_Utype_Imm;
+logic [31:0] gold_lui;
+always_ff @(posedge cpu_clk) gold_lui <= WB_Utype_Imm;
+
+// ISA Assertions
+`ifdef ASSERT_ISA_U_TYPE_CHECK
+// auipc
+auipc_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    AUIPC_Trigger |=> (gold_auipc[3:2]  == WB_rd_wdata[3:2] )
+);
+
+// lui
+lui_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    LUI_Trigger |=> (gold_lui[3:2]  == WB_rd_wdata[3:2] )
+);
+`endif
+////////////////////////////////////////////////////////////////
+
+
+///// J type /////
+////////////////////////////////////////////////////////////////
+// INSTR Trigger
+logic JALR_Trigger; // R type 
+assign JALR_Trigger =   (WB_funct3 == 3'b000) &&
+                        (WB_opcode == 7'b1100111) && 
+                         WB_valid && (WB_rd != 5'd0) && 
+                        (gold_jalr_pc_value != WB__PC);
+logic JAL_Trigger;  // J type 
+assign JAL_Trigger =    (WB_opcode == 7'b1101111) &&
+                         WB_valid && (WB_rd != 5'd0);
+
+assign WB_opcode    = WB__INSTR[ 6: 0];
+assign WB_funct3    = WB__INSTR[14:12];
+logic  [31:0] WB_Itype_Imm, WB_Btype_Imm, WB_Utype_Imm, WB_Stype_Imm, WB_Jtype_Imm;
+assign WB_Itype_Imm = {{20{WB__INSTR[31]}}, WB__INSTR[31:20]};
+
+// Gold Result
+logic [31:0] gold_jalr_pc_value;
+logic [31:0] gold_jalr;
+assign gold_jalr_pc_value = (WB_rs1_data + WB_Itype_Imm) & (~32'd1);
+always_ff @(posedge cpu_clk) gold_jalr <= WB__PC + 32'd4;
+
+logic JALR_Trigger_reg;
+logic [31:0] gold_jalr_nxt_insn_pc_value;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        JALR_Trigger_reg <= 1'b0;
+        gold_jalr_nxt_insn_pc_value <= 32'b0;
+    end 
+    else if (JALR_Trigger) begin
+        JALR_Trigger_reg <= 1'b1;
+        gold_jalr_nxt_insn_pc_value <= gold_jalr_pc_value;
+    end 
+    else if (JALR_Trigger_reg && INST_valid) begin
+        JALR_Trigger_reg <= 1'b0;
+        gold_jalr_nxt_insn_pc_value <= 32'b0;
+    end
+end
+
+logic [31:0] gold_jal_pc_value;
+logic [31:0] gold_jal;
+assign gold_jal_pc_value = (WB__PC + WB_Jtype_Imm) & (~32'd1);
+always_ff @(posedge cpu_clk) gold_jal <= WB__PC + 32'd4;
+
+logic JAL_Trigger_reg;
+logic [31:0] gold_jal_nxt_insn_pc_value;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) begin
+        JAL_Trigger_reg <= 1'b0;
+        gold_jal_nxt_insn_pc_value <= 32'b0;
+    end 
+    else if (JAL_Trigger) begin
+        JAL_Trigger_reg <= 1'b1;
+        gold_jal_nxt_insn_pc_value <= gold_jal_pc_value;
+    end 
+    else if (JAL_Trigger_reg && INST_valid) begin
+        JAL_Trigger_reg <= 1'b0;
+        gold_jal_nxt_insn_pc_value <= 32'b0;
+    end
+end
+
+// ISA Assertions
+`ifdef ASSERT_ISA_J_TYPE_CHECK
+// jalr
+jalr_pc_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    JALR_Trigger |-> (gold_jalr_pc_value[3:2] == WB__Branch_PC[3:2])
+);
+
+jalr_nxt_insn_pc_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    (JALR_Trigger_reg && INST_valid) |-> (gold_jalr_nxt_insn_pc_value[3:2] == WB__PC[3:2])
+);
+
+jalr_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    JALR_Trigger |=> (gold_jal[3:2] == WB_rd_wdata[3:2])
+);
+
+// jal
+jal_pc_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    JAL_Trigger |-> (gold_jal_pc_value[3:2] == WB__Branch_PC[3:2])
+);
+
+jal_nxt_insn_pc_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    (JAL_Trigger_reg && INST_valid) |-> (gold_jal_nxt_insn_pc_value[3:2] == WB__PC[3:2])
+);
+
+jal_ans_check: assert property (
+    @(posedge cpu_clk) disable iff (cpu_rst)
+    JAL_Trigger |=> (gold_jal[3:2] == WB_rd_wdata[3:2])
+);
+`endif
+////////////////////////////////////////////////////////////////
+///=================================================================
+/// ISA Formal Verification (END)
+///=================================================================
+
+`ifdef CONSTRAIN_RS1_RS2_RD
+// constrain_rs2_rs1_rd to r20,r11,r11
+constrain_rs1_rs2_rd: assume property (
+    @(posedge cpu_clk) disable iff(cpu_rst)
+    (CPU.icache_core_out_i[24:20] inside {5'd20, 5'd11, 5'd0}) &&
+    (CPU.icache_core_out_i[19:15] inside {5'd20, 5'd11, 5'd0}) &&
+    (CPU.icache_core_out_i[11: 7] inside {5'd20, 5'd11, 5'd0})
+);
+`endif
+
+// constrain_booting
+logic booting_rst;
+always_ff @(posedge cpu_clk or posedge cpu_rst) begin
+    if (cpu_rst) booting_rst <= 1'b1;
+    else booting_rst <= booting_rst << 1;
+end
+constrain_booting: assume property (
+    (booting_rst) |->  (CPU.icache_core_out_i[6:0] == 7'b0)
+);
+
+// fairness of branch and jal  jalr use trigger
+fairness_jump_branch: assume property (
+    // branch
+    !(CPU.icache_core_out_i[6:0] == 7'b1100011 &&
+    CPU.icache_core_out_i[11: 8] < 3'd2) 
+    &&
+    // jal 
+    !(CPU.icache_core_out_i[6:0] == 7'b1101111 &&
+    CPU.icache_core_out_i[31:12] < 20'd2)
+);
+
+/*fairness_jump_branch: assume property (
+    (CPU.bta != CPU.exe_uOP.pc)
+);*/
+endmodule
+
+bind CPU isa isa_bind (
+    .cpu_clk(clk_i),
+    .cpu_rst(rst_i)
+);

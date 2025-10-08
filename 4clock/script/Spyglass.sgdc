@@ -1,0 +1,525 @@
+current_design "top"
+
+# define your clock
+clock -name "top.cpu_clk"  -domain cpu_clk  -tag cpu_clk  -period 5.0  -edge {0 2.5  }
+clock -name "top.axi_clk"  -domain axi_clk  -tag axi_clk  -period 2.5  -edge {0 1.25 }
+clock -name "top.dram_clk" -domain dram_clk -tag dram_clk -period 5.0  -edge {0 2.5  }
+clock -name "top.rom_clk"  -domain rom_clk  -tag rom_clk  -period 50.1 -edge {0 25.05}
+
+reset -name "cpu_rst"  -value 1 -sync
+reset -name "axi_rst"  -value 1 -sync
+reset -name "rom_rst"  -value 1 -sync
+reset -name "dram_rst" -value 1 -sync
+
+abstract_port -module TS1N16ADFPCLLLVTA128X64M4SWSHOD_data_array -ports SLP DSLP SD PUDELAY CEB WEB A D BWEB RTSEL WTSEL Q -clock cpu_clk
+abstract_port -module TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array  -ports SLP DSLP SD PUDELAY CEB WEB A D BWEB RTSEL WTSEL Q -clock cpu_clk
+abstract_port -module TS1N16ADFPCLLLVTA512X45M4SWSHOD            -ports SLP DSLP SD PUDELAY CEB WEB A D BWEB RTSEL WTSEL Q -clock cpu_clk
+
+cdc_filter_coherency -unrelated top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.write_ptr        \
+                                top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.read_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.write_ptr_gray_q \
+                                top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.write_ptr        \
+                                top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.read_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.write_ptr_gray_q \
+                                top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.read_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.read_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.write_ptr        \
+                                top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.read_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.write_ptr_gray_q \
+                                top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.write_ptr         \
+                                top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.write_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.write_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.write_ptr         \
+                                top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.write_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.write_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.write_ptr         \
+                                top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.write_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.write_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.write_ptr         \
+                                top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.write_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.write_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.write_ptr         \
+                                top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.write_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.write_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.write_ptr         \
+                                top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.read_ptr          \
+                                top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.write_ptr_gray_q  \
+                                top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.write_ptr_gray_q   \
+                                top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.write_ptr
+
+# ---------------- reset register to 0 ---------------- # 
+
+# ------------------ WTO_cdc ----------------- #
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_ptr                             -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_ptr_wclk                        -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.write_ptr                            -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.write_ptr_rclk                       -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_data                            -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_ptr_wclk_wire.FF1_Data          -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.write_ptr_rclk_wire.FF1_Data         -value 0
+
+# ---------------- axi_m0_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_m1_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_m2_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_s0_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_s1_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_s2_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_s3_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_s4_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.temp_data_w_clk        -value 0
+
+# ---------------- axi_s5_cdc ---------------- #
+# AR 
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.write_ptr_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.read_ptr_w_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.temp_data_w_clk       -value 0
+# R
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.temp_data_w_clk        -value 0
+# AW
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.write_ptr             -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.read_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.write_ptr_gray_q      -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.read_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.write_ptr_r_clk_gray  -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.read_ptr_w_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.temp_data_r_clk       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.temp_data_w_clk       -value 0
+# W
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.write_ptr_gray_q       -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.read_ptr_gray_q        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.write_ptr_r_clk_gray   -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.read_ptr_w_clk_gray    -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.temp_data_w_clk        -value 0
+# B
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.write_ptr              -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.read_ptr               -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.write_ptr_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.read_ptr_w_clk         -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.temp_data_r_clk        -value 0
+define_tag -tag initState -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.temp_data_w_clk        -value 0
+
+waive -rule Ar_syncrst_setupcheck01
+
+# async fifo source flip-flop is a static signal, no synchronization may be required
+# WTO
+quasi_static -name top.WDT_wrapper.WTO_FIFO.mem
+# m0
+quasi_static -name top.AXI_BUS.i_axi_cdc_master0.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master0.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master0.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master0.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master0.i_B_FIFO.mem
+# m1
+quasi_static -name top.AXI_BUS.i_axi_cdc_master1.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master1.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master1.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master1.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master1.i_B_FIFO.mem
+# m2
+quasi_static -name top.AXI_BUS.i_axi_cdc_master2.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master2.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master2.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master2.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_master2.i_B_FIFO.mem
+# s0
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave0.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave0.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave0.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave0.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave0.i_B_FIFO.mem
+# s1
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave1.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave1.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave1.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave1.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave1.i_B_FIFO.mem
+# s2
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave2.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave2.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave2.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave2.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave2.i_B_FIFO.mem
+# s3
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave3.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave3.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave3.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave3.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave3.i_B_FIFO.mem
+# s4
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave4.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave4.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave4.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave4.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave4.i_B_FIFO.mem
+# s5
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave5.i_AR_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave5.i_R_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave5.i_AW_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave5.i_W_FIFO.mem
+quasi_static -name top.AXI_BUS.i_axi_cdc_slave5.i_B_FIFO.mem

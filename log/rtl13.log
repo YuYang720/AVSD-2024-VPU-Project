@@ -1,0 +1,479 @@
+Building and running PROG = 13
+riscv64-unknown-elf-objdump -xsd main > main.log
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -j .text0 --change-addresses 0 rom0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -j .text0 --change-addresses 0 rom1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -j .text0 --change-addresses 0 rom2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -j .text0 --change-addresses 0 rom3.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -R .text0 --change-addresses -0x20000000 dram0.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -R .text0 --change-addresses -0x20000000 dram1.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -R .text0 --change-addresses -0x20000000 dram2.hex
+riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-addresses -0x20000000 dram3.hex
+                         Chronologic VCS (TM)
+       Version U-2023.03-SP2_Full64 -- Tue Jan 14 15:23:18 2025
+
+                    Copyright (c) 1991 - 2023 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/CYCLE_MAX.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/ROM/ROM.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/DRAM/DRAM.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./src/CHIP.v'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/SRAM/SRAM_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/data_array/data_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/tag_array/tag_array_rtl.sv'.
+Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing design file '../include/AXI_define.svh'
+Parsing design file '../include/def.svh'
+Parsing design file '../src/top.sv'
+Parsing included file '../include/def.svh'.
+Back to file '../src/top.sv'.
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/top.sv'.
+Parsing design file '../src/AXI/AXI_decoder.sv'
+Parsing design file '../src/AXI/AXI.sv'
+Parsing design file '../src/Cache/data_array_wrapper.sv'
+Parsing design file '../src/Cache/tag_array_wrapper.sv'
+Parsing design file '../src/Cache/L1C_data.sv'
+Parsing design file '../src/Cache/L1C_inst.sv'
+Parsing design file '../src/CPU/CPU.sv'
+Parsing design file '../src/CPU/if_stage.sv'
+Parsing design file '../src/CPU/id_stage.sv'
+Parsing design file '../src/CPU/exe_stage.sv'
+Parsing design file '../src/CPU/mem_stage.sv'
+Parsing design file '../src/CPU/wb_stage.sv'
+Parsing design file '../src/CPU/controller.sv'
+Parsing design file '../src/CPU/rv_decoder.sv'
+Parsing design file '../src/CPU/regfiles.sv'
+Parsing design file '../src/CPU/fp_regfiles.sv'
+Parsing design file '../src/CPU/alu.sv'
+Parsing design file '../src/CPU/csr.sv'
+Parsing design file '../src/CPU/multiplier.sv'
+Parsing design file '../src/CPU/bht.sv'
+Parsing design file '../src/CPU/btb.sv'
+Parsing design file '../src/CPU/ras.sv'
+Parsing design file '../src/FPU/FPU.sv'
+Parsing design file '../src/FPU/fpu_mul_alu.sv'
+Parsing design file '../src/DMA/DMA.sv'
+Parsing design file '../src/WDT/WDT.sv'
+Parsing design file '../src/WDT/Async_FIFO_1bit.sv'
+Parsing design file '../src/WDT/Async_FIFO_32bit.sv'
+Parsing design file '../src/WDT/Two_Flip_Flop.sv'
+Parsing design file '../src/VPU/VPU.sv'
+Parsing design file '../src/VPU/VPU_id_stage.sv'
+Parsing design file '../src/VPU/VPU_issue_stage.sv'
+Parsing design file '../src/VPU/VPU_execute_stage.sv'
+Parsing design file '../src/VPU/VPU_commit_stage.sv'
+Parsing design file '../src/VPU/VPU_decoder.sv'
+Parsing design file '../src/VPU/VPU_instruction_queue.sv'
+Parsing design file '../src/VPU/VPU_cfg.sv'
+Parsing design file '../src/VPU/VPU_alu.sv'
+Parsing design file '../src/VPU/VPU_mul.sv'
+Parsing design file '../src/VPU/VPU_sld.sv'
+Parsing design file '../src/VPU/VPU_elem.sv'
+Parsing design file '../src/VPU/VPU_mask.sv'
+Parsing design file '../src/VPU/VPU_lsu.sv'
+Parsing design file '../src/VPU/VPU_regfile.sv'
+Parsing design file '../src/VPU/VPU_lane.sv'
+Parsing design file '../src/VPU/VPU_lane_wrapper.sv'
+Parsing design file '../src/Wrapper/CPU_wrapper.sv'
+Parsing design file '../src/Wrapper/DMA_wrapper.sv'
+Parsing design file '../src/Wrapper/DRAM_wrapper.sv'
+Parsing design file '../src/Wrapper/ROM_wrapper.sv'
+Parsing design file '../src/Wrapper/IM_wrapper.sv'
+Parsing design file '../src/Wrapper/DM_wrapper.sv'
+Parsing included file '../include/AXI_define.svh'.
+Back to file '../src/Wrapper/DM_wrapper.sv'.
+Parsing design file '../src/Wrapper/WDT_wrapper.sv'
+Parsing design file '/usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/VERILOG/N16ADFP_StdIO.v'
+Top Level Modules:
+       top_tb
+       PCORNER
+       PFILLER00001
+       PFILLER00048
+       PFILLER01008
+       PFILLER10080
+       PRCUT_H
+       PRCUT_V
+       PVDD1CDGM_H
+       PVDD1CDGM_V
+       PVDD2CDGM_H
+       PVDD2CDGM_V
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+43 modules and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _137833_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+../simv up to date
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Notice: timing checks disabled with +notimingcheck at compile-time
+Chronologic VCS simulator copyright 1991-2023
+Contains Synopsys proprietary information.
+Compiler version U-2023.03-SP2_Full64; Runtime version U-2023.03-SP2_Full64;  Jan 14 15:23 2025
+
+Done
+
+DRAM[262144] = fdfdfdfd, pass
+DRAM[262145] = fdfdfdfd, pass
+DRAM[262146] = fdfdfdfd, pass
+DRAM[262147] = fdfdfdfd, pass
+DRAM[262148] = fdfdfdfd, pass
+DRAM[262149] = fdfdfdfd, pass
+DRAM[262150] = fdfdfdfd, pass
+DRAM[262151] = fdfdfdfd, pass
+DRAM[262152] = fdfdfdfd, pass
+DRAM[262153] = fdfdfdfd, pass
+DRAM[262154] = fdfdfdfd, pass
+DRAM[262155] = fdfdfdfd, pass
+DRAM[262156] = fdfdfdfd, pass
+DRAM[262157] = fdfdfdfd, pass
+DRAM[262158] = fdfdfdfd, pass
+DRAM[262159] = fdfdfdfd, pass
+DRAM[262160] = fdfdfdfd, pass
+DRAM[262161] = fdfdfdfd, pass
+DRAM[262162] = fdfdfdfd, pass
+DRAM[262163] = fdfdfdfd, pass
+DRAM[262164] = fdfdfdfd, pass
+DRAM[262165] = fdfdfdfd, pass
+DRAM[262166] = fdfdfdfd, pass
+DRAM[262167] = fdfdfdfd, pass
+DRAM[262168] = fdfdfdfd, pass
+DRAM[262169] = fdfdfdfd, pass
+DRAM[262170] = fdfdfdfd, pass
+DRAM[262171] = fdfdfdfd, pass
+DRAM[262172] = fdfdfdfd, pass
+DRAM[262173] = fdfdfdfd, pass
+DRAM[262174] = fdfdfdfd, pass
+DRAM[262175] = fdfdfdfd, pass
+DRAM[262176] = fdfdfdfd, pass
+DRAM[262177] = fdfdfdfd, pass
+DRAM[262178] = fdfdfdfd, pass
+DRAM[262179] = fdfdfdfd, pass
+DRAM[262180] = fdfdfdfd, pass
+DRAM[262181] = fdfdfdfd, pass
+DRAM[262182] = fdfdfdfd, pass
+DRAM[262183] = fdfdfdfd, pass
+DRAM[262184] = fdfdfdfd, pass
+DRAM[262185] = fdfdfdfd, pass
+DRAM[262186] = fdfdfdfd, pass
+DRAM[262187] = fdfdfdfd, pass
+DRAM[262188] = fdfdfdfd, pass
+DRAM[262189] = fdfdfdfd, pass
+DRAM[262190] = fdfdfdfd, pass
+DRAM[262191] = fdfdfdfd, pass
+DRAM[262192] = fdfdfdfd, pass
+DRAM[262193] = fdfdfdfd, pass
+DRAM[262194] = fdfdfdfd, pass
+DRAM[262195] = fdfdfdfd, pass
+DRAM[262196] = fdfdfdfd, pass
+DRAM[262197] = fdfdfdfd, pass
+DRAM[262198] = fdfdfdfd, pass
+DRAM[262199] = fdfdfdfd, pass
+DRAM[262200] = fdfdfdfd, pass
+DRAM[262201] = fdfdfdfd, pass
+DRAM[262202] = fdfdfdfd, pass
+DRAM[262203] = fdfdfdfd, pass
+DRAM[262204] = fdfdfdfd, pass
+DRAM[262205] = fdfdfdfd, pass
+DRAM[262206] = fdfdfdfd, pass
+DRAM[262207] = fdfdfdfd, pass
+DRAM[262208] = fdfdfdfd, pass
+DRAM[262209] = fdfdfdfd, pass
+DRAM[262210] = fdfdfdfd, pass
+DRAM[262211] = fdfdfdfd, pass
+DRAM[262212] = fdfdfdfd, pass
+DRAM[262213] = fdfdfdfd, pass
+DRAM[262214] = fdfdfdfd, pass
+DRAM[262215] = fdfdfdfd, pass
+DRAM[262216] = fdfdfdfd, pass
+DRAM[262217] = fdfdfdfd, pass
+DRAM[262218] = fdfdfdfd, pass
+DRAM[262219] = ffffffff, pass
+DRAM[262220] = ffffffff, pass
+DRAM[262221] = ffffffff, pass
+DRAM[262222] = ffffffff, pass
+DRAM[262223] = ffffffff, pass
+DRAM[262224] = ffffffff, pass
+DRAM[262225] = fdfefefe, pass
+DRAM[262226] = fdfdfdfd, pass
+DRAM[262227] = fdfdfdfd, pass
+DRAM[262228] = fdfdfdfd, pass
+DRAM[262229] = fdfdfdfd, pass
+DRAM[262230] = fdfdfdfd, pass
+DRAM[262231] = fdfdfdfd, pass
+DRAM[262232] = fdfdfdfd, pass
+DRAM[262233] = fdfdfdfd, pass
+DRAM[262234] = ffffffff, pass
+DRAM[262235] = ffffffff, pass
+DRAM[262236] = ffffffff, pass
+DRAM[262237] = ffffffff, pass
+DRAM[262238] = ffffffff, pass
+DRAM[262239] = ffffffff, pass
+DRAM[262240] = fdfefefe, pass
+DRAM[262241] = fdfdfdfd, pass
+DRAM[262242] = fdfdfdfd, pass
+DRAM[262243] = fdfdfdfd, pass
+DRAM[262244] = fdfdfdfd, pass
+DRAM[262245] = fdfdfdfd, pass
+DRAM[262246] = fdfdfdfd, pass
+DRAM[262247] = fdfdfdfd, pass
+DRAM[262248] = fdfdfdfd, pass
+DRAM[262249] = cfd7cfca, pass
+DRAM[262250] = d6d4d9d2, pass
+DRAM[262251] = dbd8d7dc, pass
+DRAM[262252] = e0dbdad9, pass
+DRAM[262253] = e8e9dfdf, pass
+DRAM[262254] = eff1f3e5, pass
+DRAM[262255] = fffcfdfd, pass
+DRAM[262256] = fefeffff, pass
+DRAM[262257] = fdfdfdfe, pass
+DRAM[262258] = fdfdfdfd, pass
+DRAM[262259] = fdfdfdfd, pass
+DRAM[262260] = fdfdfdfd, pass
+DRAM[262261] = fdfdfdfd, pass
+DRAM[262262] = fdfdfdfd, pass
+DRAM[262263] = fdfdfdfd, pass
+DRAM[262264] = 6b886e5e, pass
+DRAM[262265] = 867c8c78, pass
+DRAM[262266] = 968b8596, pass
+DRAM[262267] = a095908d, pass
+DRAM[262268] = b7ba9fa0, pass
+DRAM[262269] = cfd5d8b0, pass
+DRAM[262270] = fff6f8f9, pass
+DRAM[262271] = fffeffff, pass
+DRAM[262272] = fdfdfdff, pass
+DRAM[262273] = fdfdfdfd, pass
+DRAM[262274] = fdfdfdfd, pass
+DRAM[262275] = fdfdfdfd, pass
+DRAM[262276] = fdfdfdfd, pass
+DRAM[262277] = fdfdfdfd, pass
+DRAM[262278] = fdfdfdfd, pass
+DRAM[262279] = 4a7c563e, pass
+DRAM[262280] = 6c5a7f5e, pass
+DRAM[262281] = 8c736489, pass
+DRAM[262282] = 798c786c, pass
+DRAM[262283] = 8f899181, pass
+DRAM[262284] = b5b1af98, pass
+DRAM[262285] = f6e1e1e0, pass
+DRAM[262286] = fcfcf4f5, pass
+DRAM[262287] = fefefefb, pass
+DRAM[262288] = fdfefefe, pass
+DRAM[262289] = fdfdfdfd, pass
+DRAM[262290] = fdfdfdfd, pass
+DRAM[262291] = fdfdfdfd, pass
+DRAM[262292] = fdfdfdfd, pass
+DRAM[262293] = fdfdfdfd, pass
+DRAM[262294] = 65ac7e61, pass
+DRAM[262295] = 8269ac7f, pass
+DRAM[262296] = b5886dae, pass
+DRAM[262297] = 64ba8a70, pass
+DRAM[262298] = 6c54ad7e, pass
+DRAM[262299] = a0857598, pass
+DRAM[262300] = debbb9b5, pass
+DRAM[262301] = f4f4d6db, pass
+DRAM[262302] = fefefef3, pass
+DRAM[262303] = fdfefefe, pass
+DRAM[262304] = fdfdfdfd, pass
+DRAM[262305] = fdfdfdfd, pass
+DRAM[262306] = fdfdfdfd, pass
+DRAM[262307] = fdfdfdfd, pass
+DRAM[262308] = fdfdfdfd, pass
+DRAM[262309] = 73c49374, pass
+DRAM[262310] = 8f71c391, pass
+DRAM[262311] = cb9473c2, pass
+DRAM[262312] = 5bd19573, pass
+DRAM[262313] = 5c3bbb7d, pass
+DRAM[262314] = 96715b97, pass
+DRAM[262315] = d8ada8a5, pass
+DRAM[262316] = f2f4cbd3, pass
+DRAM[262317] = fffffff0, pass
+DRAM[262318] = fdffffff, pass
+DRAM[262319] = fdfdfdfd, pass
+DRAM[262320] = fdfdfdfd, pass
+DRAM[262321] = fdfdfdfd, pass
+DRAM[262322] = fdfdfdfd, pass
+DRAM[262323] = fdfdfdfd, pass
+DRAM[262324] = 71bf8f71, pass
+DRAM[262325] = 8d70bf8e, pass
+DRAM[262326] = c89374bf, pass
+DRAM[262327] = 5dcc9474, pass
+DRAM[262328] = 5e40b67d, pass
+DRAM[262329] = 98786592, pass
+DRAM[262330] = e6b9b7b6, pass
+DRAM[262331] = f9fbd9e2, pass
+DRAM[262332] = fffffff6, pass
+DRAM[262333] = fdffffff, pass
+DRAM[262334] = fdfdfdfd, pass
+DRAM[262335] = fdfdfdfd, pass
+DRAM[262336] = fdfdfdfd, pass
+DRAM[262337] = fdfdfdfd, pass
+DRAM[262338] = fdfdfdfd, pass
+DRAM[262339] = 6fbb8b6e, pass
+DRAM[262340] = 8d70bd8c, pass
+DRAM[262341] = c59274be, pass
+DRAM[262342] = 63c89374, pass
+DRAM[262343] = 684cb681, pass
+DRAM[262344] = 9a7c6998, pass
+DRAM[262345] = d7b3aeac, pass
+DRAM[262346] = eef1ced5, pass
+DRAM[262347] = fafbfceb, pass
+DRAM[262348] = fffdfeff, pass
+DRAM[262349] = fffffeff, pass
+DRAM[262350] = ffffffff, pass
+DRAM[262351] = fffeffff, pass
+DRAM[262352] = fffffeff, pass
+DRAM[262353] = ffffffff, pass
+DRAM[262354] = 70bc8d6f, pass
+DRAM[262355] = 8d70bf8d, pass
+DRAM[262356] = c59173c0, pass
+DRAM[262357] = 69c79273, pass
+DRAM[262358] = 785bbd88, pass
+DRAM[262359] = 98745faa, pass
+DRAM[262360] = 96867972, pass
+DRAM[262361] = c8cd9596, pass
+DRAM[262362] = e3ebf1c2, pass
+DRAM[262363] = fff8ffff, pass
+DRAM[262364] = ffffffff, pass
+DRAM[262365] = ffffffff, pass
+DRAM[262366] = ffffffff, pass
+DRAM[262367] = ffffffff, pass
+DRAM[262368] = ffffffff, pass
+DRAM[262369] = 70bf8e6f, pass
+DRAM[262370] = 8d71c18d, pass
+DRAM[262371] = c59172c2, pass
+DRAM[262372] = 6fc59272, pass
+DRAM[262373] = 8668c38e, pass
+DRAM[262374] = 9e745cb9, pass
+DRAM[262375] = 67765c4e, pass
+DRAM[262376] = a5a67a6e, pass
+DRAM[262377] = ccd0d2a8, pass
+DRAM[262378] = f4e6e9ea, pass
+DRAM[262379] = f6f5f6f6, pass
+DRAM[262380] = f8f5f4f8, pass
+DRAM[262381] = f5f8f6f5, pass
+DRAM[262382] = f5f5f8f6, pass
+DRAM[262383] = f4f4f4f6, pass
+DRAM[262384] = 70bf8d6f, pass
+DRAM[262385] = 8d71c18d, pass
+DRAM[262386] = c39072c2, pass
+DRAM[262387] = 71c49171, pass
+DRAM[262388] = 8d6fc391, pass
+DRAM[262389] = b48568c0, pass
+DRAM[262390] = 66a3785f, pass
+DRAM[262391] = 8e7da07c, pass
+DRAM[262392] = b59b8cad, pass
+DRAM[262393] = 95b7a091, pass
+DRAM[262394] = a599b9a3, pass
+DRAM[262395] = bba99fba, pass
+DRAM[262396] = aac2b0a7, pass
+DRAM[262397] = a5a1c3b3, pass
+DRAM[262398] = 9d9a9aae, pass
+DRAM[262399] = 70bf8d6f, pass
+DRAM[262400] = 8d70c08d, pass
+DRAM[262401] = c28f71c1, pass
+DRAM[262402] = 73c29071, pass
+DRAM[262403] = 9173c392, pass
+DRAM[262404] = c79374c4, pass
+DRAM[262405] = 6fcd9574, pass
+DRAM[262406] = 8363c890, pass
+DRAM[262407] = a97657ba, pass
+DRAM[262408] = 4794654a, pass
+DRAM[262409] = 624e885f, pass
+DRAM[262410] = 886a5985, pass
+DRAM[262411] = 6d947666, pass
+DRAM[262412] = 6b63977d, pass
+DRAM[262413] = 645e5c7b, pass
+DRAM[262414] = 70bf8e6f, pass
+DRAM[262415] = 8d70c08e, pass
+DRAM[262416] = c28f71c0, pass
+DRAM[262417] = 72c39072, pass
+DRAM[262418] = 8f72c390, pass
+DRAM[262419] = c79374c3, pass
+DRAM[262420] = 73ce9776, pass
+DRAM[262421] = 8f6bd096, pass
+DRAM[262422] = ba805dcc, pass
+DRAM[262423] = 39976144, pass
+DRAM[262424] = 56407f52, pass
+DRAM[262425] = 7c5f4e7a, pass
+DRAM[262426] = 6b846c5c, pass
+DRAM[262427] = 83778d7a, pass
+DRAM[262428] = 958d8390, pass
+DRAM[262429] = 6fbf8e6f, pass
+DRAM[262430] = 8d6fc08e, pass
+DRAM[262431] = c28f70bf, pass
+DRAM[262432] = 72c39072, pass
+DRAM[262433] = 8c6fc28f, pass
+DRAM[262434] = c28f71c1, pass
+DRAM[262435] = 74c49072, pass
+DRAM[262436] = 9977ca95, pass
+DRAM[262437] = c78f6fd2, pass
+DRAM[262438] = 4da57358, pass
+DRAM[262439] = 67538c63, pass
+DRAM[262440] = 87706086, pass
+DRAM[262441] = 7f8a7b6d, pass
+DRAM[262442] = ac9e978c, pass
+DRAM[262443] = d6ccbab6, pass
+
+
+
+
+        ****************************               
+        **                        **       |__||  
+        **  Congratulations !!    **      / O.O  | 
+        **                        **    /_____   | 
+        **  Simulation PASS!!     **   /^ ^ ^ \  |
+        **                        **  |^ ^ ^ ^ |w| 
+        ****************************   \m___m__|_|
+
+
+$finish called from file "/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv", line 161.
+Cache hit rate information:
+L1CI:
+L1CI Hit  Count = 4129009
+L1CI Miss Count = 118105
+L1CI Hit  Rate  = 97.22%
+L1CD:
+READ:
+READ  L1CD Hit  Count = 795520
+READ  L1CD Miss Count = 111
+READ  L1CD Hit  Rate  = 99.99%
+WRITE:
+WRITE L1CD Hit  Count = 211414
+WRITE L1CD Miss Count = 3355
+WRITE L1CD Hit  Rate  = 98.44%
+TOTAL:
+TOTAL L1CD Hit  Count = 1006934
+TOTAL L1CD Miss Count = 3466
+TOTAL L1CD Hit  Rate  = 99.66%
+Total Instruction Count = 3589350
+Total Cycle       Count = 5073498
+IPC                     = 0.71
+$finish at simulation time            507354910
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 5073549100 ps
+CPU Time:    200.490 seconds;       Data structure size:  16.7Mb
+Tue Jan 14 15:27:22 2025
+CPU time: 1.626 seconds to compile + .448 seconds to elab + .266 seconds to link + 200.521 seconds in simulation

@@ -1,0 +1,54 @@
+current_design "top"
+
+# define your clock
+clock -name "top.cpu_clk"  -domain cpu_clk  -tag cpu_clk  -period 5.0  -edge {0 2.5  }
+clock -name "top.wdt_clk"  -domain wdt_clk  -tag wdt_clk  -period 50.1 -edge {0 25.05}
+
+reset -name "cpu_rst"  -value 1 -sync
+reset -name "wdt_rst"  -value 1 -sync
+
+abstract_port -module TS1N16ADFPCLLLVTA128X64M4SWSHOD_data_array -ports SLP DSLP SD PUDELAY CEB WEB A D BWEB RTSEL WTSEL Q -clock cpu_clk
+abstract_port -module TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array  -ports SLP DSLP SD PUDELAY CEB WEB A D BWEB RTSEL WTSEL Q -clock cpu_clk
+abstract_port -module TS1N16ADFPCLLLVTA512X45M4SWSHOD            -ports SLP DSLP SD PUDELAY CEB WEB A D BWEB RTSEL WTSEL Q -clock cpu_clk
+
+# ------------------------------------ reset registers to 0 ------------------------------------ #
+# ------------------------------------------ WDEN_cdc ------------------------------------------ #
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.read_ptr                        -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.read_ptr_wclk                   -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.write_ptr                       -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.write_ptr_rclk                  -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.read_data                       -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.read_ptr_wclk_wire.FF1_Data     -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDEN_FIFO.write_ptr_rclk_wire.FF1_Data    -value 0
+# ----------------------------------------- WDLIVE_cdc ----------------------------------------- #
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.read_ptr                      -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.read_ptr_wclk                 -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.write_ptr                     -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.write_ptr_rclk                -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.read_data                     -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.read_ptr_wclk_wire.FF1_Data   -value 0
+define_tag -tag initState -name top.WDT_wrapper.WDLIVE_FIFO.write_ptr_rclk_wire.FF1_Data  -value 0
+# ----------------------------------------- WTOCNT_cdc ----------------------------------------- #
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.read_ptr                      -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.read_ptr_wclk                 -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.write_ptr                     -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.write_ptr_rclk                -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.read_data                     -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.read_ptr_wclk_wire.FF1_Data   -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTOCNT_FIFO.write_ptr_rclk_wire.FF1_Data  -value 0
+# ------------------------------------------ WTO_cdc ------------------------------------------- #
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_ptr                         -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_ptr_wclk                    -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.write_ptr                        -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.write_ptr_rclk                   -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_data                        -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.read_ptr_wclk_wire.FF1_Data      -value 0
+define_tag -tag initState -name top.WDT_wrapper.WTO_FIFO.write_ptr_rclk_wire.FF1_Data     -value 0
+# ---------------------------------------------------------------------------------------------- #
+waive -rule Ar_syncrst_setupcheck01
+
+# async fifo source flip-flop is a static signal, no synchronization may be required
+quasi_static -name top.WDT_wrapper.WDEN_FIFO.mem
+quasi_static -name top.WDT_wrapper.WDLIVE_FIFO.mem
+quasi_static -name top.WDT_wrapper.WTOCNT_FIFO.mem
+quasi_static -name top.WDT_wrapper.WTO_FIFO.mem
