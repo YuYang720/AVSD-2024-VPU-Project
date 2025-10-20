@@ -1,10 +1,6 @@
 Building and running PROG = 0
-riscv64-unknown-elf-gcc -c -march=rv32imf -mabi=ilp32 boot.c
-riscv64-unknown-elf-gcc -c -march=rv32imf -mabi=ilp32 main1.c
-riscv64-unknown-elf-gcc -c -march=rv32imf -mabi=ilp32 setup.S
-riscv64-unknown-elf-gcc -c -march=rv32imf -mabi=ilp32 isr.S
-riscv64-unknown-elf-gcc -c -march=rv32imf -mabi=ilp32 main.S
 riscv64-unknown-elf-gcc boot.o main1.o setup.o isr.o main.o -static -nostdlib -nostartfiles -march=rv32im -mabi=ilp32 -Tlink.ld -lgcc -o main
+make[2]: Warning: File `main' has modification time 833 s in the future
 riscv64-unknown-elf-objdump -xsd main > main.log
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -j .text0 --change-addresses 0 rom0.hex
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -j .text0 --change-addresses 0 rom1.hex
@@ -14,8 +10,9 @@ riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -R .text0 --change-address
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -R .text0 --change-addresses -0x20000000 dram1.hex
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -R .text0 --change-addresses -0x20000000 dram2.hex
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-addresses -0x20000000 dram3.hex
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
                          Chronologic VCS (TM)
-       Version U-2023.03-SP2_Full64 -- Tue Jan 14 15:18:22 2025
+         Version V-2023.12_Full64 -- Mon Oct 20 14:44:06 2025
 
                     Copyright (c) 1991 - 2023 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -33,21 +30,21 @@ riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-address
             Inclusivity and Diversity" (Refer to article 000036315 at
                         https://solvnetplus.synopsys.com)
 
-Parsing design file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/CYCLE_MAX.sv'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/ROM/ROM.v'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/DRAM/DRAM.sv'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./src/CHIP.v'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/SRAM/SRAM_rtl.sv'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/data_array/data_array_rtl.sv'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
-Parsing included file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/tag_array/tag_array_rtl.sv'.
-Back to file '/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv'.
+Parsing design file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/CYCLE_MAX.sv'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/ROM/ROM.v'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/DRAM/DRAM.sv'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/CHIP.v'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/SRAM/SRAM_rtl.sv'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/data_array/data_array_rtl.sv'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
+Parsing included file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/tag_array/tag_array_rtl.sv'.
+Back to file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv'.
 Parsing design file '../include/AXI_define.svh'
 Parsing design file '../include/def.svh'
 Parsing design file '../src/top.sv'
@@ -172,16 +169,24 @@ recompiling module PVDD1CDGM_V
 recompiling module PVDD2CDGM_H
 recompiling module PVDD2CDGM_V
 All of 43 modules done
+make[2]: Warning: File `filelist.hsopt.llvm2_0.objs' has modification time 833 s in the future
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+make[2]: Warning: File `filelist.cu' has modification time 832 s in the future
+make[3]: Warning: File `filelist.cu' has modification time 832 s in the future
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+make[3]: warning:  Clock skew detected.  Your build may be incomplete.
+make[3]: Warning: File `filelist.cu' has modification time 832 s in the future
+make[3]: warning:  Clock skew detected.  Your build may be incomplete.
 if [ -x ../simv ]; then chmod a-x ../simv; fi
-g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _121003_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _184348_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
 ../simv up to date
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
 Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
 Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
 Notice: timing checks disabled with +notimingcheck at compile-time
 Chronologic VCS simulator copyright 1991-2023
 Contains Synopsys proprietary information.
-Compiler version U-2023.03-SP2_Full64; Runtime version U-2023.03-SP2_Full64;  Jan 14 15:18 2025
+Compiler version V-2023.12_Full64; Runtime version V-2023.12_Full64;  Oct 20 14:44 2025
 
 Done
 
@@ -266,7 +271,7 @@ DRAM[262211] = 404c5a18, pass
         ****************************   \m___m__|_|
 
 
-$finish called from file "/home/user2/avsd24/avsd2402/Homework/test/Ultimate/./sim/top_tb.sv", line 161.
+$finish called from file "/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv", line 161.
 Cache hit rate information:
 L1CI:
 L1CI Hit  Count = 10926
@@ -291,6 +296,6 @@ IPC                     = 0.42
 $finish at simulation time              2242210
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 22422100 ps
-CPU Time:      2.330 seconds;       Data structure size:  16.7Mb
-Tue Jan 14 15:18:32 2025
-CPU time: 2.382 seconds to compile + .550 seconds to elab + .282 seconds to link + 2.381 seconds in simulation
+CPU Time:      1.820 seconds;       Data structure size:   0.3Mb
+Mon Oct 20 14:44:12 2025
+CPU time: 1.948 seconds to compile + .371 seconds to elab + .258 seconds to link + 1.848 seconds in simulation

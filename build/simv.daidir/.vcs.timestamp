@@ -1,0 +1,225 @@
+26       
+0 CYCLE_MAX.sv
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/CYCLE_MAX.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/CYCLE_MAX.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include/CYCLE_MAX.sv
+0 ROM/ROM.v
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/ROM/ROM.v
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/ROM/ROM.v
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include/ROM/ROM.v
+0 DRAM/DRAM.sv
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/DRAM/DRAM.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/DRAM/DRAM.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include/DRAM/DRAM.sv
+0 CHIP.v
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/CHIP.v
+0 SRAM/SRAM_rtl.sv
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/SRAM/SRAM_rtl.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/SRAM/SRAM_rtl.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include/SRAM/SRAM_rtl.sv
+0 data_array/data_array_rtl.sv
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/data_array/data_array_rtl.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/data_array/data_array_rtl.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include/data_array/data_array_rtl.sv
+0 tag_array/tag_array_rtl.sv
+0 /usr/cad/synopsys/vcs/cur/etc/systemverilog/tag_array/tag_array_rtl.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/tag_array/tag_array_rtl.sv
+0 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include/tag_array/tag_array_rtl.sv
+40
++define+prog14
++incdir+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim
++itf+/usr/cad/synopsys/vcs/cur/linux64/lib/vcsdp_lite.tab
++memcbk
++notimingcheck
++prog_path=/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/prog14
++rdcycle=1
++vcsd1
++vpi
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -fPIC -O -I/usr/cad/synopsys/vcs/cur/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -rdynamic
+-Mobjects= /usr/cad/synopsys/vcs/cur/linux64/lib/libvirsim.so /usr/cad/synopsys/vcs/cur/linux64/lib/liberrorinf.so /usr/cad/synopsys/vcs/cur/linux64/lib/libsnpsmalloc.so /usr/cad/synopsys/vcs/cur/linux64/lib/libvfs.so
+-Mout=simv
+-Msaverestoreobj=/usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=/usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/usr/cad/synopsys/vcs/cur/include
+-Mxllcflags=
+-P
+-Xvcs_run_simv=1
+-debug_access+all
+-debug_region+cell
+-f /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/rtl_sim.f
+-fsdb
+-full64
+-gen_obj
+-picarchive
+-sverilog
+/usr/cad/synopsys/vcs/cur/linux64/bin/vcs1
+/usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/verdi.tab
+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv
+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/rtl_sim.f
+78
+mraarch=linux_64
+installdir=/usr/cad/synopsys/hspice/2020.03-sp2-2/hspice
+XLOCALEDIR=/usr/cad/synopsys/icc2/2020.09-sp3/etc/locale
+XDG_SESSION_ID=43392
+XDG_RUNTIME_DIR=/run/user/4864
+VMR_MODE_FLAG=64
+VERDI_HOME=/usr/cad/synopsys/verdi/cur
+VENDOR=unknown
+VC_STATIC_HOME=/usr/cad/synopsys/vc_formal/cur/
+VCS_PYTHON3=/usr/cad/synopsys/vcs/cur/linux64/bin/Python-3.6.1/bin/python3
+VCS_PATHMAP_PRELOAD_DONE=1
+VCS_MX_HOME_INTERNAL=1
+VCS_MODE_FLAG=64
+VCS_HOME=/usr/cad/synopsys/vcs/cur
+VCS_EXEC_DONE=1
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux64
+UNAME=/bin/uname
+TOOL_HOME=/usr/cad/synopsys/vcs/cur/linux64
+TMIARCH=RH_64
+SYN_MAN_DIR=/usr/cad/synopsys/star-rcxt/2023.12-sp2//starrc/man
+SYNTHESIS=/usr/cad/synopsys/synthesis/cur
+SYNOPSYS_SYSTYPE=LINUX64_L31el
+SYNOPSYS_NCX_ROOT=/usr/cad/synopsys/star-rcxt/2023.12-sp2/
+SYNOPSYS_LC_ROOT=/usr/cad/synopsys/lc/cur/bin
+SYNOPSYS=/usr/cad/synopsys/synthesis/cur/
+SSH_TTY=/dev/pts/55
+SSH_CONNECTION=140.116.49.120 52358 192.168.200.12 22
+SSH_CLIENT=140.116.49.120 52358 22
+SPAPI_AHDL_INCLUDE=/usr/cad/synopsys/hspice/2020.03-sp2-2/hspice/include
+SNPS_VCS_PYTHON3=/usr/cad/synopsys/vcs/cur/linux64/bin/Python-3.6.1/bin/python3
+SNPS_VCS_CLANG_PATH=/usr/cad/synopsys/vcs/cur/linux64/clang
+SNPS_PLATFORM=linux64
+SNPS_INTERNAL_VCS_LINUX_OS=linux
+SNPS_64=1
+SHLIB_PATH=/usr/cad/synopsys/verdi/cur/etc/lib/libstdc++/LINUX64/:
+SELINUX_USE_CURRENT_RANGE=
+SELINUX_ROLE_REQUESTED=
+SELINUX_LEVEL_REQUESTED=
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+REMOTEHOST=pcroom.ee.ncku.edu.tw
+QT_PLUGIN_PATH=/usr/lib64/kde4/plugins:/usr/lib/kde4/plugins
+QT_GRAPHICSSYSTEM_CHECKED=1
+QTLIB=/usr/lib64/qt-3.3/lib
+QTINC=/usr/lib64/qt-3.3/include
+QTDIR=/usr/lib64/qt-3.3
+PROG=14
+OVA_UUM=0
+OSTYPE=linux
+MGC_TMPDIR=/tmp
+MGC_LOCATION_MAP=NO_MAP
+MGC_HOME=/usr/cad/mentor/calibre/aoi_cal_2019.2_26.18/
+MFLAGS=- --no-print-directory
+MAKEOVERRIDES=${-*-command-variables-*-}
+MAKELEVEL=2
+MAKEFLAGS= --no-print-directory -- PROG=14
+Laker_TCL_ToolBox=1
+Laker_TCL_L3=1
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LC_ALL=C
+KDEDIRS=/usr
+ICV_HOME_DIR=/usr/cad/synopsys/icvalidator/2021.06-sp2
+HSP_SIGMA_AMP=/usr/cad/synopsys/hspice/2020.03-sp2-2/hspice/linux64/python/Omega/Omega
+HSP_HOME=/usr/cad/synopsys/hspice/2020.03-sp2-2/hspice
+HSP_GCC_VERSION=7.3.0
+HSP_GCC=/usr/cad/synopsys/hspice/2020.03-sp2-2/hspice/GNU/linux64/gcc/bin/gcc -m64 
+HOSTTYPE=x86_64-linux
+GROUP=lphp
+EUCLIDE_HOME=/usr/cad/synopsys/euclide/2023.03-sp2/
+CMIARCH=RH_64
+CDS_Netlisting_Mode=Analog
+CDS_LOAD_ENV=CSF
+CDS_AUTO_64BIT=ALL
+CDSHOME=/usr/cad/cadence/IC/IC51.41.151
+CDPL_HOME=/usr/cad/synopsys/hspice/2020.03-sp2-2/hspice/cdpl
+CALIBRE_HOME=/usr/cad/mentor/calibre/aoi_cal_2019.2_26.18/
+0
+0
+68
+1759928678 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/tag_array/tag_array_rtl.sv
+1759928679 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/data_array/data_array_rtl.sv
+1759928678 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/SRAM/SRAM_rtl.sv
+1759928678 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/CHIP.v
+1759928679 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/DRAM/DRAM.sv
+1759928678 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/ROM/ROM.v
+1759928679 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/CYCLE_MAX.sv
+1646876067 /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/VERILOG/N16ADFP_StdIO.v
+1759928677 ../src/Wrapper/WDT_wrapper.sv
+1759928677 ../src/Wrapper/DM_wrapper.sv
+1759928677 ../src/Wrapper/IM_wrapper.sv
+1759928677 ../src/Wrapper/ROM_wrapper.sv
+1759928677 ../src/Wrapper/DRAM_wrapper.sv
+1759928677 ../src/Wrapper/DMA_wrapper.sv
+1759928677 ../src/Wrapper/CPU_wrapper.sv
+1759928677 ../src/VPU/VPU_lane_wrapper.sv
+1759928677 ../src/VPU/VPU_lane.sv
+1759928677 ../src/VPU/VPU_regfile.sv
+1759928677 ../src/VPU/VPU_lsu.sv
+1759928677 ../src/VPU/VPU_mask.sv
+1759928677 ../src/VPU/VPU_elem.sv
+1759928677 ../src/VPU/VPU_sld.sv
+1759928677 ../src/VPU/VPU_mul.sv
+1759928677 ../src/VPU/VPU_alu.sv
+1759928677 ../src/VPU/VPU_cfg.sv
+1759928677 ../src/VPU/VPU_instruction_queue.sv
+1759928677 ../src/VPU/VPU_decoder.sv
+1759928677 ../src/VPU/VPU_commit_stage.sv
+1759928677 ../src/VPU/VPU_execute_stage.sv
+1759928677 ../src/VPU/VPU_issue_stage.sv
+1759928677 ../src/VPU/VPU_id_stage.sv
+1759928677 ../src/VPU/VPU.sv
+1759928677 ../src/WDT/Two_Flip_Flop.sv
+1759928677 ../src/WDT/Async_FIFO_32bit.sv
+1759928677 ../src/WDT/Async_FIFO_1bit.sv
+1759928677 ../src/WDT/WDT.sv
+1759928677 ../src/DMA/DMA.sv
+1759928677 ../src/FPU/fpu_mul_alu.sv
+1759928677 ../src/FPU/FPU.sv
+1759928677 ../src/CPU/ras.sv
+1759928678 ../src/CPU/btb.sv
+1759928678 ../src/CPU/bht.sv
+1759928677 ../src/CPU/multiplier.sv
+1759928678 ../src/CPU/csr.sv
+1759928678 ../src/CPU/alu.sv
+1759928677 ../src/CPU/fp_regfiles.sv
+1759928677 ../src/CPU/regfiles.sv
+1759928677 ../src/CPU/rv_decoder.sv
+1759928678 ../src/CPU/controller.sv
+1759928677 ../src/CPU/wb_stage.sv
+1759928677 ../src/CPU/mem_stage.sv
+1759928677 ../src/CPU/exe_stage.sv
+1759928677 ../src/CPU/id_stage.sv
+1759928677 ../src/CPU/if_stage.sv
+1759928678 ../src/CPU/CPU.sv
+1759928678 ../src/Cache/L1C_inst.sv
+1759928678 ../src/Cache/L1C_data.sv
+1759928678 ../src/Cache/tag_array_wrapper.sv
+1759928678 ../src/Cache/data_array_wrapper.sv
+1759928678 ../src/AXI/AXI.sv
+1759928678 ../src/AXI/AXI_decoder.sv
+1759928677 ../src/top.sv
+1759928680 ../include/def.svh
+1759928680 ../include/AXI_define.svh
+1759928678 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv
+1759928677 /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/rtl_sim.f
+1693225683 /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/verdi.tab
+1701102734 /usr/cad/synopsys/vcs/cur/linux64/lib/vcsdp_lite.tab
+4
+1701104330 /usr/cad/synopsys/vcs/cur/linux64/lib/libvirsim.so
+1701103518 /usr/cad/synopsys/vcs/cur/linux64/lib/liberrorinf.so
+1701103440 /usr/cad/synopsys/vcs/cur/linux64/lib/libsnpsmalloc.so
+1701103511 /usr/cad/synopsys/vcs/cur/linux64/lib/libvfs.so
+1760943993 simv.daidir
+-1 partitionlib

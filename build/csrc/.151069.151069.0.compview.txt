@@ -1,0 +1,9 @@
+{"vcs1":{"timestamp_begin":1760927771.230894571, "rt":1.56, "ut":1.03, "st":0.16}}
+{"vcselab":{"timestamp_begin":1760927772.856221331, "rt":0.63, "ut":0.25, "st":0.07}}
+{"link":{"timestamp_begin":1760927773.531585825, "rt":0.23, "ut":0.10, "st":0.06}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1760927770.866221253}
+{"VCS_COMP_START_TIME": 1760927770.866221253}
+{"VCS_COMP_END_TIME": 1760927800.749352759}
+{"VCS_USER_OPTIONS": "-R -sverilog /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/top_tb.sv -debug_access+all -full64 -debug_region+cell +memcbk -f /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src/rtl_sim.f +incdir+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./src+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./include+/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim +define+prog2 +prog_path=/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/./sim/prog2 +rdcycle=1 +notimingcheck"}
+{"vcs1": {"peak_mem": 372332}}
+{"vcselab": {"peak_mem": 247084}}

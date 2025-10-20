@@ -120,6 +120,14 @@ rtl10:
 rtl11:
 	$(MAKE) rtl_sim PROG=11
 
+rtl12:
+	$(MAKE) rtl_sim PROG=12
+
+rtl13:
+	$(MAKE) rtl_sim PROG=13
+ 
+rtl14:
+	$(MAKE) rtl_sim PROG=14
 # Utilities
 nWave: | $(bld_dir)
 	cd $(bld_dir); \
@@ -261,3 +269,7 @@ clean:
 	make -C $(sim_dir)/prog8/ clean; \
 	make -C $(sim_dir)/prog9/ clean; \
 	make -C $(sim_dir)/prog10/ clean; \
+ 	make -C $(sim_dir)/prog11/ clean; \
+ 	make -C $(sim_dir)/prog12/ clean; \
+ 	make -C $(sim_dir)/prog13/ clean; \
+ 	make -C $(sim_dir)/prog14/ clean; \
