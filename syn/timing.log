@@ -6,7 +6,7 @@ Report : timing
         -max_paths 1
 Design : CHIP
 Version: P-2019.03-SP1-1
-Date   : Mon Jan 13 20:36:52 2025
+Date   : Mon Oct 20 19:44:31 2025
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -14,7 +14,7 @@ Date   : Mon Jan 13 20:36:52 2025
 Operating Conditions: ss0p72vm40c   Library: N16ADFP_StdCellss0p72vm40c
 Wire Load Model Mode: segmented
 
-  Startpoint: u_TOP/CPU_wrapper/L1CD/TA/i_tag_array1
+  Startpoint: u_TOP/CPU_wrapper/L1CI/TA/i_tag_array1
               (rising edge-triggered flip-flop clocked by cpu_clk)
   Endpoint: u_TOP/DM1/i_SRAM0
             (rising edge-triggered flip-flop clocked by cpu_clk)
@@ -96,106 +96,101 @@ Wire Load Model Mode: segmented
   CPU_wrapper        ZeroWireload          N16ADFP_StdCellss0p72vm40c
   CHIP               ZeroWireload          N16ADFP_StdCellss0p72vm40c
   top                ZeroWireload          N16ADFP_StdCellss0p72vm40c
-  AXI_decoder_2      ZeroWireload          N16ADFP_StdCellss0p72vm40c
-  DM_wrapper_DW01_sub_3
+  AXI_decoder_5      ZeroWireload          N16ADFP_StdCellss0p72vm40c
+  DM_wrapper_DW01_sub_1
                      ZeroWireload          N16ADFP_StdCellss0p72vm40c
 
   Point                                                   Incr       Path
   --------------------------------------------------------------------------
   clock cpu_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.50       0.50
-  u_TOP/CPU_wrapper/L1CD/TA/i_tag_array1/CLK (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
+  u_TOP/CPU_wrapper/L1CI/TA/i_tag_array1/CLK (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
                                                           0.00 #     0.50 r
-  u_TOP/CPU_wrapper/L1CD/TA/i_tag_array1/Q[21] (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
-                                                          0.36       0.86 r
-  u_TOP/CPU_wrapper/L1CD/TA/DO1[21] (tag_array_wrapper_0)
-                                                          0.00       0.86 r
-  u_TOP/CPU_wrapper/L1CD/U1593/ZN (CKND2BWP16P90LVT)      0.00       0.87 f
-  u_TOP/CPU_wrapper/L1CD/U1592/ZN (ND2D2BWP16P90LVT)      0.00       0.87 r
-  u_TOP/CPU_wrapper/L1CD/U1590/ZN (CKND2D2BWP16P90LVT)
-                                                          0.01       0.88 f
-  u_TOP/CPU_wrapper/L1CD/U1587/ZN (NR3D2BWP16P90LVT)      0.01       0.89 r
-  u_TOP/CPU_wrapper/L1CD/U1589/ZN (IND4D2BWP16P90LVT)     0.01       0.90 f
-  u_TOP/CPU_wrapper/L1CD/U1563/ZN (NR4D2BWP16P90LVT)      0.01       0.91 r
-  u_TOP/CPU_wrapper/L1CD/U1560/Z (AN3D4BWP16P90LVT)       0.02       0.93 r
-  u_TOP/CPU_wrapper/L1CD/U1561/ZN (NR3D2BWP16P90LVT)      0.01       0.94 f
-  u_TOP/CPU_wrapper/L1CD/D_req_o (L1C_data)               0.00       0.94 f
-  u_TOP/CPU_wrapper/U1613/ZN (CKND2BWP16P90LVT)           0.01       0.94 r
-  u_TOP/CPU_wrapper/U1623/ZN (INVD4BWP16P90LVT)           0.01       0.95 f
-  u_TOP/CPU_wrapper/U1607/ZN (IINR3D1BWP16P90LVT)         0.01       0.96 f
-  u_TOP/CPU_wrapper/U1656/ZN (INR2D2BWP16P90LVT)          0.01       0.97 r
-  u_TOP/CPU_wrapper/U1555/ZN (IAOI21D4BWP16P90LVT)        0.01       0.98 f
-  u_TOP/CPU_wrapper/AWADDR_M1[24] (CPU_wrapper)           0.00       0.98 f
-  u_TOP/AXI_BUS/AWADDR_M[56] (AXI)                        0.00       0.98 f
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/addr_i[24] (AXI_decoder_2)
-                                                          0.00       0.98 f
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U8/ZN (INVD4BWP16P90LVT)
-                                                          0.01       0.98 r
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U25/ZN (IND4D4BWP16P90LVT)
-                                                          0.01       0.99 f
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U24/ZN (CKND2BWP16P90LVT)
-                                                          0.01       1.00 r
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U20/ZN (ND3D4BWP16P90LVT)
-                                                          0.01       1.01 f
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U21/ZN (CKND2BWP16P90LVT)
-                                                          0.00       1.01 r
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U33/ZN (AOAI211D2BWP16P90LVT)
-                                                          0.01       1.02 f
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/U34/ZN (OAI32D1BWP16P90LVT)
-                                                          0.02       1.04 r
-  u_TOP/AXI_BUS/ADDR_decoder_1__aw_addr_decoder/slave_id_o[0] (AXI_decoder_2)
-                                                          0.00       1.04 r
-  u_TOP/AXI_BUS/U1702/Z (BUFFD4BWP16P90LVT)               0.02       1.05 r
-  u_TOP/AXI_BUS/U113/ZN (ND2D2BWP16P90LVT)                0.01       1.07 f
-  u_TOP/AXI_BUS/U2314/ZN (ND3D2BWP16P90LVT)               0.01       1.07 r
-  u_TOP/AXI_BUS/U2313/ZN (OAI22D2BWP16P90LVT)             0.01       1.08 f
-  u_TOP/AXI_BUS/U3227/ZN (CKND2BWP16P90LVT)               0.01       1.09 r
-  u_TOP/AXI_BUS/U2410/Z (AN3D4BWP16P90LVT)                0.02       1.11 r
-  u_TOP/AXI_BUS/U2448/Z (MUX2D8BWP16P90LVT)               0.02       1.13 f
-  u_TOP/AXI_BUS/U1971/ZN (CKND2BWP16P90LVT)               0.01       1.13 r
-  u_TOP/AXI_BUS/U2423/ZN (ND2D2BWP16P90LVT)               0.01       1.15 f
-  u_TOP/AXI_BUS/U2486/ZN (CKND2BWP16P90LVT)               0.01       1.16 r
-  u_TOP/AXI_BUS/U1580/ZN (AOI22D2BWP16P90LVT)             0.01       1.17 f
-  u_TOP/AXI_BUS/U559/ZN (OAI222D2BWP16P90LVT)             0.02       1.19 r
-  u_TOP/AXI_BUS/U558/ZN (CKND4BWP20P90)                   0.01       1.20 f
-  u_TOP/AXI_BUS/U557/ZN (CKND1BWP16P90LVT)                0.01       1.21 r
-  u_TOP/AXI_BUS/AWVALID_S[2] (AXI)                        0.00       1.21 r
-  u_TOP/DM1/AWVALID_S (DM_wrapper)                        0.00       1.21 r
-  u_TOP/DM1/U307/ZN (CKND2BWP16P90LVT)                    0.01       1.22 f
-  u_TOP/DM1/U315/ZN (AOI21D1BWP16P90LVT)                  0.01       1.23 r
-  u_TOP/DM1/U300/Z (AN3D4BWP16P90LVT)                     0.02       1.26 r
-  u_TOP/DM1/U309/ZN (ND2D4BWP16P90LVT)                    0.01       1.27 f
-  u_TOP/DM1/U310/ZN (AOI22D1BWP16P90LVT)                  0.01       1.28 r
-  u_TOP/DM1/U41/ZN (OAI221D2BWP16P90LVT)                  0.01       1.29 f
-  u_TOP/DM1/sub_74/A[17] (DM_wrapper_DW01_sub_3)          0.00       1.29 f
-  u_TOP/DM1/sub_74/U569/ZN (IND2D4BWP16P90LVT)            0.02       1.31 f
-  u_TOP/DM1/sub_74/U560/ZN (IND3D1BWP16P90LVT)            0.01       1.32 r
-  u_TOP/DM1/sub_74/U594/ZN (CKND1BWP16P90LVT)             0.01       1.32 f
-  u_TOP/DM1/sub_74/U114/ZN (ND2D1BWP16P90LVT)             0.01       1.33 r
-  u_TOP/DM1/sub_74/U113/ZN (OAI21D1BWP16P90LVT)           0.01       1.34 f
-  u_TOP/DM1/sub_74/U626/ZN (XNR2D1BWP16P90LVT)            0.02       1.36 f
-  u_TOP/DM1/sub_74/DIFF_23_ (DM_wrapper_DW01_sub_3)       0.00       1.36 f
-  u_TOP/DM1/U27/ZN (NR2D2BWP16P90LVT)                     0.01       1.37 r
-  u_TOP/DM1/U233/ZN (CKND2D4BWP16P90LVT)                  0.01       1.37 f
-  u_TOP/DM1/U278/ZN (NR3D4BWP16P90LVT)                    0.01       1.38 r
-  u_TOP/DM1/U269/ZN (ND2D1BWP16P90LVT)                    0.01       1.39 f
-  u_TOP/DM1/U270/ZN (INR2D2BWP16P90LVT)                   0.01       1.40 r
+  u_TOP/CPU_wrapper/L1CI/TA/i_tag_array1/Q[4] (TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array)
+                                                          0.36       0.86 f
+  u_TOP/CPU_wrapper/L1CI/TA/DO1[4] (tag_array_wrapper_1)
+                                                          0.00       0.86 f
+  u_TOP/CPU_wrapper/L1CI/U430/Z (XOR2D4BWP16P90LVT)       0.02       0.88 r
+  u_TOP/CPU_wrapper/L1CI/U575/ZN (ND3D1BWP16P90LVT)       0.01       0.89 f
+  u_TOP/CPU_wrapper/L1CI/U429/ZN (NR4D1BWP16P90LVT)       0.01       0.91 r
+  u_TOP/CPU_wrapper/L1CI/U890/ZN (ND2D1BWP16P90LVT)       0.01       0.92 f
+  u_TOP/CPU_wrapper/L1CI/U404/ZN (CKND2BWP16P90LVT)       0.01       0.92 r
+  u_TOP/CPU_wrapper/L1CI/U434/ZN (AOI221D4BWP16P90LVT)
+                                                          0.01       0.93 f
+  u_TOP/CPU_wrapper/L1CI/D_req_o (L1C_inst)               0.00       0.93 f
+  u_TOP/CPU_wrapper/U2088/ZN (INVD4BWP16P90LVT)           0.01       0.94 r
+  u_TOP/CPU_wrapper/U1704/ZN (OAI32D2BWP16P90LVT)         0.01       0.96 f
+  u_TOP/CPU_wrapper/ARADDR_M0[27] (CPU_wrapper)           0.00       0.96 f
+  u_TOP/AXI_BUS/ARADDR_M[91] (AXI)                        0.00       0.96 f
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/addr_i[27] (AXI_decoder_5)
+                                                          0.00       0.96 f
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/U23/Z (OR4D4BWP16P90LVT)
+                                                          0.02       0.98 f
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/U7/ZN (NR4D2BWP16P90LVT)
+                                                          0.01       0.99 r
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/U24/ZN (IND4D2BWP16P90LVT)
+                                                          0.01       1.00 f
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/U27/ZN (CKND2BWP16P90LVT)
+                                                          0.01       1.01 r
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/U16/Z (OR4D4BWP16P90LVT)
+                                                          0.01       1.03 r
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/U30/ZN (INR4D4BWP16P90LVT)
+                                                          0.02       1.05 r
+  u_TOP/AXI_BUS/ADDR_decoder_0__ar_addr_decoder/slave_id_o[0] (AXI_decoder_5)
+                                                          0.00       1.05 r
+  u_TOP/AXI_BUS/U1414/ZN (INVD4BWP16P90LVT)               0.01       1.06 f
+  u_TOP/AXI_BUS/U1126/Z (AN2D2BWP16P90LVT)                0.01       1.07 f
+  u_TOP/AXI_BUS/U921/ZN (OAI31D4BWP16P90LVT)              0.01       1.08 r
+  u_TOP/AXI_BUS/U1068/ZN (CKND2BWP16P90LVT)               0.01       1.09 f
+  u_TOP/AXI_BUS/U1369/ZN (NR3D2BWP16P90LVT)               0.01       1.10 r
+  u_TOP/AXI_BUS/U1368/Z (MUX2D4BWP16P90LVT)               0.02       1.13 f
+  u_TOP/AXI_BUS/U1327/ZN (INVD1BWP16P90LVT)               0.01       1.14 r
+  u_TOP/AXI_BUS/U1214/ZN (ND2D1BWP16P90)                  0.02       1.16 f
+  u_TOP/AXI_BUS/U1449/ZN (INVD1BWP16P90)                  0.02       1.19 r
+  u_TOP/AXI_BUS/U1578/ZN (AOI22D2BWP16P90LVT)             0.01       1.20 f
+  u_TOP/AXI_BUS/U374/Z (CKBD1BWP16P90LVT)                 0.02       1.21 f
+  u_TOP/AXI_BUS/U1591/Z (BUFFD4BWP16P90LVT)               0.02       1.24 f
+  u_TOP/AXI_BUS/U1080/ZN (OAI222D2BWP16P90LVT)            0.01       1.25 r
+  u_TOP/AXI_BUS/AWVALID_S[2] (AXI)                        0.00       1.25 r
+  u_TOP/DM1/AWVALID_S (DM_wrapper)                        0.00       1.25 r
+  u_TOP/DM1/U292/ZN (CKND2BWP16P90LVT)                    0.01       1.26 f
+  u_TOP/DM1/U532/ZN (AOI21D1BWP16P90LVT)                  0.01       1.27 r
+  u_TOP/DM1/U348/Z (AN3D1BWP16P90LVT)                     0.02       1.30 r
+  u_TOP/DM1/U210/ZN (ND2D1BWP16P90LVT)                    0.01       1.31 f
+  u_TOP/DM1/U540/ZN (AOI22D1BWP16P90LVT)                  0.01       1.32 r
+  u_TOP/DM1/U216/ZN (OAI221D2BWP16P90LVT)                 0.01       1.33 f
+  u_TOP/DM1/sub_76/A[22] (DM_wrapper_DW01_sub_1)          0.00       1.33 f
+  u_TOP/DM1/sub_76/U442/ZN (ND2D2BWP16P90LVT)             0.01       1.34 r
+  u_TOP/DM1/sub_76/U491/ZN (OAI21D2BWP16P90LVT)           0.01       1.35 f
+  u_TOP/DM1/sub_76/U501/ZN (AOI21D2BWP16P90LVT)           0.01       1.36 r
+  u_TOP/DM1/sub_76/U462/Z (OA21D1BWP16P90LVT)             0.01       1.37 r
+  u_TOP/DM1/sub_76/U446/ZN (CKND2BWP16P90LVT)             0.01       1.38 f
+  u_TOP/DM1/sub_76/U443/ZN (AOI21D2BWP16P90LVT)           0.01       1.39 r
+  u_TOP/DM1/sub_76/U495/ZN (OAI21D2BWP16P90LVT)           0.01       1.39 f
+  u_TOP/DM1/sub_76/U436/Z (XOR2D2BWP16P90LVT)             0.02       1.41 r
+  u_TOP/DM1/sub_76/U435/ZN (CKND2BWP16P90LVT)             0.01       1.41 f
+  u_TOP/DM1/sub_76/DIFF_31_ (DM_wrapper_DW01_sub_1)       0.00       1.41 f
+  u_TOP/DM1/U229/ZN (CKNR2D4BWP16P90LVT)                  0.01       1.42 r
+  u_TOP/DM1/U264/ZN (IIND3D4BWP16P90LVT)                  0.01       1.43 f
+  u_TOP/DM1/U265/ZN (NR3D4BWP16P90LVT)                    0.01       1.44 r
+  u_TOP/DM1/U14/ZN (ND2D2BWP16P90LVT)                     0.01       1.44 f
+  u_TOP/DM1/U335/ZN (INR2D1BWP16P90LVT)                   0.01       1.46 r
   u_TOP/DM1/i_SRAM0/CEB (TS1N16ADFPCLLLVTA512X45M4SWSHOD)
-                                                          0.00       1.40 r
-  data arrival time                                                  1.40
+                                                          0.00       1.46 r
+  data arrival time                                                  1.46
 
-  clock cpu_clk (rise edge)                               1.00       1.00
-  clock network delay (ideal)                             0.50       1.50
-  clock uncertainty                                      -0.10       1.40
+  clock cpu_clk (rise edge)                               1.20       1.20
+  clock network delay (ideal)                             0.50       1.70
+  clock uncertainty                                      -0.10       1.60
   u_TOP/DM1/i_SRAM0/CLK (TS1N16ADFPCLLLVTA512X45M4SWSHOD)
-                                                          0.00       1.40 r
-  library setup time                                     -0.19       1.21
-  data required time                                                 1.21
+                                                          0.00       1.60 r
+  library setup time                                     -0.19       1.41
+  data required time                                                 1.41
   --------------------------------------------------------------------------
-  data required time                                                 1.21
-  data arrival time                                                 -1.40
+  data required time                                                 1.41
+  data arrival time                                                 -1.46
   --------------------------------------------------------------------------
-  slack (VIOLATED)                                                  -0.19
+  slack (VIOLATED)                                                  -0.05
 
 
   Startpoint: DRAM_valid (input port clocked by wdt_clk)
@@ -208,6 +203,7 @@ Wire Load Model Mode: segmented
   CHIP               ZeroWireload          N16ADFP_StdCellss0p72vm40c
   DRAM_wrapper       ZeroWireload          N16ADFP_StdCellss0p72vm40c
   top                ZeroWireload          N16ADFP_StdCellss0p72vm40c
+  AXI                ZeroWireload          N16ADFP_StdCellss0p72vm40c
   DRAM_wrapper_DW01_sub_0
                      ZeroWireload          N16ADFP_StdCellss0p72vm40c
 
@@ -221,38 +217,48 @@ Wire Load Model Mode: segmented
   ipad_DRAM_valid/C (PDCDG_H)                             0.22      30.78 f
   u_TOP/DRAM_valid (top)                                  0.00      30.78 f
   u_TOP/DRAM_wrapper/DRAM_valid (DRAM_wrapper)            0.00      30.78 f
-  u_TOP/DRAM_wrapper/U824/ZN (ND3D1BWP16P90LVT)           0.01      30.79 r
-  u_TOP/DRAM_wrapper/U229/ZN (OAI21D1BWP20P90)            0.03      30.82 f
-  u_TOP/DRAM_wrapper/U825/ZN (ND2D1BWP16P90LVT)           0.02      30.84 r
-  u_TOP/DRAM_wrapper/U236/ZN (INVD1BWP20P90LVT)           0.01      30.85 f
-  u_TOP/DRAM_wrapper/U235/ZN (ND2D1BWP16P90LVT)           0.01      30.85 r
-  u_TOP/DRAM_wrapper/U400/ZN (INVD1BWP16P90LVT)           0.01      30.86 f
-  u_TOP/DRAM_wrapper/U292/Z (BUFFD4BWP16P90LVT)           0.02      30.88 f
-  u_TOP/DRAM_wrapper/U968/Z (MUX2D1BWP16P90LVT)           0.02      30.90 f
-  u_TOP/DRAM_wrapper/U260/ZN (CKND2BWP16P90LVT)           0.00      30.90 r
-  u_TOP/DRAM_wrapper/U271/ZN (AOI222D2BWP16P90LVT)        0.01      30.91 f
-  u_TOP/DRAM_wrapper/U265/ZN (ND2D2BWP16P90LVT)           0.01      30.91 r
+  u_TOP/DRAM_wrapper/U860/ZN (ND3D1BWP16P90LVT)           0.01      30.79 r
+  u_TOP/DRAM_wrapper/U861/ZN (OAI21D1BWP16P90LVT)         0.02      30.81 f
+  u_TOP/DRAM_wrapper/U357/ZN (CKND1BWP16P90LVT)           0.01      30.82 r
+  u_TOP/DRAM_wrapper/U1143/ZN (OAI31D1BWP16P90LVT)        0.02      30.84 f
+  u_TOP/DRAM_wrapper/RLAST_S (DRAM_wrapper)               0.00      30.84 f
+  u_TOP/AXI_BUS/RLAST_S[5] (AXI)                          0.00      30.84 f
+  u_TOP/AXI_BUS/U1085/ZN (AOAI211D2BWP16P90LVT)           0.02      30.86 r
+  u_TOP/AXI_BUS/U1301/ZN (INVD1BWP16P90LVT)               0.01      30.87 f
+  u_TOP/AXI_BUS/U2310/ZN (ND2D1BWP16P90LVT)               0.01      30.88 r
+  u_TOP/AXI_BUS/U1974/ZN (INVD1BWP16P90)                  0.01      30.89 f
+  u_TOP/AXI_BUS/U1011/ZN (OAI31D1BWP20P90LVT)             0.01      30.90 r
+  u_TOP/AXI_BUS/U1285/ZN (ND2D2BWP16P90LVT)               0.01      30.91 f
+  u_TOP/AXI_BUS/U1015/ZN (CKND1BWP20P90)                  0.02      30.92 r
+  u_TOP/AXI_BUS/U1582/ZN (AOI22D2BWP16P90LVT)             0.05      30.98 f
+  u_TOP/AXI_BUS/U2314/ZN (OAI222D1BWP16P90LVT)            0.03      31.01 r
+  u_TOP/AXI_BUS/WVALID_S[5] (AXI)                         0.00      31.01 r
+  u_TOP/DRAM_wrapper/WVALID_S (DRAM_wrapper)              0.00      31.01 r
+  u_TOP/DRAM_wrapper/U270/ZN (INVD1BWP16P90)              0.03      31.04 f
+  u_TOP/DRAM_wrapper/U379/ZN (CKND1BWP16P90LVT)           0.04      31.08 r
+  u_TOP/DRAM_wrapper/U1096/Z (AN2D1BWP16P90LVT)           0.02      31.10 r
+  u_TOP/DRAM_wrapper/U852/ZN (AOI22D1BWP16P90LVT)         0.01      31.11 f
+  u_TOP/DRAM_wrapper/U851/ZN (ND2D1BWP16P90LVT)           0.01      31.12 r
   u_TOP/DRAM_wrapper/sub_352/A[22] (DRAM_wrapper_DW01_sub_0)
-                                                          0.00      30.91 r
+                                                          0.00      31.12 r
   u_TOP/DRAM_wrapper/sub_352/U2_22/Z (XOR3D2BWP16P90LVT)
-                                                          0.05      30.97 r
+                                                          0.05      31.17 r
   u_TOP/DRAM_wrapper/sub_352/DIFF_22_ (DRAM_wrapper_DW01_sub_0)
-                                                          0.00      30.97 r
-  u_TOP/DRAM_wrapper/U853/Z (XOR2D1BWP16P90LVT)           0.02      30.98 f
-  u_TOP/DRAM_wrapper/U856/ZN (NR3D1BWP16P90LVT)           0.01      30.99 r
-  u_TOP/DRAM_wrapper/U857/ZN (ND3D1BWP16P90LVT)           0.01      31.00 f
-  u_TOP/DRAM_wrapper/U887/ZN (OAI31D1BWP16P90LVT)         0.02      31.02 r
-  u_TOP/DRAM_wrapper/U259/ZN (CKND2BWP16P90LVT)           0.01      31.03 f
-  u_TOP/DRAM_wrapper/U918/ZN (OAI31D1BWP16P90LVT)         0.01      31.04 r
-  u_TOP/DRAM_wrapper/U919/ZN (ND2D1BWP16P90LVT)           0.01      31.05 f
-  u_TOP/DRAM_wrapper/U920/ZN (OAI211D1BWP16P90LVT)        0.01      31.06 r
-  u_TOP/DRAM_wrapper/U261/Z (BUFFD4BWP16P90LVT)           0.01      31.07 r
-  u_TOP/DRAM_wrapper/U1231/ZN (IOA21D1BWP16P90LVT)        0.02      31.09 r
-  u_TOP/DRAM_wrapper/DRAM_A[0] (DRAM_wrapper)             0.00      31.09 r
-  u_TOP/DRAM_A[0] (top)                                   0.00      31.09 r
-  opad_DRAM_A0/PAD (PDCDG_H)                              0.53      31.62 r
-  DRAM_A[0] (out)                                         0.00      31.62 r
-  data arrival time                                                 31.62
+                                                          0.00      31.17 r
+  u_TOP/DRAM_wrapper/U890/Z (XOR2D1BWP16P90LVT)           0.02      31.18 f
+  u_TOP/DRAM_wrapper/U893/ZN (NR3D1BWP16P90LVT)           0.01      31.19 r
+  u_TOP/DRAM_wrapper/U894/ZN (ND3D1BWP16P90LVT)           0.01      31.20 f
+  u_TOP/DRAM_wrapper/U919/ZN (OAI31D1BWP16P90LVT)         0.02      31.22 r
+  u_TOP/DRAM_wrapper/U283/ZN (INVD1BWP16P90LVT)           0.01      31.23 f
+  u_TOP/DRAM_wrapper/U943/ZN (OAI31D1BWP16P90LVT)         0.02      31.25 r
+  u_TOP/DRAM_wrapper/U13/ZN (ND2D2BWP16P90LVT)            0.01      31.26 f
+  u_TOP/DRAM_wrapper/U12/ZN (OAI211D2BWP16P90LVT)         0.02      31.27 r
+  u_TOP/DRAM_wrapper/U1180/ZN (IOA21D1BWP16P90LVT)        0.02      31.29 r
+  u_TOP/DRAM_wrapper/DRAM_A[0] (DRAM_wrapper)             0.00      31.29 r
+  u_TOP/DRAM_A[0] (top)                                   0.00      31.29 r
+  opad_DRAM_A0/PAD (PDCDG_H)                              0.53      31.82 r
+  DRAM_A[0] (out)                                         0.00      31.82 r
+  data arrival time                                                 31.82
 
   clock wdt_clk (rise edge)                              50.10      50.10
   clock network delay (ideal)                             0.50      50.60
@@ -261,9 +267,9 @@ Wire Load Model Mode: segmented
   data required time                                                45.49
   --------------------------------------------------------------------------
   data required time                                                45.49
-  data arrival time                                                -31.62
+  data arrival time                                                -31.82
   --------------------------------------------------------------------------
-  slack (MET)                                                       13.87
+  slack (MET)                                                       13.67
 
 
 1

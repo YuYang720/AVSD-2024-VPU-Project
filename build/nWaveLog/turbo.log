@@ -1,3 +1,0 @@
-Command Line: /usr/cad/synopsys/verdi/cur/platform/LINUXAMD64/bin/Novas -nWave chip.fsdb
-uname(Linux superdome2 3.10.0-1160.el7.x86_64 #1 SMP Tue Aug 18 14:50:17 EDT 2020 x86_64)
-au time 52.502276 1.788675 0.749495 delta 256008192 256008192 total 834150400 834150400

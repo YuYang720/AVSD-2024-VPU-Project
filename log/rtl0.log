@@ -1,6 +1,6 @@
 Building and running PROG = 0
+make[2]: Warning: File `boot.o' has modification time 125 s in the future
 riscv64-unknown-elf-gcc boot.o main1.o setup.o isr.o main.o -static -nostdlib -nostartfiles -march=rv32im -mabi=ilp32 -Tlink.ld -lgcc -o main
-make[2]: Warning: File `main' has modification time 833 s in the future
 riscv64-unknown-elf-objdump -xsd main > main.log
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 0 -j .text0 --change-addresses 0 rom0.hex
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 1 -j .text0 --change-addresses 0 rom1.hex
@@ -12,7 +12,7 @@ riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 2 -R .text0 --change-address
 riscv64-unknown-elf-objcopy -O verilog main -i 4 -b 3 -R .text0 --change-addresses -0x20000000 dram3.hex
 make[2]: warning:  Clock skew detected.  Your build may be incomplete.
                          Chronologic VCS (TM)
-         Version V-2023.12_Full64 -- Mon Oct 20 14:44:06 2025
+         Version V-2023.12_Full64 -- Thu Oct 23 13:33:38 2025
 
                     Copyright (c) 1991 - 2023 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -124,8 +124,10 @@ Top Level Modules:
 TimeScale is 1 ns / 10 ps
 Starting vcs inline pass...
 
-43 modules and 0 UDP read.
+45 modules and 0 UDP read.
+recompiling module ROM
 recompiling module DRAM
+recompiling module CHIP
 recompiling module TS1N16ADFPCLLLVTA512X45M4SWSHOD
 recompiling module TS1N16ADFPCLLLVTA128X64M4SWSHOD_data_array
 recompiling module TS1N16ADFPCLLLVTA128X64M4SWSHOD_tag_array
@@ -168,17 +170,17 @@ recompiling module PVDD1CDGM_H
 recompiling module PVDD1CDGM_V
 recompiling module PVDD2CDGM_H
 recompiling module PVDD2CDGM_V
-All of 43 modules done
-make[2]: Warning: File `filelist.hsopt.llvm2_0.objs' has modification time 833 s in the future
+All of 45 modules done
+make[2]: Warning: File `filelist.hsopt.llvm2_0.objs' has modification time 844 s in the future
 make[2]: warning:  Clock skew detected.  Your build may be incomplete.
-make[2]: Warning: File `filelist.cu' has modification time 832 s in the future
-make[3]: Warning: File `filelist.cu' has modification time 832 s in the future
+make[2]: Warning: File `filelist.cu' has modification time 843 s in the future
+make[3]: Warning: File `filelist.cu' has modification time 843 s in the future
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 make[3]: warning:  Clock skew detected.  Your build may be incomplete.
-make[3]: Warning: File `filelist.cu' has modification time 832 s in the future
+make[3]: Warning: File `filelist.cu' has modification time 843 s in the future
 make[3]: warning:  Clock skew detected.  Your build may be incomplete.
 if [ -x ../simv ]; then chmod a-x ../simv; fi
-g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _184348_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/cur/linux64/lib -L/usr/cad/synopsys/vcs/cur/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _90122_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/cur/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/cur/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
 ../simv up to date
 make[2]: warning:  Clock skew detected.  Your build may be incomplete.
 Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
@@ -186,7 +188,26 @@ Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETEC
 Notice: timing checks disabled with +notimingcheck at compile-time
 Chronologic VCS simulator copyright 1991-2023
 Contains Synopsys proprietary information.
-Compiler version V-2023.12_Full64; Runtime version V-2023.12_Full64;  Oct 20 14:44 2025
+Compiler version V-2023.12_Full64; Runtime version V-2023.12_Full64;  Oct 23 13:33 2025
+*Verdi* Loading libsscore_vcs202303.so
+FSDB Dumper for VCS, Release Verdi_U-2023.03-SP2, Linux x86_64/64bit, 08/28/2023
+(C) 1996 - 2023 by Synopsys, Inc.
+***********************************************************************
+*  ERROR -                                                            *
+*  The simulator version is newer than the FSDB dumper version which  *
+*  may cause abnormal behavior, please contact Synopsys support for   *
+*  assistance.                                                        *
+***********************************************************************
+*Verdi* : Create FSDB file 'chip.fsdb'
+*Verdi* : Begin traversing the scope (top_tb.chip), layer (0).
+*Verdi* : Enable +struct and +mda dumping.
+*Verdi* : End of traversing.
+*Verdi* : Begin traversing the scope (top_tb.i_DRAM), layer (0).
+*Verdi* : Enable +struct dumping.
+*Verdi* : End of traversing.
+*Verdi* : Begin traversing the scope (top_tb.i_ROM), layer (0).
+*Verdi* : Enable +struct dumping.
+*Verdi* : End of traversing.
 
 Done
 
@@ -296,6 +317,6 @@ IPC                     = 0.42
 $finish at simulation time              2242210
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 22422100 ps
-CPU Time:      1.820 seconds;       Data structure size:   0.3Mb
-Mon Oct 20 14:44:12 2025
-CPU time: 1.948 seconds to compile + .371 seconds to elab + .258 seconds to link + 1.848 seconds in simulation
+CPU Time:      3.540 seconds;       Data structure size:   0.3Mb
+Thu Oct 23 13:33:44 2025
+CPU time: 1.972 seconds to compile + .365 seconds to elab + .243 seconds to link + 3.575 seconds in simulation

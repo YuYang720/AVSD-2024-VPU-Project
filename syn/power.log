@@ -1,8 +1,8 @@
 Loading db file '/usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/NLDM/N16ADFP_StdIOss0p72v1p62v125c.db'
 Loading db file '/usr/cad/CBDK/Executable_Package/Collaterals/IP/stdcell/N16ADFP_StdCell/NLDM/N16ADFP_StdCellss0p72vm40c.db'
-Loading db file '/home/user2/avsd24/avsd2402/Homework/Final_Project/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db'
-Loading db file '/home/user2/avsd24/avsd2402/Homework/Final_Project/sim/data_array/data_array_ff0p88v0p88v125c_100a.db'
-Loading db file '/home/user2/avsd24/avsd2402/Homework/Final_Project/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db'
+Loading db file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db'
+Loading db file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/data_array/data_array_ff0p88v0p88v125c_100a.db'
+Loading db file '/home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db'
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
 Warning: Design has unannotated primary inputs. (PWR-414)
 Warning: Design has unannotated sequential cell outputs. (PWR-415)
@@ -13,16 +13,16 @@ Report : power
         -analysis_effort low
 Design : CHIP
 Version: P-2019.03-SP1-1
-Date   : Mon Jan 13 20:37:46 2025
+Date   : Mon Oct 20 19:44:52 2025
 ****************************************
 
 
 Library(s) Used:
 
     N16ADFP_StdCellss0p72vm40c (File: /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdcell/N16ADFP_StdCell/NLDM/N16ADFP_StdCellss0p72vm40c.db)
-    SRAM_ss0p72v0p72vm40c_100a (File: /home/user2/avsd24/avsd2402/Homework/Final_Project/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db)
-    tag_array_ff0p88v0p88v125c (File: /home/user2/avsd24/avsd2402/Homework/Final_Project/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db)
-    data_array_ff0p88v0p88v125c (File: /home/user2/avsd24/avsd2402/Homework/Final_Project/sim/data_array/data_array_ff0p88v0p88v125c_100a.db)
+    SRAM_ss0p72v0p72vm40c_100a (File: /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db)
+    tag_array_ff0p88v0p88v125c (File: /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db)
+    data_array_ff0p88v0p88v125c (File: /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/data_array/data_array_ff0p88v0p88v125c_100a.db)
     N16ADFP_StdIOss0p72v1p62v125c (File: /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/NLDM/N16ADFP_StdIOss0p72v1p62v125c.db)
 
 
@@ -271,10 +271,6 @@ VPU_alu_6_DW01_add_19  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_mul_7_DW01_add_1   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_mul_7_DW01_add_2   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_mul_7_DW01_add_3   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_add_2   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_add_3   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_add_10  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_add_11  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW_cmp_0     ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW_cmp_1     ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW01_sub_2   ZeroWireload      N16ADFP_StdCellss0p72vm40c
@@ -284,7 +280,6 @@ VPU_alu_7_DW01_add_19  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 csr_DW01_inc_0         ZeroWireload      N16ADFP_StdCellss0p72vm40c
 csr_DW01_add_1         ZeroWireload      N16ADFP_StdCellss0p72vm40c
 exe_stage_DW01_add_0   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-FPU_DW01_add_2         ZeroWireload      N16ADFP_StdCellss0p72vm40c
 FPU_DW01_cmp6_0        ZeroWireload      N16ADFP_StdCellss0p72vm40c
 fpu_mul_alu_DW01_inc_0 ZeroWireload      N16ADFP_StdCellss0p72vm40c
 fpu_mul_alu_DW01_inc_1 ZeroWireload      N16ADFP_StdCellss0p72vm40c
@@ -395,10 +390,7 @@ fpu_mul_alu_DW01_sub_J27_1
 fpu_mul_alu_DW01_add_J31_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_lsu_DW01_add_J42_0 ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_4_DW01_sub_J58_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_5_DW01_sub_J62_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_lsu_DW01_sub_J43_0 ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_mul_6_DW_mult_tc_J72_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_mul_4_DW_mult_tc_J73_0
@@ -414,92 +406,91 @@ VPU_mul_1_DW_mult_tc_J88_0
 VPU_mul_3_DW_mult_tc_4 ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_mul_7_DW_mult_tc_J117_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
+DM_wrapper_DW01_sub_1  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 FPU_DW01_inc_J132_0    ZeroWireload      N16ADFP_StdCellss0p72vm40c
 FPU_DW01_add_J133_0    ZeroWireload      N16ADFP_StdCellss0p72vm40c
 multiplier_DW_mult_tc_J134_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_7_DW01_add_J147_1
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_elem_DW01_add_22   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 csr_DW01_add_2         ZeroWireload      N16ADFP_StdCellss0p72vm40c
 DMA_wrapper_DW01_sub_J162_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_sub_J164_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_5_DW01_sub_J162_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW01_add_J167_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW01_add_J169_0
-                       ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW01_add_J167_1
+VPU_alu_6_DW01_add_J164_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_6_DW01_sub_J166_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_J168_0
+VPU_lsu_DW01_add_J162_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-WDT_wrapper_DW01_sub_J163_0
+VPU_lsu_DW01_add_J162_1
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_J177_0
+VPU_lsu_DW01_add_J169_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_4_DW01_sub_J177_0
+WDT_wrapper_DW01_sub_J171_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-exe_stage_DW01_add_2   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_sub_J192_0
+VPU_alu_6_DW01_sub_J222_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW_mult_uns_J208_0
+VPU_alu_6_DW01_add_J224_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW01_sub_J209_0
+VPU_mul_6_DW_mult_tc_J237_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_5_DW_mult_tc_J207_0
+VPU_mul_1_DW_mult_tc_J238_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_6_DW_mult_tc_J210_0
+VPU_elem_DW01_sub_J252_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_0_DW_mult_tc_J208_0
+VPU_alu_7_DW01_sub_J252_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_1_DW_mult_tc_J211_0
+VPU_mul_0_DW_mult_tc_J255_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_4_DW_mult_tc_J209_0
+exe_stage_DW01_add_J256_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_2_DW_mult_tc_J212_0
+VPU_mul_5_DW_mult_tc_J254_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_elem_DW01_sub_J223_0
+VPU_mul_7_DW01_add_J267_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_3_DW_mult_tc_J222_0
+VPU_mul_4_DW_mult_tc_J268_0
                        ZeroWireload      N16ADFP_StdCellss0p72vm40c
-DM_wrapper_DW01_sub_3  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_mul_3_DW_mult_tc_5 ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_mul_2_DW_mult_tc_4 ZeroWireload      N16ADFP_StdCellss0p72vm40c
+FPU_DW01_add_3         ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_7_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_elem_DW01_add_23   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_elem_DW01_add_24   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW01_add_9     ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_3_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_3_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_2_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_2_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_4_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_23  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_24  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_0_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_0_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_1_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_1_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_25  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_26  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_27  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_6_DW01_add_28  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW_mult_uns_3  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_lsu_DW01_add_10    ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_5_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_7_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_mul_7_DW01_add_8   ZeroWireload      N16ADFP_StdCellss0p72vm40c
-VPU_alu_7_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW01_add_22  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW01_add_23  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW01_add_24  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_22  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_23  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_lsu_DW_mult_uns_3  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_lsu_DW01_add_9     ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_24  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_25  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_26  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_6_DW01_add_27  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_2_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_2_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_5_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_5_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_0_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_0_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_3_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_3_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_1_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_1_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_4_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_4_DW01_add_20  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_lsu_DW_mult_uns_4  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_lsu_DW01_add_10    ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_mul_7_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_mul_7_DW01_add_8   ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_7_DW01_sub_4   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_7_DW01_add_25  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_7_DW01_add_26  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_7_DW01_add_27  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_7_DW01_add_28  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_7_DW01_add_29  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_3_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_3_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_0_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
@@ -508,7 +499,9 @@ VPU_alu_1_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_1_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_2_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_2_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_5_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_5_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
+VPU_alu_4_DW01_sub_5   ZeroWireload      N16ADFP_StdCellss0p72vm40c
 VPU_alu_4_DW01_add_21  ZeroWireload      N16ADFP_StdCellss0p72vm40c
 fpu_mul_alu_DW01_sub_6 ZeroWireload      N16ADFP_StdCellss0p72vm40c
 fpu_mul_alu_DW01_sub_7 ZeroWireload      N16ADFP_StdCellss0p72vm40c
@@ -523,24 +516,24 @@ Power-specific unit information :
     Leakage Power Units = 1nW
 
 
-  Cell Internal Power  =  41.7526 mW   (98%)
-  Net Switching Power  = 651.0685 uW    (2%)
+  Cell Internal Power  =  34.9197 mW   (98%)
+  Net Switching Power  = 539.0791 uW    (2%)
                          ---------
-Total Dynamic Power    =  42.4037 mW  (100%)
+Total Dynamic Power    =  35.4587 mW  (100%)
 
-Cell Leakage Power     =   9.9825 mW
+Cell Leakage Power     =   9.9808 mW
 
 
                  Internal         Switching           Leakage            Total
 Power Group      Power            Power               Power              Power   (   %    )  Attrs
 --------------------------------------------------------------------------------------------------
-io_pad             1.6721            0.1125        3.0383e+04            1.8150  (   3.46%)
-memory            10.1988        1.4385e-02        9.8927e+06           20.1059  (  38.38%)
+io_pad             1.3945        9.3322e-02        3.0383e+04            1.5182  (   3.34%)
+memory             8.4990        1.2151e-02        9.8927e+06           18.4039  (  40.50%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
 clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
-register          29.5728        7.3682e-03        8.3545e+03           29.5886  (  56.48%)
+register          24.7883        6.5646e-03        9.0345e+03           24.8039  (  54.59%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      0.3094            0.5169        5.1093e+04            0.8773  (   1.67%)
+combinational      0.2390            0.4270        4.8684e+04            0.7147  (   1.57%)
 --------------------------------------------------------------------------------------------------
-Total             41.7532 mW         0.6511 mW     9.9825e+06 nW        52.3867 mW
+Total             34.9208 mW         0.5391 mW     9.9808e+06 nW        45.4407 mW
 1

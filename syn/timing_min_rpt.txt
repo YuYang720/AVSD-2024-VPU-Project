@@ -7,7 +7,7 @@ Report : timing
         -sort_by group
 Design : CHIP
 Version: P-2019.03-SP1-1
-Date   : Mon Jan 13 20:37:49 2025
+Date   : Mon Oct 20 19:44:54 2025
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -15,9 +15,9 @@ Date   : Mon Jan 13 20:37:49 2025
 Operating Conditions: ff0p88v125c   Library: N16ADFP_StdCellff0p88v125c
 Wire Load Model Mode: segmented
 
-  Startpoint: u_TOP/AXI_BUS/slave_status_q_reg_1__busy_
+  Startpoint: u_TOP/AXI_BUS/slave_status_q_reg_2__current_master__1_
               (rising edge-triggered flip-flop clocked by cpu_clk)
-  Endpoint: u_TOP/IM1/i_SRAM
+  Endpoint: u_TOP/DM1/i_SRAM0
             (rising edge-triggered flip-flop clocked by cpu_clk)
   Path Group: cpu_clk
   Path Type: min
@@ -102,36 +102,36 @@ Wire Load Model Mode: segmented
   --------------------------------------------------------------------------
   clock cpu_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.50       0.50
-  u_TOP/AXI_BUS/slave_status_q_reg_1__busy_/CP (DFQD2BWP16P90LVT)
+  u_TOP/AXI_BUS/slave_status_q_reg_2__current_master__1_/CP (DFQD2BWP16P90LVT)
                                                           0.00 #     0.50 r
-  u_TOP/AXI_BUS/slave_status_q_reg_1__busy_/Q (DFQD2BWP16P90LVT)
-                                                          0.06       0.56 r
-  u_TOP/AXI_BUS/U2152/ZN (ND2D1BWP16P90LVT)               0.01       0.57 f
-  u_TOP/AXI_BUS/U3306/ZN (ND2D1BWP16P90LVT)               0.01       0.58 r
-  u_TOP/AXI_BUS/U194/ZN (AOI22D1BWP16P90LVT)              0.01       0.59 f
-  u_TOP/AXI_BUS/U3311/ZN (OAI211D1BWP16P90LVT)            0.01       0.59 r
-  u_TOP/AXI_BUS/WSTRB_S[19] (AXI)                         0.00       0.59 r
-  u_TOP/IM1/WSTRB_S[3] (IM_wrapper)                       0.00       0.59 r
-  u_TOP/IM1/U288/ZN (INVD1BWP16P90LVT)                    0.00       0.60 f
-  u_TOP/IM1/U209/Z (CKBD1BWP16P90LVT)                     0.01       0.61 f
-  u_TOP/IM1/U208/ZN (CKND2BWP16P90LVT)                    0.01       0.61 r
-  u_TOP/IM1/U10/ZN (INVD4BWP16P90LVT)                     0.01       0.62 f
-  u_TOP/IM1/i_SRAM/BWEB[24] (TS1N16ADFPCLLLVTA512X45M4SWSHOD)
-                                                          0.00       0.62 f
-  data arrival time                                                  0.62
+  u_TOP/AXI_BUS/slave_status_q_reg_2__current_master__1_/Q (DFQD2BWP16P90LVT)
+                                                          0.05       0.55 r
+  u_TOP/AXI_BUS/U322/ZN (INVD1BWP16P90LVT)                0.00       0.56 f
+  u_TOP/AXI_BUS/U323/ZN (INVD1BWP16P90LVT)                0.01       0.57 r
+  u_TOP/AXI_BUS/U1578/ZN (AOI22D2BWP16P90LVT)             0.01       0.58 f
+  u_TOP/AXI_BUS/U374/Z (CKBD1BWP16P90LVT)                 0.02       0.60 f
+  u_TOP/AXI_BUS/U1591/Z (BUFFD4BWP16P90LVT)               0.02       0.62 f
+  u_TOP/AXI_BUS/U325/ZN (OAI222D1BWP16P90)                0.02       0.63 r
+  u_TOP/AXI_BUS/U66/Z (BUFFD1BWP16P90LVT)                 0.01       0.65 r
+  u_TOP/AXI_BUS/U324/Z (CKBD1BWP16P90LVT)                 0.01       0.66 r
+  u_TOP/AXI_BUS/WDATA_S[124] (AXI)                        0.00       0.66 r
+  u_TOP/DM1/WDATA_S[28] (DM_wrapper)                      0.00       0.66 r
+  u_TOP/DM1/i_SRAM0/D[28] (TS1N16ADFPCLLLVTA512X45M4SWSHOD)
+                                                          0.00       0.66 r
+  data arrival time                                                  0.66
 
   clock cpu_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.50       0.50
   clock uncertainty                                       0.10       0.60
-  u_TOP/IM1/i_SRAM/CLK (TS1N16ADFPCLLLVTA512X45M4SWSHOD)
+  u_TOP/DM1/i_SRAM0/CLK (TS1N16ADFPCLLLVTA512X45M4SWSHOD)
                                                           0.00       0.60 r
   library hold time                                       0.13       0.73
   data required time                                                 0.73
   --------------------------------------------------------------------------
   data required time                                                 0.73
-  data arrival time                                                 -0.62
+  data arrival time                                                 -0.66
   --------------------------------------------------------------------------
-  slack (VIOLATED)                                                  -0.11
+  slack (VIOLATED)                                                  -0.08
 
 
   Startpoint: u_TOP/WDT_wrapper/WDT/WDT_counter_reg_1_

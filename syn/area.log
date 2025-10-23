@@ -3,32 +3,32 @@
 Report : area
 Design : CHIP
 Version: P-2019.03-SP1-1
-Date   : Mon Jan 13 20:36:52 2025
+Date   : Mon Oct 20 19:44:31 2025
 ****************************************
 
 Library(s) Used:
 
     N16ADFP_StdCellss0p72vm40c (File: /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdcell/N16ADFP_StdCell/NLDM/N16ADFP_StdCellss0p72vm40c.db)
-    SRAM_ss0p72v0p72vm40c_100a (File: /home/user2/avsd24/avsd2402/Homework/Final_Project/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db)
-    tag_array_ff0p88v0p88v125c (File: /home/user2/avsd24/avsd2402/Homework/Final_Project/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db)
-    data_array_ff0p88v0p88v125c (File: /home/user2/avsd24/avsd2402/Homework/Final_Project/sim/data_array/data_array_ff0p88v0p88v125c_100a.db)
+    SRAM_ss0p72v0p72vm40c_100a (File: /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/SRAM/SRAM_ss0p72v0p72vm40c_100a.db)
+    tag_array_ff0p88v0p88v125c (File: /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/tag_array/tag_array_ff0p88v0p88v125c_100a.db)
+    data_array_ff0p88v0p88v125c (File: /home/user1/avsd25/avsd2541/AVSD-2024-VPU-Project/sim/data_array/data_array_ff0p88v0p88v125c_100a.db)
     N16ADFP_StdIOss0p72v1p62v125c (File: /usr/cad/CBDK/Executable_Package/Collaterals/IP/stdio/N16ADFP_StdIO/NLDM/N16ADFP_StdIOss0p72v1p62v125c.db)
 
-Number of ports:                        50184
-Number of nets:                        321775
-Number of cells:                       253659
-Number of combinational cells:         239783
+Number of ports:                        50459
+Number of nets:                        308023
+Number of cells:                       239019
+Number of combinational cells:         225143
 Number of sequential cells:             13298
 Number of macros/black boxes:             148
-Number of buf/inv:                      63037
+Number of buf/inv:                      52068
 Number of references:                       5
 
-Combinational area:              94591.361447
-Buf/Inv area:                    16972.156993
+Combinational area:              93071.360779
+Buf/Inv area:                    15817.732016
 Noncombinational area:           12408.629923
 Macro/Black Box area:           277536.042114
 Net Interconnect area:      undefined  (Wire load has zero net area)
 
-Total cell area:                384536.033485
+Total cell area:                383016.032816
 Total area:                 undefined
 1
